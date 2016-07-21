@@ -1,0 +1,14 @@
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\bin\Debug\WSClient.exe.config
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\bin\Debug\WSClient.exe
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\bin\Debug\WSClient.pdb
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\bin\Debug\Newtonsoft.Json.dll
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\bin\Debug\Newtonsoft.Json.xml
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\obj\Debug\WSClient.csprojResolveAssemblyReference.cache
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\obj\Debug\WSClient.Form1.resources
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\obj\Debug\WSClient.Properties.Resources.resources
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\obj\Debug\WSClient.csproj.GenerateResource.Cache
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\obj\Debug\WSClient.exe
+C:\Work\FreelanceProjects\RoussoMando\WSClient\WSClient\obj\Debug\WSClient.pdb
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\WSClient\bin\Debug\WSClient.exe.config
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\WSClient\obj\Debug\WSClient.exe
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\WSClient\obj\Debug\WSClient.pdb
