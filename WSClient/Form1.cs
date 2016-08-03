@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -29,36 +30,6 @@ namespace WSClient
             public string Category { get; set; }
         }
 
-        // EJEMPLO DE CONECCION A DBF
-        //public DataTable GetYourData()
-        //{
-        //    DataTable YourResultSet = new DataTable();
-
-        //    OleDbConnection yourConnectionHandler = new OleDbConnection(
-        //        @"Provider=VFPOLEDB.1;Data Source=C:\Users\PC1\Documents\Visual FoxPro Projects\");
-
-        //    // if including the full dbc (database container) reference, just tack that on
-        //    //      OleDbConnection yourConnectionHandler = new OleDbConnection(
-        //    //          "Provider=VFPOLEDB.1;Data Source=C:\\SomePath\\NameOfYour.dbc;" );
-
-
-        //    // Open the connection, and if open successfully, you can try to query it
-        //    yourConnectionHandler.Open();
-
-        //    if (yourConnectionHandler.State == ConnectionState.Open)
-        //    {
-        //        string mySQL = "select * from CLIENTS";  // dbf table name
-
-        //        OleDbCommand MyQuery = new OleDbCommand(mySQL, yourConnectionHandler);
-        //        OleDbDataAdapter DA = new OleDbDataAdapter(MyQuery);
-
-        //        DA.Fill(YourResultSet);
-
-        //        yourConnectionHandler.Close();
-        //    }
-
-        //    return YourResultSet;
-        //}
 
         private async void button1_Click(object sender, EventArgs e)
         {
@@ -74,21 +45,21 @@ namespace WSClient
 
             // se completan los datos a enviar
             dynamic WSSDTAltaServicio = new JObject();
-            WSSDTAltaServicio.CancelarTarea = "SI/NO";
+            WSSDTAltaServicio.CancelarTarea = "NO";
             WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
-            WSSDTAltaServicio.NroAsistencia = 0;
-            WSSDTAltaServicio.NroServicio = 0;
-            WSSDTAltaServicio.CuentaCodigoExterno = 11233;
-            WSSDTAltaServicio.Procedencia = "Nombre Procedencia Cuenta";
-            WSSDTAltaServicio.Producto = "Nombre Tipo Cliente Cuenta";
-            WSSDTAltaServicio.Cobertura = "Nombre de la cobertura";
+            WSSDTAltaServicio.NroAsistencia = 12;
+            WSSDTAltaServicio.NroServicio = 20;
+            WSSDTAltaServicio.CuentaCodigoExterno = 1100;
+            WSSDTAltaServicio.Procedencia = "Russomando";
+            WSSDTAltaServicio.Producto = "Emergencia Medica";
+            WSSDTAltaServicio.Cobertura = "";
             WSSDTAltaServicio.Prestacion = "";
-            WSSDTAltaServicio.Motivo = "";
-            WSSDTAltaServicio.Origen_Causa = "";
-            WSSDTAltaServicio.Origen_SubCausa = "";
+            WSSDTAltaServicio.Motivo = "Fiebre";
+            WSSDTAltaServicio.Origen_Causa = "A-Emergencia";
+            WSSDTAltaServicio.Origen_SubCausa = "ASFIXIA";
             WSSDTAltaServicio.Celular = "099896123";
             WSSDTAltaServicio.Telefono = "27078965";
-            WSSDTAltaServicio.IdExterno = "Externo";
+            WSSDTAltaServicio.IdExterno = "20";
             WSSDTAltaServicio.Contacto = "Juan Perez";
             WSSDTAltaServicio.Prioridad = "1";
             WSSDTAltaServicio.Particular = false;
@@ -122,8 +93,8 @@ namespace WSClient
             WSSDTAltaServicio.Destino_NumeroPta = "";
             WSSDTAltaServicio.Destino_Apto = "";
             WSSDTAltaServicio.Destino_MiraHacia = "";
-            WSSDTAltaServicio.Destino_Latitud = "0E-14";
-            WSSDTAltaServicio.Destino_Longitud = "0E-14";
+            WSSDTAltaServicio.Destino_Latitud = "";
+            WSSDTAltaServicio.Destino_Longitud = "";
             WSSDTAltaServicio.ReservarPersonal = "";
             WSSDTAltaServicio.ReservarPrestador = "";
             WSSDTAltaServicio.ReservarMovil = "";
@@ -152,6 +123,40 @@ namespace WSClient
                 var result = streamReader.ReadToEnd();
             }
         }
-        
+
+        private void  button2_Click(object sender, EventArgs e)
+        {
+
+            // creo datatable para los llamados
+            DataTable llamados = new DataTable();
+
+            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\dbf\");
+
+            // Open the connection, and if open successfully, you can try to query it
+            yourConnectionHandler.Open();
+
+            if (yourConnectionHandler.State == ConnectionState.Open)
+            {
+                string sqlLlamados = "select * from llamados";  // dbf table name
+
+                OleDbCommand queryLlamados = new OleDbCommand(sqlLlamados, yourConnectionHandler);
+                OleDbDataAdapter DALlamados = new OleDbDataAdapter(queryLlamados);
+
+                DALlamados.Fill(llamados);
+
+                foreach (DataRow row in llamados.Rows)
+                {
+                    // por cada llamado...
+                    Console.WriteLine(row["llaid"]);
+
+                }
+
+
+                //dataGridView1.DataSource = YourResultSet;
+                //dataGridView1.DataBindingComplete();
+
+                yourConnectionHandler.Close();
+            }
+        }
     }
 }
