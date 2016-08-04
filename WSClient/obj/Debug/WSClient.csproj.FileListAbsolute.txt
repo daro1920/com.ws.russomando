@@ -23,3 +23,13 @@ C:\GITRepositorio\com.ws.russomando\WSClient\obj\Debug\WSClient.csprojResolveAss
 C:\GITRepositorio\com.ws.russomando\WSClient\obj\Debug\WSClient.Form1.resources
 C:\GITRepositorio\com.ws.russomando\WSClient\obj\Debug\WSClient.Properties.Resources.resources
 C:\GITRepositorio\com.ws.russomando\WSClient\obj\Debug\WSClient.csproj.GenerateResource.Cache
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\bin\Debug\WSClient.exe.config
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.exe
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.pdb
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\bin\Debug\WSClient.exe
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\bin\Debug\WSClient.pdb
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\bin\Debug\Newtonsoft.Json.dll
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\bin\Debug\Newtonsoft.Json.xml
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.Form1.resources
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.Properties.Resources.resources
+C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.csproj.GenerateResource.Cache
