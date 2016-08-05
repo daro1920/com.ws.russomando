@@ -10,6 +10,11 @@ namespace WSClient.models
 {
     class Llamados
     {
+        private List<DataRow> rows;
+
+        public Llamados(){
+            this.rows = getLlamados();
+        }
 
         public List<DataRow> getLlamados()
         {

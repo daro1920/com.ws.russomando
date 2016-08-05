@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -64,63 +65,67 @@ namespace WSClient.services.models
         public String ReservarMovil ;
         public String ReservarUsuarioEmail ;
 
-        public WSSDTAltaServicio(DataRow llamdo)
+        public JObject getWSSDTAltaServicio(DataRow llamdo)
         {
-            this.CancelarTarea = "NO";
-            this.CancelarTarea = "Motivo de la cancelación.";
-            this.NroAsistencia = 12;
-            this.NroServicio = 20;
-            this.CuentaCodigoExterno = 1100;
-            this.Procedencia = "Russomando";
-            this.Producto = "Emergencia Medica";
-            this.Cobertura = "";
-            this.Prestacion = "";
-            this.Motivo = "Fiebre";
-            this.Origen_Causa = "A-Emergencia";
-            this.Origen_SubCausa = "ASFIXIA";
-            this.Celular = "099896123";
-            this.Telefono = "27078965";
-            this.IdExterno = "20";
-            this.Contacto = "Juan Perez";
-            this.Prioridad = "1";
-            this.Particular = false;
-            this.Vehiculo_Matricula = "SAE 8962";
-            this.Vehiculo_Marca = "AUDI";
-            this.Vehiculo_Modelo = "Modelo";
-            this.Vehiculo_Anio = 2013;
-            this.Detalle = "Detalle del servicio";
-            this.Programado = "yyyy-mm-ddThh:mm:ss";
-            this.Origen_LugarEspecial = "";
-            this.Origen_Pais = "Uruguay";
-            this.Origen_Departamento = "Montevideo";
-            this.Origen_Ciudad = "Montevideo";
-            this.Origen_Zona = "Sayago";
-            this.Origen_Calle = "Bv. España";
-            this.Origen_Esquina = "Luis Franzini";
-            this.Origen_NumeroPta = "2565";
-            this.Origen_Apto = "";
-            this.Origen_MiraHacia = "";
-            this.Origen_Latitud = "0E-14";
-            this.Origen_Longitud = "0E-14";
-            this.Destino_Causa = "";
-            this.Destino_SubCausa = "";
-            this.Destino_LugarEspecial = "";
-            this.Destino_Pais = "";
-            this.Destino_Departamento = "";
-            this.Destino_Ciudad = "";
-            this.Destino_Zona = "";
-            this.Destino_Calle = "*";
-            this.Destino_Esquina = "";
-            this.Destino_NumeroPta = "";
-            this.Destino_Apto = "";
-            this.Destino_MiraHacia = "";
-            this.Destino_Latitud = "";
-            this.Destino_Longitud = "";
-            this.ReservarPersonal = "";
-            this.ReservarPrestador = "";
-            this.ReservarMovil = "";
-            this.ReservarUsuarioEmail = "";
+            // se completan los datos a enviar
+            dynamic WSSDTAltaServicio = new JObject();
+            WSSDTAltaServicio.CancelarTarea = "NO";
+            WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
+            WSSDTAltaServicio.NroAsistencia = 12;
+            WSSDTAltaServicio.NroServicio = 20;
+            WSSDTAltaServicio.CuentaCodigoExterno = 1100;
+            WSSDTAltaServicio.Procedencia = "Russomando";
+            WSSDTAltaServicio.Producto = "Emergencia Medica";
+            WSSDTAltaServicio.Cobertura = "";
+            WSSDTAltaServicio.Prestacion = "";
+            WSSDTAltaServicio.Motivo = "Fiebre";
+            WSSDTAltaServicio.Origen_Causa = "A-Emergencia";
+            WSSDTAltaServicio.Origen_SubCausa = "ASFIXIA";
+            WSSDTAltaServicio.Celular = "099896123";
+            WSSDTAltaServicio.Telefono = "27078965";
+            WSSDTAltaServicio.IdExterno = "20";
+            WSSDTAltaServicio.Contacto = "Juan Perez";
+            WSSDTAltaServicio.Prioridad = "1";
+            WSSDTAltaServicio.Particular = false;
+            WSSDTAltaServicio.Vehiculo_Matricula = "SAE 8962";
+            WSSDTAltaServicio.Vehiculo_Marca = "AUDI";
+            WSSDTAltaServicio.Vehiculo_Modelo = "Modelo";
+            WSSDTAltaServicio.Vehiculo_Anio = 2013;
+            WSSDTAltaServicio.Detalle = "Detalle del servicio";
+            WSSDTAltaServicio.Programado = "yyyy-mm-ddThh:mm:ss";
+            WSSDTAltaServicio.Origen_LugarEspecial = "";
+            WSSDTAltaServicio.Origen_Pais = "Uruguay";
+            WSSDTAltaServicio.Origen_Departamento = "Montevideo";
+            WSSDTAltaServicio.Origen_Ciudad = "Montevideo";
+            WSSDTAltaServicio.Origen_Zona = "Sayago";
+            WSSDTAltaServicio.Origen_Calle = "Bv. España";
+            WSSDTAltaServicio.Origen_Esquina = "Luis Franzini";
+            WSSDTAltaServicio.Origen_NumeroPta = "2565";
+            WSSDTAltaServicio.Origen_Apto = "";
+            WSSDTAltaServicio.Origen_MiraHacia = "";
+            WSSDTAltaServicio.Origen_Latitud = "0E-14";
+            WSSDTAltaServicio.Origen_Longitud = "0E-14";
+            WSSDTAltaServicio.Destino_Causa = "";
+            WSSDTAltaServicio.Destino_SubCausa = "";
+            WSSDTAltaServicio.Destino_LugarEspecial = "";
+            WSSDTAltaServicio.Destino_Pais = "";
+            WSSDTAltaServicio.Destino_Departamento = "";
+            WSSDTAltaServicio.Destino_Ciudad = "";
+            WSSDTAltaServicio.Destino_Zona = "";
+            WSSDTAltaServicio.Destino_Calle = "*";
+            WSSDTAltaServicio.Destino_Esquina = "";
+            WSSDTAltaServicio.Destino_NumeroPta = "";
+            WSSDTAltaServicio.Destino_Apto = "";
+            WSSDTAltaServicio.Destino_MiraHacia = "";
+            WSSDTAltaServicio.Destino_Latitud = "";
+            WSSDTAltaServicio.Destino_Longitud = "";
+            WSSDTAltaServicio.ReservarPersonal = "";
+            WSSDTAltaServicio.ReservarPrestador = "";
+            WSSDTAltaServicio.ReservarMovil = "";
+            WSSDTAltaServicio.ReservarUsuarioEmail = "";
+
+            return WSSDTAltaServicio;
         }
-        
+
     }
 }

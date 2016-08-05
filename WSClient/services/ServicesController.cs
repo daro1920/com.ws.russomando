@@ -6,32 +6,32 @@ using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.IO;
+using WSClient.models;
 
 namespace WSClient.services
 {
     class ServicesController
     {
-        private JavaScriptSerializer seralizer = new JavaScriptSerializer();
+        private JObject autorizacion = WSAutorizacion.getAutorizacion();
+        private WSSDTAltaServicio alta = new WSSDTAltaServicio();
 
-        public void altaServicio(List<DataRow> llamados)
+        public String altaServicio(Llamados llamados)
         {
+            String result = "";
             
-            WSAutorizacion autorizacion = WSAutorizacion.getAutorizacion();
-            WSSDTAltaServicio alta = new WSSDTAltaServicio(null);
-
-            String jsonAut= new JavaScriptSerializer().Serialize(autorizacion);
-            String jsonAlta = new JavaScriptSerializer().Serialize(alta);
-
             //se crea el jason
             dynamic ws = new JObject();
-            ws.WSSDTAltaServicio = jsonAlta;
-            ws.WSAutorizacion = jsonAut;
-            //foreach (DataRow llamado in llamados)
+            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicio(null);
+            ws.WSAutorizacion = autorizacion;
+
+            // para usar cuando llamados tenga datos
+            //foreach (DataRow llamado in llamados.rows)
             //{
             //    alta = new WSSDTAltaServicio(llamado);
 
             //}
 
+            // este pedazo de codigo se puede bajar un nivel o pasar a un metodo auxiliar
             var webAddr = "http://api.logicsat.com/logicsat/rest/WSAltaServicio";
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(webAddr);
             httpWebRequest.ContentType = "application/json";
@@ -46,10 +46,11 @@ namespace WSClient.services
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                var result = streamReader.ReadToEnd();
+                result = streamReader.ReadToEnd();
             }
+            //***********************************************************************************
 
-
+            return result;
         }
 
     }
