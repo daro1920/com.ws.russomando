@@ -73,7 +73,7 @@ namespace WSClient.services.models
             WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
             WSSDTAltaServicio.NroAsistencia = 12;
             WSSDTAltaServicio.NroServicio = 20;
-            WSSDTAltaServicio.CuentaCodigoExterno = 1100;
+            WSSDTAltaServicio.CuentaCodigoExterno = llamdo["llaid"];
             WSSDTAltaServicio.Procedencia = "Russomando";
             WSSDTAltaServicio.Producto = "Emergencia Medica";
             WSSDTAltaServicio.Cobertura = "";
