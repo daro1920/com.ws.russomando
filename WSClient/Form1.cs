@@ -32,7 +32,7 @@ namespace WSClient
         {
 
             Llamados llamados = new Llamados();
-            servController.altaServicio(llamados);
+            Console.WriteLine(servController.altaServicio(llamados));
         }
 
 

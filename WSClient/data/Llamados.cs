@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -17,6 +16,19 @@ namespace WSClient.models
             this.rows = getLlamados();
         }
 
+        public List<DataRow> Rows
+        {
+            get
+            {
+                return rows;
+            }
+
+            set
+            {
+                rows = value;
+            }
+        }
+        
         public List<DataRow> getLlamados()
         {
 
@@ -25,7 +37,7 @@ namespace WSClient.models
             // creo datatable para los llamados
             DataTable llamados = new DataTable();
 
-            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\Work\FreelanceProjects\RoussoMando\dbf");
+            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\dbf\");
 
             // Open the connection, and if open successfully, you can try to query it
             yourConnectionHandler.Open();
@@ -52,40 +64,6 @@ namespace WSClient.models
                 yourConnectionHandler.Close();
             }
             return llamadosList;
-        }
-
-        public void setLlamados(Int32 llaid)
-        {
-
-            List<DataRow> llamadosList = new List<DataRow>();
-
-            // creo datatable para los llamados
-            DataTable llamados = new DataTable();
-
-            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\Work\FreelanceProjects\RoussoMando\dbf");
-
-            // Open the connection, and if open successfully, you can try to query it
-            yourConnectionHandler.Open();
-
-            if (yourConnectionHandler.State == ConnectionState.Open)
-            {
-                string sqlLlamados = "UPDATE llamados SET EMPCOD = 0 WHERE LLAID = ?";  // dbf table name
-
-                OleDbCommand queryLlamados = new OleDbCommand(sqlLlamados, yourConnectionHandler);
-                queryLlamados.Parameters.Add("LLAID", OleDbType.Char, llaid, "LLAID");
-
-
-                OleDbDataAdapter DALlamados = new OleDbDataAdapter(queryLlamados);
-
-                DALlamados.UpdateCommand = queryLlamados;
-
-
-                yourConnectionHandler.Close();
-            }
-
-
-       
-
         }
 
     }

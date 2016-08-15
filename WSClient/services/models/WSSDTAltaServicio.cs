@@ -71,8 +71,8 @@ namespace WSClient.services.models
             dynamic WSSDTAltaServicio = new JObject();
             WSSDTAltaServicio.CancelarTarea = "NO";
             WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
-            WSSDTAltaServicio.NroAsistencia = 12;
-            WSSDTAltaServicio.NroServicio = 20;
+            WSSDTAltaServicio.NroAsistencia = llamdo["llaid"];
+            WSSDTAltaServicio.NroServicio = llamdo["llaid"];
             WSSDTAltaServicio.CuentaCodigoExterno = llamdo["llaid"];
             WSSDTAltaServicio.Procedencia = "Russomando";
             WSSDTAltaServicio.Producto = "Emergencia Medica";
@@ -83,7 +83,7 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Origen_SubCausa = "ASFIXIA";
             WSSDTAltaServicio.Celular = "099896123";
             WSSDTAltaServicio.Telefono = "27078965";
-            WSSDTAltaServicio.IdExterno = "20";
+            WSSDTAltaServicio.IdExterno = llamdo["llaid"];
             WSSDTAltaServicio.Contacto = "Juan Perez";
             WSSDTAltaServicio.Prioridad = "1";
             WSSDTAltaServicio.Particular = false;
@@ -98,8 +98,8 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Origen_Departamento = "Montevideo";
             WSSDTAltaServicio.Origen_Ciudad = "Montevideo";
             WSSDTAltaServicio.Origen_Zona = "Sayago";
-            WSSDTAltaServicio.Origen_Calle = "Bv. España";
-            WSSDTAltaServicio.Origen_Esquina = "Luis Franzini";
+            WSSDTAltaServicio.Origen_Calle = llamdo["lladom"];
+            WSSDTAltaServicio.Origen_Esquina = "";
             WSSDTAltaServicio.Origen_NumeroPta = "2565";
             WSSDTAltaServicio.Origen_Apto = "";
             WSSDTAltaServicio.Origen_MiraHacia = "";

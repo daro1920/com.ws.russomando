@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using WSClient.services.models;
+using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.IO;
@@ -14,16 +15,17 @@ namespace WSClient.services
         private JObject autorizacion = WSAutorizacion.getAutorizacion();
         private WSSDTAltaServicio alta = new WSSDTAltaServicio();
 
-        public void altaServicio(Llamados llamados)
+        public String altaServicio(Llamados llamados)
         {
+            String result = "";
             
             //se crea el jason
             dynamic ws = new JObject();
-           
+            
             ws.WSAutorizacion = autorizacion;
 
             // para usar cuando llamados tenga datos
-            foreach (DataRow llamado in llamados.getLlamados())
+            foreach (DataRow llamado in llamados.Rows)
             {
                 ws.WSSDTAltaServicio = alta.getWSSDTAltaServicio(llamado);
 
@@ -42,17 +44,16 @@ namespace WSClient.services
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
-                    dynamic result = JObject.Parse(streamReader.ReadToEnd());
-                    if(result.WSSDTDatoNroServicio.Notas == "Los datos han sido actualizados. - ")
-                    {
-                        llamados.setLlamados((Int32)llamado["llaid"]);
-                    }
-                   
+                    result = streamReader.ReadToEnd();
+                    //TODO marcar como sinc. el llamado empcode = 0
                 }
                 //***********************************************************************************
 
+
             }
-            
+
+
+            return result;
         }
 
     }
