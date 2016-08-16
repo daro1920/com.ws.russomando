@@ -33,4 +33,3 @@ C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\bin\Debug\Newto
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.Form1.resources
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.Properties.Resources.resources
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.csproj.GenerateResource.Cache
-C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\Debug\WSClient.csprojResolveAssemblyReference.cache
