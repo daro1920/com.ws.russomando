@@ -4,3 +4,5 @@ WSClient/obj/Debug/WSClient.exe
 *.cache
 WSClient/obj/Debug/WSClient.exe
 *.exe
+*.exe
+*.pdb
