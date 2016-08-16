@@ -46,7 +46,7 @@ namespace WSClient.services
                     // actualizados o nuevo OJO
                     if (result.WSSDTDatoNroServicio.Notas == "Los datos han sido actualizados. - ")
                     {
-                        //llamados.setLlamados((Int32)llamado["llaid"]);
+                        llamados.setLlamados((Int32)llamado["llaid"]);
                     }
                 }
                 //***********************************************************************************
