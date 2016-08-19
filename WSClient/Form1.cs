@@ -33,6 +33,7 @@ namespace WSClient
 
             Llamados llamados = new Llamados();
             servController.altaServicio(llamados);
+            servController.listarLlamados(llamados);
         }
 
 
