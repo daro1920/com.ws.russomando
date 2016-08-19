@@ -10,6 +10,7 @@ namespace WSClient.services.models
 {
     class WSSDTAltaServicio
     {
+<<<<<<< HEAD
         public String CancelarTarea;
         public String CancelarNota;
         public int NroAsistencia;
@@ -64,6 +65,8 @@ namespace WSClient.services.models
         public String ReservarPrestador;
         public String ReservarMovil;
         public String ReservarUsuarioEmail;
+=======
+>>>>>>> 89b56f2c8bacea7e02978fbc82de470cbbe7c7c1
 
         public JObject getWSSDTAltaServicio(DataRow llamdo)
         {
@@ -126,6 +129,7 @@ namespace WSClient.services.models
 
             return WSSDTAltaServicio;
         }
+
         public JObject getWSSDTAltaServicioTraslado(DataRow traslado)
         {
             // se completan los datos a enviar
