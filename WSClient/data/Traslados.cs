@@ -31,22 +31,23 @@ namespace WSClient.models
 
             List<DataRow> trasladosList = new List<DataRow>();
 
-            // creo datatable para los llamados
+            // creo datatable para los traslados
             DataTable traslados = new DataTable();
 
-            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\dbf\");
+            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\Principal\");
 
             // Open the connection, and if open successfully, you can try to query it
             yourConnectionHandler.Open();
 
             if (yourConnectionHandler.State == ConnectionState.Open)
             {
-                string sqlTraslados = "select * from traslados";  // dbf table name
+                // traslados sin syncronizar
+                string sqlTraslados = "select * from traslados where nroserv = 0 ";  // dbf table name
 
                 OleDbCommand queryTraslados = new OleDbCommand(sqlTraslados, yourConnectionHandler);
-                OleDbDataAdapter DALlamados = new OleDbDataAdapter(queryTraslados);
+                OleDbDataAdapter DATraslados = new OleDbDataAdapter(queryTraslados);
 
-                DALlamados.Fill(traslados);
+                DATraslados.Fill(traslados);
                 
                 foreach (DataRow row in traslados.Rows)
                 {
@@ -60,15 +61,17 @@ namespace WSClient.models
             return trasladosList;
         }
         
-        public void setTraslados(Int32 llaid)
+        public void setTraslados(Decimal tranro, int NroServicio, int NroAsistencia)
+        //
         {
-            
 
-            using (OleDbConnection con = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\Work\FreelanceProjects\RoussoMando\dbf"))
+
+            using (OleDbConnection con = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\Principal\"))
             using (OleDbCommand command = con.CreateCommand())
             {
-                command.CommandText = "update traslados set EMPCOD = 155 where LLAID = " + llaid.ToString();
-                con.Open();
+                //nroasis = "+NroAsistencia.ToString()+",nroserv = "+NroServicio.ToString()+"
+                command.CommandText = "update traslados set nroasis = " + NroAsistencia.ToString() + ",nroserv = " + NroServicio.ToString() + " where tranro = " + tranro.ToString();
+                con.Open(); 
                 command.ExecuteNonQuery();
                 con.Close();
             }

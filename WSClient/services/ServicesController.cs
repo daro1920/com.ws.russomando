@@ -46,17 +46,89 @@ namespace WSClient.services
                     // actualizados o nuevo OJO
                     if (result.WSSDTDatoNroServicio.Notas == "Los datos han sido actualizados. - ")
                     {
-                        llamados.setLlamados((Int32)llamado["llaid"]);
+                        llamados.setLlamados((Int32)llamado["llaid"],Convert.ToInt32( result.WSSDTDatoNroServicio.NroServicio), Convert.ToInt32(result.WSSDTDatoNroServicio.NroAsistencia));
                     }
                 }
                 //***********************************************************************************
 
 
             }
-
-
-
         }
 
+        public void altaServicio(Traslados traslados)
+        {
+
+            //se crea el jason
+            dynamic ws = new JObject();
+
+            ws.WSAutorizacion = autorizacion;
+
+            // para usar cuando traslado tenga datos
+            foreach (DataRow traslado in traslados.getTraslados())
+            {
+                ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(traslado);
+
+                // este pedazo de codigo se puede bajar un nivel o pasar a un metodo auxiliar
+                var webAddr = "http://api.logicsat.com/logicsat/rest/WSAltaServicio";
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(webAddr);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+
+                    streamWriter.Write(ws.ToString());
+                    streamWriter.Flush();
+                }
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    dynamic result = JObject.Parse(streamReader.ReadToEnd());
+                    // actualizados o nuevo OJO
+                    if (result.WSSDTDatoNroServicio.NroServicio != 0)
+                    {
+                        // Convert.ToInt32(result.WSSDTDatoNroServicio.NroServicio), Convert.ToInt32(result.WSSDTDatoNroServicio.NroAsistencia)
+                        traslados.setTraslados((Decimal)traslado["tranro"], Convert.ToInt32(result.WSSDTDatoNroServicio.NroServicio), Convert.ToInt32(result.WSSDTDatoNroServicio.NroAsistencia));
+                    }
+                }
+                //***********************************************************************************
+            }
+        }
+        public void listaServicio()
+        {
+
+            //se crea el jason
+            dynamic ws = new JObject();
+
+            ws.WSAutorizacion = autorizacion;
+
+            //ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(traslado);
+
+            // este pedazo de codigo se puede bajar un nivel o pasar a un metodo auxiliar
+            var webAddr = "http://api.logicsat.com/logicsat/rest/WSAltaServicio";
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(webAddr);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+
+                    streamWriter.Write(ws.ToString());
+                    streamWriter.Flush();
+                }
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    dynamic result = JObject.Parse(streamReader.ReadToEnd());
+                    // actualizados o nuevo OJO
+                    if (result.WSSDTDatoNroServicio.NroServicio != 0)
+                    {
+                        // Convert.ToInt32(result.WSSDTDatoNroServicio.NroServicio), Convert.ToInt32(result.WSSDTDatoNroServicio.NroAsistencia)
+                        //traslados.setTraslados((Decimal)traslado["tranro"], Convert.ToInt32(result.WSSDTDatoNroServicio.NroServicio), Convert.ToInt32(result.WSSDTDatoNroServicio.NroAsistencia));
+                    }
+                }
+                //***********************************************************************************
+            
+        }
     }
 }

@@ -35,7 +35,11 @@ namespace WSClient
             servController.altaServicio(llamados);
         }
 
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Traslados traslados = new Traslados();
+            servController.altaServicio(traslados);
+        }
     }
 }
 

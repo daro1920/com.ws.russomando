@@ -28,14 +28,14 @@ namespace WSClient.models
             // creo datatable para los llamados
             DataTable llamados = new DataTable();
 
-            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=c:\dbf\");
+            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\");
 
             // Open the connection, and if open successfully, you can try to query it
             yourConnectionHandler.Open();
 
             if (yourConnectionHandler.State == ConnectionState.Open)
             {
-                string sqlLlamados = "select * from llamados";  // dbf table name
+                string sqlLlamados = @"select * from g:\tablaslibres\llamados where nroserv = 0 ";  // dbf table name
 
                 OleDbCommand queryLlamados = new OleDbCommand(sqlLlamados, yourConnectionHandler);
                 OleDbDataAdapter DALlamados = new OleDbDataAdapter(queryLlamados);
@@ -54,13 +54,13 @@ namespace WSClient.models
             return llamadosList;
         }
         
-        public void setLlamados(Int32 llaid)
+        public void setLlamados(Int32 llaid, Int32 NroServicio, Int32 NroAsistencia)
         {
 
-            using (OleDbConnection con = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=c:\dbf\"))
+            using (OleDbConnection con = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\tablaslibres\"))
             using (OleDbCommand command = con.CreateCommand())
             {
-                command.CommandText = "update llamados set EMPCOD = 0 where LLAID = "+ llaid.ToString();
+                command.CommandText = "update llamados set nroserv = "+NroServicio.ToString()+", nroasis = "+NroAsistencia.ToString()+" where LLAID = "+ llaid.ToString();
                 con.Open();
                 command.ExecuteNonQuery();
                 con.Close();
