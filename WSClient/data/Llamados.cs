@@ -6,68 +6,41 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WSClient.data;
 
 namespace WSClient.models
 {
-    class Llamados
+    class Llamados : Servicio
     {
-        private List<DataRow> rows;
-
-        public Llamados()
+        public override List<DataRow> getAllServicios()
         {
-            this.rows = getLlamados();
+            sqlServicio = @"select * from llamados ";
+            return getListServicio();
+        }
+        
+        public override List<DataRow> getProcessedServicios()
+        {
+            sqlServicio = @"select * from llamados where nroserv <> 0 ";
+            return getListServicio();
         }
 
-
-
-        public List<DataRow> getLlamados()
+        public override List<DataRow> getNonProcessedServicios()
         {
+            sqlServicio = @"select * from llamados where nroserv = 0 ";
+            return getListServicio();
+        }
 
-            List<DataRow> llamadosList = new List<DataRow>();
-
-            // creo datatable para los llamados
-            DataTable llamados = new DataTable();
-
-            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\");
-
-            // Open the connection, and if open successfully, you can try to query it
-            yourConnectionHandler.Open();
-
-            if (yourConnectionHandler.State == ConnectionState.Open)
+        public override void setServicio(Decimal id, int NroServicio, int NroAsistencia)
+        {
+            using (yourConnectionHandler)
+            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
             {
-                string sqlLlamados = @"select * from g:\tablaslibres\llamados where nroserv = 0 ";  // dbf table name
-
-                OleDbCommand queryLlamados = new OleDbCommand(sqlLlamados, yourConnectionHandler);
-                OleDbDataAdapter DALlamados = new OleDbDataAdapter(queryLlamados);
-
-                DALlamados.Fill(llamados);
-
-                foreach (DataRow row in llamados.Rows)
-                {
-                    llamadosList.Add(row);
-
-                }
-                
-
+                command.CommandText = "update llamados set nroserv = " + NroServicio.ToString() + ", nroasis = " + NroAsistencia.ToString() + " where LLAID = " + id.ToString();
+                yourConnectionHandler.Open();
+                command.ExecuteNonQuery();
                 yourConnectionHandler.Close();
             }
-            return llamadosList;
         }
-        
-        public void setLlamados(Int32 llaid, Int32 NroServicio, Int32 NroAsistencia)
-        {
-
-            using (OleDbConnection con = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\tablaslibres\"))
-            using (OleDbCommand command = con.CreateCommand())
-            {
-                command.CommandText = "update llamados set nroserv = "+NroServicio.ToString()+", nroasis = "+NroAsistencia.ToString()+" where LLAID = "+ llaid.ToString();
-                con.Open();
-                command.ExecuteNonQuery();
-                con.Close();
-            }
-
-        }
-        
     }
 }
 
