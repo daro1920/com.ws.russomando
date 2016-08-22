@@ -62,8 +62,7 @@ namespace WSClient.services
 
             //se crea el jason
             dynamic ws = new JObject();
-<<<<<<< HEAD
-=======
+
 
             ws.WSAutorizacion = autorizacion;
 
@@ -137,7 +136,7 @@ namespace WSClient.services
                 //***********************************************************************************
 
             }
->>>>>>> 89b56f2c8bacea7e02978fbc82de470cbbe7c7c1
+
 
             ws.WSAutorizacion = autorizacion;
 
