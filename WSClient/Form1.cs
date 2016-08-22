@@ -1,20 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.OleDb;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
-using WSClient.models;
+using WSClient.data;
 using WSClient.services;
+using WSClient.services.factories;
 
 namespace WSClient
 {
@@ -25,21 +13,25 @@ namespace WSClient
             InitializeComponent();
         }
         private ServicesController servController = new ServicesController();
-        private Llamados llamados = new Llamados();
+        private ServicioFactory factory = new ServicioFactory();
 
+        private void callServices(String serviceType)
+        {
+            Servicio servicio = factory.getServicio(serviceType);
+            servController.altaServicio(servicio);
+            servController.listarServicio(servicio);
+            servController.getListaZonas();
+        }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
 
-            Llamados llamados = new Llamados();
-            servController.altaServicio(llamados);
-            servController.listarLlamados(llamados);
+            callServices("llamados");
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Traslados traslados = new Traslados();
-            servController.altaServicio(traslados);
+            callServices("traslados");
         }
     }
 }

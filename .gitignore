@@ -7,3 +7,4 @@ WSClient/obj/Debug/WSClient.exe
 *.exe
 *.pdb
 *.pdb
+WSClient/data/Traslados.cs

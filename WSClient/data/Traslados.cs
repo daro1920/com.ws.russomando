@@ -2,80 +2,43 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using WSClient.data;
 
 namespace WSClient.models
 {
-    class Traslados
+    class Traslados : Servicio
+
     {
-        private List<DataRow> rows;
-
-        public Traslados(){
-            this.rows = getTraslados();
+        public override List<DataRow> getAllServicios()
+        {
+            sqlServicio = @"select * from traslados ";
+            return getListServicio();
         }
 
-        public List<DataRow> Rows
+        public override List<DataRow> getProcessedServicios()
         {
-            get
-            {
-                return rows;
-            }
-
-            set
-            {
-                rows = value;
-            }
+            sqlServicio = @"select * from traslados where nroserv <> 0 ";
+            return getListServicio();
         }
-        
-        public List<DataRow> getTraslados()
+
+        public override List<DataRow> getNonProcessedServicios()
         {
-
-            List<DataRow> trasladosList = new List<DataRow>();
-
-            // creo datatable para los traslados
-            DataTable traslados = new DataTable();
-
-            OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\Principal\");
-
-            // Open the connection, and if open successfully, you can try to query it
-            yourConnectionHandler.Open();
-
-            if (yourConnectionHandler.State == ConnectionState.Open)
-            {
-                // traslados sin syncronizar
-                string sqlTraslados = "select * from traslados where nroserv = 0 ";  // dbf table name
-
-                OleDbCommand queryTraslados = new OleDbCommand(sqlTraslados, yourConnectionHandler);
-                OleDbDataAdapter DATraslados = new OleDbDataAdapter(queryTraslados);
-
-                DATraslados.Fill(traslados);
-                
-                foreach (DataRow row in traslados.Rows)
-                {
-                    trasladosList.Add(row);
-
-                }
-                
-
-                yourConnectionHandler.Close();
-            }
-            return trasladosList;
+            sqlServicio = @"select * from traslados where nroserv = 0 ";
+            return getListServicio();
         }
-        
-        public void setTraslados(Decimal tranro, int NroServicio, int NroAsistencia)
-        //
+
+
+        public override void setServicio(Decimal id, int NroServicio, int NroAsistencia)
         {
-
-
-            using (OleDbConnection con = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\Principal\"))
-            using (OleDbCommand command = con.CreateCommand())
+            using (yourConnectionHandler)
+            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
             {
                 //nroasis = "+NroAsistencia.ToString()+",nroserv = "+NroServicio.ToString()+"
-                command.CommandText = "update traslados set nroasis = " + NroAsistencia.ToString() + ",nroserv = " + NroServicio.ToString() + " where tranro = " + tranro.ToString();
-                con.Open(); 
+                command.CommandText = "update traslados set nroasis = " + NroAsistencia.ToString() + ",nroserv = " + NroServicio.ToString() + " where tranro = " + id.ToString();
+                yourConnectionHandler.Open();
                 command.ExecuteNonQuery();
-                con.Close();
+                yourConnectionHandler.Close();
             }
-
         }
         
     }
