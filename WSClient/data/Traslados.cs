@@ -9,6 +9,13 @@ namespace WSClient.models
     class Traslados : Servicio
 
     {
+
+        public override List<DataRow> getServicio(string id)
+        {
+            sqlServicio = @"select * from traslados where tranro = " + id + " ";
+            return getListServicio();
+        }
+
         public override List<DataRow> getAllServicios()
         {
             sqlServicio = @"select * from traslados ";

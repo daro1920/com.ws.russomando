@@ -6,6 +6,21 @@ namespace WSClient.services.models
     class WSSDTAltaServicio
     {
 
+        
+        public JObject getWSSDTCancelarServicio(string id)
+        {
+
+            dynamic WSSDTAltaServicio = new JObject();
+            WSSDTAltaServicio.CancelarTarea = "SI";
+            WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
+            WSSDTAltaServicio.IdExterno = id;
+            WSSDTAltaServicio.Prioridad = "1";
+
+            return WSSDTAltaServicio;
+        }
+
+
+
         public JObject getWSSDTAltaServicio(DataRow llamdo)
         {
             // se completan los datos a enviar
@@ -72,7 +87,7 @@ namespace WSClient.services.models
         {
             // se completan los datos a enviar
             dynamic WSSDTAltaServicio = new JObject();
-            WSSDTAltaServicio.CancelarTarea = "NO";
+            WSSDTAltaServicio.CancelarTarea = "NO" ;
             WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
             WSSDTAltaServicio.NroAsistencia = traslado["tranro"];
             WSSDTAltaServicio.NroServicio = traslado["tranro"];

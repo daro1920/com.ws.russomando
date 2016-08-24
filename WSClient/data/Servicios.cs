@@ -11,11 +11,10 @@ namespace WSClient.data
     abstract class Servicio
     {
         public String sqlServicio { get; set; }
-
-        protected DataTable servicios = new DataTable();
-        protected List<DataRow> serviciosList = new List<DataRow>();
+        
         protected OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\Work\FreelanceProjects\RoussoMando\dbf");
 
+        abstract public List<DataRow> getServicio(string id);
         abstract public List<DataRow> getAllServicios();
         abstract public List<DataRow> getProcessedServicios();
         abstract public List<DataRow> getNonProcessedServicios();
@@ -24,9 +23,14 @@ namespace WSClient.data
         protected List<DataRow> getListServicio()
         {
 
+
+            DataTable servicios = new DataTable();
+            List<DataRow> serviciosList = new List<DataRow>();
+
+
             // Open the connection, and if open successfully, you can try to query it
             yourConnectionHandler.Open();
-
+            
             if (yourConnectionHandler.State == ConnectionState.Open)
             {
 
@@ -34,7 +38,7 @@ namespace WSClient.data
                 OleDbDataAdapter DAServicio = new OleDbDataAdapter(queryServicio);
 
                 DAServicio.Fill(servicios);
-
+                int size  =servicios.Rows.Count;
                 foreach (DataRow row in servicios.Rows)
                 {
                     serviciosList.Add(row);

@@ -21,17 +21,17 @@ namespace WSClient
             servController.altaServicio(servicio);
             servController.listarServicio(servicio);
             servController.getListaZonas();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            callServices("llamados");
+            servController.garbageCollLlamados(servicio);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             callServices("traslados");
+        }
+
+        private void llamadosTimer_Tick(object sender, EventArgs e)
+        {
+            callServices("llamados");
         }
     }
 }
