@@ -12,6 +12,12 @@ namespace WSClient.models
 {
     class Llamados : Servicio
     {
+        public override List<DataRow> getServicio(string id)
+        {
+            sqlServicio = @"select * from llamados where LLAID = "+id+" ";
+            return getListServicio();
+        }
+
         public override List<DataRow> getAllServicios()
         {
             sqlServicio = @"select * from llamados ";
@@ -41,6 +47,8 @@ namespace WSClient.models
                 yourConnectionHandler.Close();
             }
         }
+
+        
     }
 }
 
