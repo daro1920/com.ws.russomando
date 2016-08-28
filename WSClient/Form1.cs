@@ -18,10 +18,12 @@ namespace WSClient
         private void callServices(String serviceType)
         {
             Servicio servicio = factory.getServicio(serviceType);
-            //servController.altaServicio(servicio);
-            //servController.listarServicio(servicio);
-            //servController.getListaZonas();
-            servController.garbageCollLlamados(servicio);
+
+            servController.altaServicio(servicio);
+            servController.listarServicio(servicio);
+            servController.getListaZonas();
+            servController.garbageCollector(servicio);
+            servController.getGoogleGeocoding(servicio);
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -79,6 +79,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="data\Llamados.cs" />
+    <Compile Include="lists\Coordenadas.cs" />
     <Compile Include="lists\Zona.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
