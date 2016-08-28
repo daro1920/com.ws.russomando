@@ -64,7 +64,8 @@ namespace WSClient.services
             List<DataRow> rowList = servicio.getProcessedServicios();
             foreach (DataRow row in rowList)
             {
-                ws.WSSDTFiltroServicio = servicio is Llamados ? listar.getWSSDTFiltroServicio(row,"","") : listar.getWSSDTFiltroServicio(row, "", "");
+                //TODO estudiar comportamiento 
+                ws.WSSDTFiltroServicio = servicio is Llamados ? listar.getWSSDTFiltroServicio(row, "", "") : listar.getWSSDTFiltroServicio(row, "", "");
 
                 result = getWSResult(LIST_SERVICE, ws);
 
@@ -79,7 +80,7 @@ namespace WSClient.services
             zonas.getWSSDTZonas(ref ws);
             ws.WSAutorizacion = autorizacion;
 
-            dynamic result = getWSResult(LIST_ZONES,ws);
+            dynamic result = getWSResult(LIST_ZONES, ws);
             List<Zona> listZones = result.WSSDTOutZonas.WSSDTZonas.ToObject<List<Zona>>();
 
             return listZones;
@@ -207,7 +208,7 @@ namespace WSClient.services
 
         private dynamic getWSResult(string webAddr, dynamic ws)
         {
-            
+
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(webAddr);
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
@@ -222,7 +223,7 @@ namespace WSClient.services
             {
                 dynamic result = JObject.Parse(streamReader.ReadToEnd());
                 return result;
-                
+
             }
         }
     }
