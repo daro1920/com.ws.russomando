@@ -18,9 +18,9 @@ namespace WSClient
         private void callServices(String serviceType)
         {
             Servicio servicio = factory.getServicio(serviceType);
-            servController.altaServicio(servicio);
-            servController.listarServicio(servicio);
-            servController.getListaZonas();
+            //servController.altaServicio(servicio);
+            //servController.listarServicio(servicio);
+            //servController.getListaZonas();
             servController.garbageCollLlamados(servicio);
         }
 
