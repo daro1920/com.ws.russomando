@@ -60,7 +60,8 @@
             // 
             // llamadosTimer
             // 
-            this.llamadosTimer.Interval = 30000;
+            this.llamadosTimer.Enabled = true;
+            this.llamadosTimer.Interval = 1000;
             this.llamadosTimer.Tick += new System.EventHandler(this.llamadosTimer_Tick);
             // 
             // Form1
