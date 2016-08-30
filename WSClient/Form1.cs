@@ -19,10 +19,16 @@ namespace WSClient
         {
             Servicio servicio = factory.getServicio(serviceType);
 
+            // alta nuevos servicios
             servController.altaServicio(servicio);
+
             servController.listarServicio(servicio);
+
+            //devuleve lista de zonas
             servController.getListaZonas();
+            //limpia servicios 
             servController.garbageCollector(servicio);
+            //devuelve lista de coordenadas 
             servController.getGoogleGeocoding(servicio);
         }
 
