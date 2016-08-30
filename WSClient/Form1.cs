@@ -27,13 +27,9 @@ namespace WSClient
 
             //devuleve lista de zonas
             servController.getListaZonas();
-<<<<<<< HEAD
-            //limpia servicios 
-            servController.garbageCollector(servicio);
-            //devuelve lista de coordenadas 
-=======
+
             servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
->>>>>>> origin/clienteWs
+
             servController.getGoogleGeocoding(servicio);
         }
 

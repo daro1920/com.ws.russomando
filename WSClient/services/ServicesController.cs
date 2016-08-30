@@ -181,15 +181,15 @@ namespace WSClient.services
             List<DataRow> rowList = servicio.getProcessedServicios();
             foreach (DataRow row in rowList)
             {
-                string lng = servicio is Llamados ? row["llalng"].ToString() : row["tralng"].ToString();
-                string lat = servicio is Llamados ? row["llalat"].ToString() : row["tralat"].ToString();
+                string lng = servicio is Llamados ? row["lng"].ToString() : row["lng"].ToString();
+                string lat = servicio is Llamados ? row["lat"].ToString() : row["lat"].ToString();
 
                 // si tengo valores en los dos campos , no hago nada 
                 if (lng != "" && lat != "") continue;
 
                 num = row["afinumpar"].ToString();
-                zone = EMPTY;//TODO
-                city = "Montevideo"; //TODO
+                zone = row["zona"].ToString();
+                city = row["loc"].ToString();
                 street = row["afiesq1par"].ToString();
                 street2 = row["afidompar"].ToString();
 

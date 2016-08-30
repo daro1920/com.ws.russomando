@@ -12,25 +12,25 @@ namespace WSClient.models
 
         public override List<DataRow> getServicio(string id)
         {
-            sqlServicio = @"select * from traslados where tranro = " + id + " ";
+            sqlServicio = @"select * from g:\Pricipal\traslados where tranro = " + id + " ";
             return getListServicio();
         }
 
         public override List<DataRow> getAllServicios()
         {
-            sqlServicio = @"select * from traslados ";
+            sqlServicio = @"select * from g:\Pricipal\traslados ";
             return getListServicio();
         }
 
         public override List<DataRow> getProcessedServicios()
         {
-            sqlServicio = @"select * from traslados where nroserv <> 0 ";
+            sqlServicio = @"select * from g:\Pricipal\traslados where nroserv <> 0 ";
             return getListServicio();
         }
 
         public override List<DataRow> getNonProcessedServicios()
         {
-            sqlServicio = @"select * from traslados where nroserv = 0 ";
+            sqlServicio = @"select * from g:\Pricipal\traslados where nroserv = 0 ";
             return getListServicio();
         }
 
@@ -41,7 +41,7 @@ namespace WSClient.models
             using (OleDbCommand command = yourConnectionHandler.CreateCommand())
             {
                 //nroasis = "+NroAsistencia.ToString()+",nroserv = "+NroServicio.ToString()+"
-                command.CommandText = "update traslados set nroasis = " + NroAsistencia.ToString() + ",nroserv = " + NroServicio.ToString() + " where tranro = " + id.ToString();
+                command.CommandText = @"update g:\Pricipal\traslados set nroasis = " + NroAsistencia.ToString() + ",nroserv = " + NroServicio.ToString() + " where tranro = " + id.ToString();
                 yourConnectionHandler.Open();
                 command.ExecuteNonQuery();
                 yourConnectionHandler.Close();

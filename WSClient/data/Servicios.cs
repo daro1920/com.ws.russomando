@@ -12,7 +12,7 @@ namespace WSClient.data
     {
         public String sqlServicio { get; set; }
         
-        protected OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\dbf");
+        protected OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\");
 
         abstract public List<DataRow> getServicio(string id);
         abstract public List<DataRow> getAllServicios();
@@ -44,7 +44,6 @@ namespace WSClient.data
                 foreach (DataRow row in servicios.Rows)
                 {
                     serviciosList.Add(row);
-
                 }
 
                 yourConnectionHandler.Close();
