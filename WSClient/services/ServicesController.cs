@@ -20,6 +20,8 @@ namespace WSClient.services
 
         private string googleKey = "AIzaSyBcbMVMtS7J6AYXHp-0mz0agcVDhcyuZZg";
 
+        private string EMPTY = "";
+
         private string LIST_ZONES = "http://api.logicsat.com/logicsat/rest/WSGetZonas";
         private string LIST_SERVICE = "http://api.logicsat.com/logicsat/rest/WSGetServicios";
         private string CREATE_CLOSE_SERVICE = "http://api.logicsat.com/logicsat/rest/WSAltaServicio";
@@ -65,7 +67,7 @@ namespace WSClient.services
             foreach (DataRow row in rowList)
             {
                 //TODO estudiar comportamiento 
-                ws.WSSDTFiltroServicio = servicio is Llamados ? listar.getWSSDTFiltroServicio(row, "", "") : listar.getWSSDTFiltroServicio(row, "", "");
+                ws.WSSDTFiltroServicio = servicio is Llamados ? listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EMPTY) : listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EMPTY);
 
                 result = getWSResult(LIST_SERVICE, ws);
 
@@ -87,7 +89,7 @@ namespace WSClient.services
         }
 
 
-        public void garbageCollector(Servicio servicio)
+        public void garbageCollector(Servicio servicio, string estado)
         {
             //se crea el jason
             dynamic ws = new JObject();
@@ -96,7 +98,7 @@ namespace WSClient.services
             string dateIni = DateTime.Now.AddDays(-5).ToString("dd'-'MM'-'yyyy HH:mm:ss");
             string dateFin = DateTime.Now.ToString("dd'-'MM'-'yyyy HH:mm:ss");
 
-            ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(null, dateIni, dateFin);
+            ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(null, dateIni, dateFin, estado);
 
             dynamic result = getWSResult(LIST_SERVICE, ws);
 
@@ -117,7 +119,7 @@ namespace WSClient.services
         public void garbageCollLlamados(Servicio servicio, JArray array ,dynamic wsClose)
         {
 
-            dynamic result = "";
+            dynamic result = EMPTY;
             foreach (JObject item in array)
             {
 
@@ -140,7 +142,7 @@ namespace WSClient.services
 
         public void garbageCollTraslados(Servicio servicio, JArray array, dynamic wsClose)
         {
-            dynamic result = "";
+            dynamic result = EMPTY;
             foreach (JObject item in array)
             {
 
@@ -161,16 +163,16 @@ namespace WSClient.services
         }
 
         // este metodo se llamara siempre de llamados ?
-        public List<Coordenadas> getGoogleGeocoding(Servicio servicio)
+        public void getGoogleGeocoding(Servicio servicio)
         {
 
             List<Coordenadas> cooList = new List<Coordenadas>();
 
-            string num = "";
-            string street = "";
-            string street2 = "";
-            string zone = "";
-            string city = "";
+            string num = EMPTY;
+            string street = EMPTY;
+            string street2 = EMPTY;
+            string zone = EMPTY;
+            string city = EMPTY;
 
 
             string url = GEO_GOOGLE;
@@ -179,31 +181,35 @@ namespace WSClient.services
             List<DataRow> rowList = servicio.getProcessedServicios();
             foreach (DataRow row in rowList)
             {
+                string lng = servicio is Llamados ? row["llalng"].ToString() : row["tralng"].ToString();
+                string lat = servicio is Llamados ? row["llalat"].ToString() : row["tralat"].ToString();
+
+                // si tengo valores en los dos campos , no hago nada 
+                if (lng != "" && lat != "") continue;
 
                 num = row["afinumpar"].ToString();
-                zone = "";//TODO
+                zone = EMPTY;//TODO
                 city = "Montevideo"; //TODO
                 street = row["afiesq1par"].ToString();
                 street2 = row["afidompar"].ToString();
 
                 url = GEO_GOOGLE + "address="+ num + "+"+ street + "+%26+"+ street2 + ",+"+ zone +",+"+ city +"&key="+ googleKey + "";
-                result = getWSResult(url, "");
+                result = getWSResult(url, EMPTY);
 
                 if (result.status != "OK") continue;
-
-                Coordenadas coor = new Coordenadas();
+                
 
                 dynamic location = result.results[0].geometry.location;
 
-                coor.lat = location.lat;
-                coor.lng = location.lng;
-                coor.id = row["llaid"].ToString();
+                lat = location.lat;
+                lng = location.lng;
+                string id = servicio is Llamados ?  row["llaid"].ToString() : row["tranro"].ToString();
 
-                cooList.Add(coor);
+                servicio.setServicioLatLng(id,lat,lng);
+                //cooList.Add(coor);
 
             }
       
-            return cooList;
         }
 
         private dynamic getWSResult(string webAddr, dynamic ws)
