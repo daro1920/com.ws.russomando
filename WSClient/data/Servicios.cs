@@ -12,7 +12,7 @@ namespace WSClient.data
     {
         public String sqlServicio { get; set; }
         
-        protected OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\Work\FreelanceProjects\RoussoMando\dbf");
+        protected OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\dbf");
 
         abstract public List<DataRow> getServicio(string id);
         abstract public List<DataRow> getAllServicios();
