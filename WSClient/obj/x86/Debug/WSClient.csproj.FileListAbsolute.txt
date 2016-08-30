@@ -19,4 +19,3 @@ C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\bin\x86\Debug\N
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.Form1.resources
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.Properties.Resources.resources
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.csproj.GenerateResource.Cache
-C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.csprojResolveAssemblyReference.cache

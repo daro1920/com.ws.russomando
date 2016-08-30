@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using WSClient.data;
+using WSClient.enums;
 using WSClient.services;
 using WSClient.services.factories;
 
@@ -21,18 +22,18 @@ namespace WSClient
             servController.altaServicio(servicio);
             servController.listarServicio(servicio);
             servController.getListaZonas();
-            servController.garbageCollector(servicio);
+            servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
             servController.getGoogleGeocoding(servicio);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            callServices("traslados");
         }
 
         private void llamadosTimer_Tick(object sender, EventArgs e)
         {
             callServices("llamados");
+        }
+
+        private void trasladosTimer_Tick(object sender, EventArgs e)
+        {
+            callServices("traslados");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace WSClient.services.models
     {
 
 
-         public JObject getWSSDTFiltroServicio(DataRow llamado, string fechaIni, string fechaFin)
+         public JObject getWSSDTFiltroServicio(DataRow llamado, string fechaIni, string fechaFin,string estado)
         {
             // se completan los datos a enviar
             dynamic WSSDTFiltroServicio = new JObject();
@@ -21,7 +21,7 @@ namespace WSClient.services.models
             WSSDTFiltroServicio.IdExterno = llamado == null ? "" :llamado["llaid"];
             WSSDTFiltroServicio.NroServicio = "";
             WSSDTFiltroServicio.NroAsistencia = "";
-            WSSDTFiltroServicio.Estado = "";
+            WSSDTFiltroServicio.Estado = estado;
             WSSDTFiltroServicio.FechaLlamadaInicial = fechaIni;
             WSSDTFiltroServicio.FechaLlamadaFinal = fechaFin;
             WSSDTFiltroServicio.Prestador = "";

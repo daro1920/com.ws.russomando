@@ -48,7 +48,17 @@ namespace WSClient.models
             }
         }
 
-        
+        public override void setServicioLatLng(string id, string lat, string lng)
+        {
+            using (yourConnectionHandler)
+            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
+            {
+                command.CommandText = "update llamados set llalat = " + lat + ", llalng = " + lng + " where LLAID = " + id.ToString();
+                yourConnectionHandler.Open();
+                command.ExecuteNonQuery();
+                yourConnectionHandler.Close();
+            }
+        }
     }
 }
 
