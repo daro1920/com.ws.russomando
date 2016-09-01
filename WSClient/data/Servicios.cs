@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -18,8 +19,10 @@ namespace WSClient.data
         abstract public List<DataRow> getAllServicios();
         abstract public List<DataRow> getProcessedServicios();
         abstract public List<DataRow> getNonProcessedServicios();
+        abstract public void finalizarServicio(JArray serviciosFinalizados);
         abstract public void setServicioLatLng(string id, string lat, string lng);
         abstract public void setServicio(Decimal id, Int32 NroServicio, Int32 NroAsistencia);
+        
         
 
         protected List<DataRow> getListServicio()

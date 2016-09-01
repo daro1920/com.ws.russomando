@@ -88,8 +88,7 @@ namespace WSClient.services
             return listZones;
         }
 
-
-        public void garbageCollector(Servicio servicio, string estado)
+        public JArray getServicios(Servicio servicio, string estado)
         {
             //se crea el jason
             dynamic ws = new JObject();
@@ -102,7 +101,15 @@ namespace WSClient.services
 
             dynamic result = getWSResult(LIST_SERVICE, ws);
 
-            JArray array = result.WSSDTDatosServicios.SDTDatosServicios;
+            return result.WSSDTDatosServicios.SDTDatosServicios;
+
+
+        }
+
+        public void garbageCollector(Servicio servicio, string estado)
+        {
+
+            JArray array = getServicios(servicio,estado);
 
             //se crea el jason
             dynamic wsClose = new JObject();
@@ -211,6 +218,8 @@ namespace WSClient.services
             }
       
         }
+
+        
 
         private dynamic getWSResult(string webAddr, dynamic ws)
         {
