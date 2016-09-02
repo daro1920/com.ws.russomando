@@ -51,7 +51,7 @@ namespace WSClient.services
 
                     servicio.setServicio(id, nroServicio, nroAsistencia);
                 }
-                
+
             }
         }
 
@@ -109,7 +109,7 @@ namespace WSClient.services
         public void garbageCollector(Servicio servicio, string estado)
         {
 
-            JArray array = getServicios(servicio,estado);
+            JArray array = getServicios(servicio, estado);
 
             //se crea el jason
             dynamic wsClose = new JObject();
@@ -117,13 +117,14 @@ namespace WSClient.services
 
             if (servicio is Llamados)
             {
-                garbageCollLlamados(servicio,array,wsClose);
-            } else
+                garbageCollLlamados(servicio, array, wsClose);
+            }
+            else
             {
                 garbageCollTraslados(servicio, array, wsClose);
             }
         }
-        public void garbageCollLlamados(Servicio servicio, JArray array ,dynamic wsClose)
+        public void garbageCollLlamados(Servicio servicio, JArray array, dynamic wsClose)
         {
 
             dynamic result = EMPTY;
@@ -154,7 +155,7 @@ namespace WSClient.services
             {
 
                 string id = item["IdExterno"].ToString();
-                
+
                 if (item["Prestacion"].ToString() == "Llamado") continue;
 
                 List<DataRow> rowList = servicio.getServicio(id);
@@ -188,38 +189,38 @@ namespace WSClient.services
             List<DataRow> rowList = servicio.getProcessedServicios();
             foreach (DataRow row in rowList)
             {
-                string lng = servicio is Llamados ? row["lng"].ToString() : row["lng"].ToString();
-                string lat = servicio is Llamados ? row["lat"].ToString() : row["lat"].ToString();
+                string lng = servicio is Llamados ? row["llalng"].ToString() : row["tralng"].ToString();
+                string lat = servicio is Llamados ? row["llalat"].ToString() : row["tralat"].ToString();
 
                 // si tengo valores en los dos campos , no hago nada 
                 if (lng != "" && lat != "") continue;
 
                 num = row["afinumpar"].ToString();
-                zone = row["zona"].ToString();
-                city = row["loc"].ToString();
+                zone = EMPTY;//TODO
+                city = "Montevideo"; //TODO
                 street = row["afiesq1par"].ToString();
                 street2 = row["afidompar"].ToString();
 
-                url = GEO_GOOGLE + "address="+ num + "+"+ street + "+%26+"+ street2 + ",+"+ zone +",+"+ city +"&key="+ googleKey + "";
+                url = GEO_GOOGLE + "address=" + num + "+" + street + "+%26+" + street2 + ",+" + zone + ",+" + city + "&key=" + googleKey + "";
                 result = getWSResult(url, EMPTY);
 
                 if (result.status != "OK") continue;
-                
+
 
                 dynamic location = result.results[0].geometry.location;
 
                 lat = location.lat;
                 lng = location.lng;
-                string id = servicio is Llamados ?  row["llaid"].ToString() : row["tranro"].ToString();
+                string id = servicio is Llamados ? row["llaid"].ToString() : row["tranro"].ToString();
 
-                servicio.setServicioLatLng(id,lat,lng);
+                servicio.setServicioLatLng(id, lat, lng);
                 //cooList.Add(coor);
 
             }
-      
+
         }
 
-        
+
 
         private dynamic getWSResult(string webAddr, dynamic ws)
         {
@@ -230,7 +231,9 @@ namespace WSClient.services
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                streamWriter.Write(ws.ToString());
+                string wsString = ws.ToString();
+                wsString.Substring(1, wsString.Length - 1);
+                streamWriter.Write(wsString);
                 streamWriter.Flush();
             }
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();

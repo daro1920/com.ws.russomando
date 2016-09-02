@@ -54,7 +54,7 @@ namespace WSClient.models
             using (yourConnectionHandler)
             using (OleDbCommand command = yourConnectionHandler.CreateCommand())
             {
-                command.CommandText = "update traslados set tralat = " + lat + ", tralng = " + lng + " where tranro = " + id.ToString();
+                command.CommandText = @"update g:\principal\traslados set tralat = " + lat + ", tralng = " + lng + " where tranro = " + id.ToString();
                 yourConnectionHandler.Open();
                 command.ExecuteNonQuery();
                 yourConnectionHandler.Close();
@@ -83,7 +83,7 @@ namespace WSClient.models
 
             using (yourConnectionHandler)
             using (OleDbCommand command = yourConnectionHandler.CreateCommand())
-            {
+            
                 foreach (DataRow row in rowList)
                 {
                     command.CommandText = "insert into trasladosr (TRANRO,TRAFCHING, ENORIGEN,TRAINS,TRAINSDSC,TRAMED,TRAFCH ,TRAORI, TRADES,TRADESF,TRAPAC,TRATEL,TRADOC,TRAEDAD ,TRASEX, TRADIA,"+

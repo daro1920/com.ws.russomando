@@ -6,7 +6,7 @@ namespace WSClient.services.models
     class WSSDTAltaServicio
     {
 
-        
+
         public JObject getWSSDTCancelarServicio(string id)
         {
 
@@ -38,15 +38,19 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Origen_Causa = "A-Emergencia";
             WSSDTAltaServicio.Origen_SubCausa = "Otra";
             WSSDTAltaServicio.Celular = "";
-            WSSDTAltaServicio.Telefono = llamdo["llatel"];
-            WSSDTAltaServicio.IdExterno = llamdo["llaid"];
+
+            string tel = llamdo["llatel"].ToString();
+
+
+            WSSDTAltaServicio.Telefono = tel.Substring(0, 9);
+            WSSDTAltaServicio.IdExterno = llamdo["llaid"].ToString();
             WSSDTAltaServicio.Contacto = llamdo["llanom"];
             WSSDTAltaServicio.Prioridad = "1";
             WSSDTAltaServicio.Particular = false;
             WSSDTAltaServicio.Vehiculo_Matricula = "";
             WSSDTAltaServicio.Vehiculo_Marca = "";
             WSSDTAltaServicio.Vehiculo_Modelo = "";
-            WSSDTAltaServicio.Vehiculo_Anio = 2013;
+            WSSDTAltaServicio.Vehiculo_Anio = "2013";
             WSSDTAltaServicio.Detalle = llamdo["dianom"];
             WSSDTAltaServicio.Programado = "";
             WSSDTAltaServicio.Origen_LugarEspecial = "";
@@ -87,7 +91,7 @@ namespace WSClient.services.models
         {
             // se completan los datos a enviar
             dynamic WSSDTAltaServicio = new JObject();
-            WSSDTAltaServicio.CancelarTarea = "NO" ;
+            WSSDTAltaServicio.CancelarTarea = "NO";
             WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
             WSSDTAltaServicio.NroAsistencia = traslado["tranro"];
             WSSDTAltaServicio.NroServicio = traslado["tranro"];
@@ -101,7 +105,11 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Origen_Causa = "";
             WSSDTAltaServicio.Origen_SubCausa = "";
             WSSDTAltaServicio.Celular = "";
-            WSSDTAltaServicio.Telefono = traslado["tratel"];
+
+            string tel = traslado["tratel"].ToString();
+
+
+            WSSDTAltaServicio.Telefono = tel.Substring(0, 9);
             WSSDTAltaServicio.IdExterno = traslado["tranro"];
             WSSDTAltaServicio.Contacto = traslado["trapac"];
             WSSDTAltaServicio.Prioridad = "1";
