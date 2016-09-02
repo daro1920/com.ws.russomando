@@ -51,7 +51,6 @@ namespace WSClient.data
                 foreach (DataRow row in servicios.Rows)
                 {
                     serviciosList.Add(row);
-
                 }
 
                 connectionHandler.Close();

@@ -195,8 +195,8 @@ namespace WSClient.services
                 if (lng != "0.000000" && lat != "0.000000") continue;
 
                 num = row["afinumpar"].ToString();
-                zone = EMPTY;//TODO
-                city = "Montevideo"; //TODO
+                zone = row["zona"].ToString();
+                city = row["loc"].ToString();
                 street = row["afiesq1par"].ToString();
                 street2 = row["afidompar"].ToString();
 

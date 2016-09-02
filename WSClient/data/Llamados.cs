@@ -14,25 +14,25 @@ namespace WSClient.models
     {
         public override List<DataRow> getServicio(string id)
         {
-            sqlServicio = @"select * from llamados where LLAID = "+id+" ";
+            sqlServicio = @"select * from g:\tablaslibres\llamados where LLAID = "+id+" ";
             return getListServicio();
         }
 
         public override List<DataRow> getAllServicios()
         {
-            sqlServicio = @"select * from llamados ";
+            sqlServicio = @"select * from g:\tablaslibres\llamados ";
             return getListServicio();
         }
         
         public override List<DataRow> getProcessedServicios()
         {
-            sqlServicio = @"select * from llamados where nroserv <> 0 ";
+            sqlServicio = @"select * from g:\tablaslibres\llamados where nroserv <> 0 ";
             return getListServicio();
         }
 
         public override List<DataRow> getNonProcessedServicios()
         {
-            sqlServicio = @"select * from llamados where nroserv = 0 ";
+            sqlServicio = @"select * from g:\tablaslibres\llamados where nroserv = 0 ";
             return getListServicio();
         }
 
@@ -44,7 +44,7 @@ namespace WSClient.models
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
             {
-                command.CommandText = "update llamados set nroserv = " + NroServicio.ToString() + ", nroasis = " + NroAsistencia.ToString() + " where LLAID = " + id.ToString();
+                command.CommandText = @"update g:\tablaslibres\llamados set nroserv = " + NroServicio.ToString() + ", nroasis = " + NroAsistencia.ToString() + " where LLAID = " + id.ToString();
                 connectionHandler.Open();
                 command.ExecuteNonQuery();
                 connectionHandler.Close();
@@ -59,7 +59,7 @@ namespace WSClient.models
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
             {
-                command.CommandText = "update llamados set lat = " + lat + ", lng = " + lng + " where LLAID = " + id.ToString();
+                command.CommandText = @"update g:\tablaslibres\llamados set lat = " + lat + ", lng = " + lng + " where LLAID = " + id.ToString();
                 connectionHandler.Open();
                 command.ExecuteNonQuery();
                 connectionHandler.Close();
