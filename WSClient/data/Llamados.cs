@@ -38,25 +38,31 @@ namespace WSClient.models
 
         public override void setServicio(Decimal id, int NroServicio, int NroAsistencia)
         {
-            using (yourConnectionHandler)
-            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
+
+            OleDbConnection connectionHandler = getConnectionHandler();
+
+            using (connectionHandler)
+            using (OleDbCommand command = connectionHandler.CreateCommand())
             {
                 command.CommandText = "update llamados set nroserv = " + NroServicio.ToString() + ", nroasis = " + NroAsistencia.ToString() + " where LLAID = " + id.ToString();
-                yourConnectionHandler.Open();
+                connectionHandler.Open();
                 command.ExecuteNonQuery();
-                yourConnectionHandler.Close();
+                connectionHandler.Close();
             }
         }
 
         public override void setServicioLatLng(string id, string lat, string lng)
         {
-            using (yourConnectionHandler)
-            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
+
+            OleDbConnection connectionHandler = getConnectionHandler();
+
+            using (connectionHandler)
+            using (OleDbCommand command = connectionHandler.CreateCommand())
             {
-                command.CommandText = "update llamados set llalat = " + lat + ", llalng = " + lng + " where LLAID = " + id.ToString();
-                yourConnectionHandler.Open();
+                command.CommandText = "update llamados set lat = " + lat + ", lng = " + lng + " where LLAID = " + id.ToString();
+                connectionHandler.Open();
                 command.ExecuteNonQuery();
-                yourConnectionHandler.Close();
+                connectionHandler.Close();
             }
         }
 
@@ -80,12 +86,14 @@ namespace WSClient.models
 
         private void updateLlamadosR(List<DataRow> rowList)
         {
-            using (yourConnectionHandler)
-            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
+            OleDbConnection connectionHandler = getConnectionHandler();
+
+            using (connectionHandler)
+            using (OleDbCommand command = connectionHandler.CreateCommand())
             {
                 foreach (DataRow row in rowList)
                 {
-                    command.CommandText = "insert into llamados (LLAID,AFIID,  LLANOM, LLAFCH,LLAEDAD,LLADOM,DIACOD DIANOM, LLATEL,LLACLAINI, MOVCODLLA ,EMPCODMED , LLANROHIS," +
+                    command.CommandText = "insert into llamadosR (LLAID,AFIID,  LLANOM, LLAFCH,LLAEDAD,LLADOM,DIACOD DIANOM, LLATEL,LLACLAINI, MOVCODLLA ,EMPCODMED , LLANROHIS," +
                     "LLAHORCOM , LLAHORSAL, LLAHORLLE,LLAHORFIN ,MOVCODAPO,EMPCODMEDA,LLAHORCOMA ,LLAHORSALA  ,LLAHORLLEA ,LLAHORFINA , MOVCODTRA ,LLAHORSALT  ,LLAHORLLET ,LLAHORFINT," +
                     "LLADESTRA , DIACODFIN, LLAOBS, LLACLAFIN, LLADEM ,DIAPRE1,DIAPRE2,DIAPRE3,DIAPRE4, DIAPRE5, LLACLATEL, EMPCODTEL, LLATPO, FCHMOD, EMPCOD, LLANROCONF, LLADESTLLA," +
                     "LLADESTAPO, LLANROLIN, CONCOD, AFICTA, AFIDOMPAR, LOCCODPAR, AFINUMPAR, AFIBLOPAR, AFIAPTOPAR, AFISENPAR, AFISUBCPAR, AFISUBNPAR, AFIESQ1PAR, AFIESQ2PAR, PRIORIDAD," +
@@ -102,9 +110,9 @@ namespace WSClient.models
                      row["AFISENPAR"] + ", " + row["AFISUBCPAR"] + "," + row["AFISUBNPAR"] + " ," + row["AFIESQ1PAR"] + "  ," + row["AFIESQ2PAR"] + " , " + row["PRIORIDAD"] + "," + row["PRIOCONV"] + ","+
                      row["EMPCODENF"] + ", " + row["EMPCODCHO"] + ", " + row["RECLAMOS"] + "," + row["TIPO"] + " ," + row["CONVENIO"] + " ," + row["NROASIS"] + "  ," + row["NROSERV"] + " , "+
                      row["LAT"] + "," + row["LNG"] + " , " + row["ZONA"] + ", " + row["DEP"] + ")";
-                    yourConnectionHandler.Open();
+                    connectionHandler.Open();
                     command.ExecuteNonQuery();
-                    yourConnectionHandler.Close();
+                    connectionHandler.Close();
 
                 }
                 

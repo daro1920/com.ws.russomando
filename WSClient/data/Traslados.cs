@@ -38,26 +38,32 @@ namespace WSClient.models
 
         public override void setServicio(Decimal id, int NroServicio, int NroAsistencia)
         {
-            using (yourConnectionHandler)
-            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
+
+            OleDbConnection connectionHandler = getConnectionHandler();
+
+            using (connectionHandler)
+            using (OleDbCommand command = connectionHandler.CreateCommand())
             {
                 //nroasis = "+NroAsistencia.ToString()+",nroserv = "+NroServicio.ToString()+"
                 command.CommandText = "update traslados set nroasis = " + NroAsistencia.ToString() + ",nroserv = " + NroServicio.ToString() + " where tranro = " + id.ToString();
-                yourConnectionHandler.Open();
+                connectionHandler.Open();
                 command.ExecuteNonQuery();
-                yourConnectionHandler.Close();
+                connectionHandler.Close();
             }
         }
 
         public override void setServicioLatLng(string id, string lat, string lng)
         {
-            using (yourConnectionHandler)
-            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
+
+            OleDbConnection connectionHandler = getConnectionHandler();
+
+            using (connectionHandler)
+            using (OleDbCommand command = connectionHandler.CreateCommand())
             {
                 command.CommandText = "update traslados set tralat = " + lat + ", tralng = " + lng + " where tranro = " + id.ToString();
-                yourConnectionHandler.Open();
+                connectionHandler.Open();
                 command.ExecuteNonQuery();
-                yourConnectionHandler.Close();
+                connectionHandler.Close();
             }
         }
 
@@ -81,14 +87,16 @@ namespace WSClient.models
         private void updateTrasladosR(List<DataRow> rowList)
         {
 
-            using (yourConnectionHandler)
-            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
+            OleDbConnection connectionHandler = getConnectionHandler();
+
+            using (connectionHandler)
+            using (OleDbCommand command = connectionHandler.CreateCommand())
             {
                 foreach (DataRow row in rowList)
                 {
-                    command.CommandText = "insert into trasladosr (TRANRO,TRAFCHING, ENORIGEN,TRAINS,TRAINSDSC,TRAMED,TRAFCH ,TRAORI, TRADES,TRADESF,TRAPAC,TRATEL,TRADOC,TRAEDAD ,TRASEX, TRADIA,"+
-                    "TRATPO ,TRATPODSC,TRAOBS,TRAMOV,TRAMOVR,PRONTO ,TRABAS , TRABASR ,TRARES, TRAFCHRES ,TRAFCHRESR  ,TRANROFORM,TRAFCHSAL1 ,TRAFCHLLE1, "+
-                    "TRAFCHSAL2 ,TRAFCHLLE2 , TRAFCHSAL3 ,TRAFCHLLE3 , TRALIBMOV ,FCHMOD , EMPCOD ,TRAAGENDA,EMPCODTEL ,NROASIS,NROSERV, LATORI,LNGORI,"+
+                    command.CommandText = "insert into trasladosr (TRANRO,TRAFCHING, ENORIGEN,TRAINS,TRAINSDSC,TRAMED,TRAFCH ,TRAORI, TRADES,TRADESF,TRAPAC,TRATEL,TRADOC,TRAEDAD ,TRASEX, TRADIA," +
+                    "TRATPO ,TRATPODSC,TRAOBS,TRAMOV,TRAMOVR,PRONTO ,TRABAS , TRABASR ,TRARES, TRAFCHRES ,TRAFCHRESR  ,TRANROFORM,TRAFCHSAL1 ,TRAFCHLLE1, " +
+                    "TRAFCHSAL2 ,TRAFCHLLE2 , TRAFCHSAL3 ,TRAFCHLLE3 , TRALIBMOV ,FCHMOD , EMPCOD ,TRAAGENDA,EMPCODTEL ,NROASIS,NROSERV, LATORI,LNGORI," +
                     "ZONAORI,DEP,LATDES,LNGDES,ZONADES,DEPDES,LATDESF,LNGDESF,ZONADESF,DEPDESF) " +
                     " VALUES " +
                     "(" + row["TRANRO"] + "," + row["TRAFCHING"] + "," + row["ENORIGEN"] + "," + row["TRAINS"] + "," + row["TRAINSDSC"] + "," + row["TRAMED"] + "," + row["TRAFCH"] + "," + row["TRAORI"] + "," +
@@ -99,13 +107,13 @@ namespace WSClient.models
                      row["TRAFCHLLE3"] + "," + row["TRALIBMOV"] + "," + row["FCHMOD"] + "," + row["EMPCOD"] + " , " + row["TRAAGENDA"] + "," + row["EMPCODTEL"] + " , " + row["EMPCODTEL"] + ", " +
                      row["NROASIS"] + "," + row["NROSERV"] + " , " + row["LATORI"] + "," + row["LNGORI"] + " ," + row["ZONAORI"] + "  , " + row["LLANROLIN"] + " , " +
                      row["DEP"] + ", " + row["LATDES"] + "," + row["LNGDES"] + " , " + row["ZONADES"] + ", " + row["DEPDES"] + ",  " + row["LATDESF"] + "," + row["LNGDESF"] + " ," +
-                     row["ZONADESF"] + ", " + row["DEPDESF"]  + ")";
-                    yourConnectionHandler.Open();
+                     row["ZONADESF"] + ", " + row["DEPDESF"] + ")";
+                    connectionHandler.Open();
                     command.ExecuteNonQuery();
-                    yourConnectionHandler.Close();
+                    connectionHandler.Close();
 
                 }
             }
-
+        }
     }
 }

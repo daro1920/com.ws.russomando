@@ -13,7 +13,6 @@ namespace WSClient.data
     {
         public String sqlServicio { get; set; }
         
-        protected OleDbConnection yourConnectionHandler = new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\dbf");
 
         abstract public List<DataRow> getServicio(string id);
         abstract public List<DataRow> getAllServicios();
@@ -23,7 +22,11 @@ namespace WSClient.data
         abstract public void setServicioLatLng(string id, string lat, string lng);
         abstract public void setServicio(Decimal id, Int32 NroServicio, Int32 NroAsistencia);
         
-        
+        protected OleDbConnection getConnectionHandler()
+        {
+            return new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\Work\FreelanceProjects\RoussoMando\dbf");
+        }
+
 
         protected List<DataRow> getListServicio()
         {
@@ -34,12 +37,13 @@ namespace WSClient.data
 
 
             // Open the connection, and if open successfully, you can try to query it
-            yourConnectionHandler.Open();
+            OleDbConnection connectionHandler = getConnectionHandler();
+            connectionHandler.Open();
             
-            if (yourConnectionHandler.State == ConnectionState.Open)
+            if (connectionHandler.State == ConnectionState.Open)
             {
 
-                OleDbCommand queryServicio = new OleDbCommand(sqlServicio, yourConnectionHandler);
+                OleDbCommand queryServicio = new OleDbCommand(sqlServicio, connectionHandler);
                 OleDbDataAdapter DAServicio = new OleDbDataAdapter(queryServicio);
 
                 DAServicio.Fill(servicios);
@@ -50,7 +54,7 @@ namespace WSClient.data
 
                 }
 
-                yourConnectionHandler.Close();
+                connectionHandler.Close();
             }
             return serviciosList;
         }

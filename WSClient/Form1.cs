@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using WSClient.data;
 using WSClient.enums;
+using WSClient.models;
 using WSClient.services;
 using WSClient.services.factories;
 
@@ -29,7 +30,8 @@ namespace WSClient
             servController.getListaZonas();
 
             servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
-            servController.getGoogleGeocoding(servicio);
+
+            if(servicio is Llamados) servController.getGoogleGeocoding(servicio);
         }
 
         private void llamadosTimer_Tick(object sender, EventArgs e)
