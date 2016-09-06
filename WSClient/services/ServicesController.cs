@@ -189,11 +189,16 @@ namespace WSClient.services
             List<DataRow> rowList = servicio.getProcessedServicios();
             foreach (DataRow row in rowList)
             {
+<<<<<<< HEAD
                 string lng = servicio is Llamados ? row["llalng"].ToString() : row["tralng"].ToString();
                 string lat = servicio is Llamados ? row["llalat"].ToString() : row["tralat"].ToString();
+=======
+                string lng =  row["LNG"].ToString();
+                string lat =  row["LAT"].ToString();
+>>>>>>> origin/clienteWs
 
                 // si tengo valores en los dos campos , no hago nada 
-                if (lng != "" && lat != "") continue;
+                if (lng != "0.000000" && lat != "0.000000") continue;
 
                 num = row["afinumpar"].ToString();
                 zone = EMPTY;//TODO
@@ -211,7 +216,11 @@ namespace WSClient.services
 
                 lat = location.lat;
                 lng = location.lng;
+<<<<<<< HEAD
                 string id = servicio is Llamados ? row["llaid"].ToString() : row["tranro"].ToString();
+=======
+                string id =  row["llaid"].ToString();
+>>>>>>> origin/clienteWs
 
                 servicio.setServicioLatLng(id, lat, lng);
                 //cooList.Add(coor);
@@ -232,7 +241,15 @@ namespace WSClient.services
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
                 string wsString = ws.ToString();
+<<<<<<< HEAD
                 wsString.Substring(1, wsString.Length - 1);
+=======
+                if (wsString != "")
+                {
+                    wsString.Substring(1, wsString.Length - 1);
+                }
+                
+>>>>>>> origin/clienteWs
                 streamWriter.Write(wsString);
                 streamWriter.Flush();
             }

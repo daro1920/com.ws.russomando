@@ -40,9 +40,15 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Celular = "";
 
             string tel = llamdo["llatel"].ToString();
+<<<<<<< HEAD
 
 
             WSSDTAltaServicio.Telefono = tel.Substring(0, 9);
+=======
+            
+
+            WSSDTAltaServicio.Telefono = tel.Substring(0, 9); 
+>>>>>>> origin/clienteWs
             WSSDTAltaServicio.IdExterno = llamdo["llaid"].ToString();
             WSSDTAltaServicio.Contacto = llamdo["llanom"];
             WSSDTAltaServicio.Prioridad = "1";

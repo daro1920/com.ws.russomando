@@ -8,6 +8,7 @@ C:\GITRepositorio\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.Properties.R
 C:\GITRepositorio\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.csproj.GenerateResource.Cache
 C:\GITRepositorio\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.exe
 C:\GITRepositorio\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.pdb
+C:\GITRepositorio\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.csprojResolveAssemblyReference.cache
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\bin\x86\Debug\WSClient.exe.config
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.exe
 C:\Work\FreelanceProjects\RoussoMando\com.ws.russomando\WSClient\obj\x86\Debug\WSClient.pdb
