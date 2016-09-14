@@ -13,25 +13,25 @@ namespace WSClient.models
 
         public override List<DataRow> getServicio(string id)
         {
-            sqlServicio = @"select * from g:\Pricipal\traslados where tranro = " + id + " ";
+            sqlServicio = @"select * from g:\Principal\traslados where tranro = " + id + " ";
             return getListServicio();
         }
 
         public override List<DataRow> getAllServicios()
         {
-            sqlServicio = @"select * from g:\Pricipal\traslados ";
+            sqlServicio = @"select * from g:\Principal\traslados ";
             return getListServicio();
         }
 
         public override List<DataRow> getProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Pricipal\traslados where nroserv <> 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where nroserv <> 0 ";
             return getListServicio();
         }
 
         public override List<DataRow> getNonProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Pricipal\traslados where nroserv = 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where nroserv = 0 ";
             return getListServicio();
         }
 
@@ -46,7 +46,7 @@ namespace WSClient.models
             {
                 //nroasis = "+NroAsistencia.ToString()+",nroserv = "+NroServicio.ToString()+"
 
-                command.CommandText = @"update g:\Pricipal\traslados set nroasis = " + NroAsistencia.ToString() + ",nroserv = " + NroServicio.ToString() + " where tranro = " + id.ToString();
+                command.CommandText = @"update g:\Principal\traslados set nroasis = " + NroAsistencia.ToString() + ",nroserv = " + NroServicio.ToString() + " where tranro = " + id.ToString();
                 connectionHandler.Open();
                 command.ExecuteNonQuery();
                 connectionHandler.Close();
@@ -61,13 +61,10 @@ namespace WSClient.models
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
             {
-<<<<<<< HEAD
+
                 command.CommandText = @"update g:\principal\traslados set tralat = " + lat + ", tralng = " + lng + " where tranro = " + id.ToString();
-                yourConnectionHandler.Open();
-=======
-                command.CommandText = "update traslados set tralat = " + lat + ", tralng = " + lng + " where tranro = " + id.ToString();
                 connectionHandler.Open();
->>>>>>> origin/clienteWs
+
                 command.ExecuteNonQuery();
                 connectionHandler.Close();
             }
@@ -93,17 +90,13 @@ namespace WSClient.models
         private void updateTrasladosR(List<DataRow> rowList)
         {
 
-<<<<<<< HEAD
-            using (yourConnectionHandler)
-            using (OleDbCommand command = yourConnectionHandler.CreateCommand())
-            
-=======
+
             OleDbConnection connectionHandler = getConnectionHandler();
 
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
             {
->>>>>>> origin/clienteWs
+
                 foreach (DataRow row in rowList)
                 {
                     command.CommandText = "insert into trasladosr (TRANRO,TRAFCHING, ENORIGEN,TRAINS,TRAINSDSC,TRAMED,TRAFCH ,TRAORI, TRADES,TRADESF,TRAPAC,TRATEL,TRADOC,TRAEDAD ,TRASEX, TRADIA," +

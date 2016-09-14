@@ -21,17 +21,21 @@ namespace WSClient
         {
             Servicio servicio = factory.getServicio(serviceType);
 
-            // alta nuevos servicios
-            servController.altaServicio(servicio);
+            //geocodifico solo llamamdos
+            //if (servicio is Llamados) servController.getGoogleGeocoding(servicio);
 
-            servController.listarServicio(servicio);
+            // alta nuevos servicios
+            //servController.altaServicio(servicio);
+
+            //servController.listarServicio(servicio);
 
             //devuleve lista de zonas
-            servController.getListaZonas();
+            //servController.getListaZonas();
 
-            servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
+            //servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
 
-            if(servicio is Llamados) servController.getGoogleGeocoding(servicio);
+            servController.cerrarServicio(servicio, EstadosEnum.FINALIZADO);
+
         }
 
         private void llamadosTimer_Tick(object sender, EventArgs e)
@@ -41,7 +45,7 @@ namespace WSClient
 
         private void trasladosTimer_Tick(object sender, EventArgs e)
         {
-            callServices("traslados");
+            //callServices("traslados");
         }
     }
 }

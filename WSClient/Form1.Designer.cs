@@ -46,7 +46,7 @@
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(240, 150);
             this.dataGridView1.TabIndex = 2;
-            //
+            // 
             // llamadosTimer
             // 
             this.llamadosTimer.Enabled = true;
@@ -55,7 +55,8 @@
             // 
             // trasladosTimer
             // 
-            this.trasladosTimer.Interval = 30000;
+            this.trasladosTimer.Enabled = true;
+            this.trasladosTimer.Interval = 1000;
             this.trasladosTimer.Tick += new System.EventHandler(this.trasladosTimer_Tick);
             // 
             // Form1

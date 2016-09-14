@@ -43,9 +43,9 @@ namespace WSClient.services
 
                 result = getWSResult(CREATE_CLOSE_SERVICE, ws);
                 // actualizados o nuevo OJO
-                if (result.WSSDTDatoNroServicio.Notas == "Los datos han sido actualizados. - ")
+                if (result.WSSDTDatoNroServicio.NroServicio != 0)
                 {
-                    Int32 id = servicio is Llamados ? (Int32)row["llaid"] : (Int32)row["tranro"];
+                    var id = servicio is Llamados ? (Int32)row["llaid"] : (Decimal)row["tranro"];
                     Int32 nroServicio = Convert.ToInt32(result.WSSDTDatoNroServicio.NroServicio);
                     Int32 nroAsistencia = Convert.ToInt32(result.WSSDTDatoNroServicio.NroAsistencia);
 
@@ -57,7 +57,6 @@ namespace WSClient.services
 
         public void listarServicio(Servicio servicio)
         {
-
             //se crea el jason
             dynamic ws = new JObject();
             ws.WSAutorizacion = autorizacion;
@@ -71,6 +70,9 @@ namespace WSClient.services
 
                 result = getWSResult(LIST_SERVICE, ws);
 
+                // modificar dbf
+                // implementrar en Services Factory, llamados y traslados.
+                //servicio.setServicioLatLng(idrw,kdatoo....)
             }
         }
 
@@ -94,7 +96,7 @@ namespace WSClient.services
             dynamic ws = new JObject();
             ws.WSAutorizacion = autorizacion;
 
-            string dateIni = DateTime.Now.AddDays(-5).ToString("dd'-'MM'-'yyyy HH:mm:ss");
+            string dateIni = DateTime.Now.AddDays(-30).ToString("dd'-'MM'-'yyyy HH:mm:ss");
             string dateFin = DateTime.Now.ToString("dd'-'MM'-'yyyy HH:mm:ss");
 
             ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(null, dateIni, dateFin, estado);
@@ -104,6 +106,18 @@ namespace WSClient.services
             return result.WSSDTDatosServicios.SDTDatosServicios;
 
 
+        }
+
+        public void cerrarServicio(Servicio servicio, string estado)
+        {
+
+            JArray array = getServicios(servicio, estado);
+
+            //se crea el jason
+            dynamic wsClose = new JObject();
+            wsClose.WSAutorizacion = autorizacion;
+
+            servicio.finalizarServicio(array);
         }
 
         public void garbageCollector(Servicio servicio, string estado)
@@ -189,13 +203,10 @@ namespace WSClient.services
             List<DataRow> rowList = servicio.getProcessedServicios();
             foreach (DataRow row in rowList)
             {
-<<<<<<< HEAD
-                string lng = servicio is Llamados ? row["llalng"].ToString() : row["tralng"].ToString();
-                string lat = servicio is Llamados ? row["llalat"].ToString() : row["tralat"].ToString();
-=======
-                string lng =  row["LNG"].ToString();
-                string lat =  row["LAT"].ToString();
->>>>>>> origin/clienteWs
+
+                string lng =  row["lng"].ToString();
+                string lat =  row["lat"].ToString();
+
 
                 // si tengo valores en los dos campos , no hago nada 
                 if (lng != "0.000000" && lat != "0.000000") continue;
@@ -216,11 +227,8 @@ namespace WSClient.services
 
                 lat = location.lat;
                 lng = location.lng;
-<<<<<<< HEAD
-                string id = servicio is Llamados ? row["llaid"].ToString() : row["tranro"].ToString();
-=======
+
                 string id =  row["llaid"].ToString();
->>>>>>> origin/clienteWs
 
                 servicio.setServicioLatLng(id, lat, lng);
                 //cooList.Add(coor);
@@ -241,15 +249,13 @@ namespace WSClient.services
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
                 string wsString = ws.ToString();
-<<<<<<< HEAD
-                wsString.Substring(1, wsString.Length - 1);
-=======
+
                 if (wsString != "")
                 {
                     wsString.Substring(1, wsString.Length - 1);
                 }
                 
->>>>>>> origin/clienteWs
+
                 streamWriter.Write(wsString);
                 streamWriter.Flush();
             }

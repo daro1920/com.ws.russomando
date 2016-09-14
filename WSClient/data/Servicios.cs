@@ -24,7 +24,7 @@ namespace WSClient.data
         
         protected OleDbConnection getConnectionHandler()
         {
-            return new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=C:\Work\FreelanceProjects\RoussoMando\dbf");
+            return new OleDbConnection(@"Provider=VFPOLEDB.1;Data Source=g:\");
         }
 
 

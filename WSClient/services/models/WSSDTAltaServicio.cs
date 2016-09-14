@@ -33,25 +33,40 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Procedencia = "Russomando";
             WSSDTAltaServicio.Producto = "Emergencia Medica";
             WSSDTAltaServicio.Cobertura = "";
-            WSSDTAltaServicio.Prestacion = "Llamado";
-            WSSDTAltaServicio.Motivo = "Fiebre";
-            WSSDTAltaServicio.Origen_Causa = "A-Emergencia";
-            WSSDTAltaServicio.Origen_SubCausa = "Otra";
+            
+            //WSSDTAltaServicio.Motivo = "Fiebre";
             WSSDTAltaServicio.Celular = "";
-
             string tel = llamdo["llatel"].ToString();
-<<<<<<< HEAD
-
 
             WSSDTAltaServicio.Telefono = tel.Substring(0, 9);
-=======
-            
 
-            WSSDTAltaServicio.Telefono = tel.Substring(0, 9); 
->>>>>>> origin/clienteWs
             WSSDTAltaServicio.IdExterno = llamdo["llaid"].ToString();
             WSSDTAltaServicio.Contacto = llamdo["llanom"];
-            WSSDTAltaServicio.Prioridad = "1";
+
+            string claveini = (string)llamdo["llaclaini"];
+
+            if (char.Equals(claveini.Trim(), "URGENCIA")) {
+                WSSDTAltaServicio.Prioridad = "2";
+                WSSDTAltaServicio.Prestacion = "Llamado";
+                WSSDTAltaServicio.Origen_Causa = "B-Urgencia";
+                WSSDTAltaServicio.Origen_SubCausa = "Otra";
+            }
+
+            if (char.Equals(claveini.Trim(), "EMERGENCIA"))
+            {
+                WSSDTAltaServicio.Prioridad = "1";
+                WSSDTAltaServicio.Prestacion = "Llamado";
+                WSSDTAltaServicio.Origen_Causa = "A-Emergencia";
+                WSSDTAltaServicio.Origen_SubCausa = "Otra";
+            }
+            if (char.Equals(claveini.Trim(), "RADIO"))
+            {
+                WSSDTAltaServicio.Prioridad = "3";
+                WSSDTAltaServicio.Prestacion = "Llamado";
+                WSSDTAltaServicio.Origen_Causa = "C-Radio";
+                WSSDTAltaServicio.Origen_SubCausa = "Otra";
+            }
+            
             WSSDTAltaServicio.Particular = false;
             WSSDTAltaServicio.Vehiculo_Matricula = "";
             WSSDTAltaServicio.Vehiculo_Marca = "";
@@ -69,8 +84,8 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Origen_NumeroPta = llamdo["afinumpar"];
             WSSDTAltaServicio.Origen_Apto = llamdo["afiaptopar"];
             WSSDTAltaServicio.Origen_MiraHacia = "";
-            WSSDTAltaServicio.Origen_Latitud = "0E-14";
-            WSSDTAltaServicio.Origen_Longitud = "0E-14";
+            WSSDTAltaServicio.Origen_Latitud = llamdo["lat"];
+            WSSDTAltaServicio.Origen_Longitud = llamdo["lng"];
             WSSDTAltaServicio.Destino_Causa = "";
             WSSDTAltaServicio.Destino_SubCausa = "";
             WSSDTAltaServicio.Destino_LugarEspecial = "";
