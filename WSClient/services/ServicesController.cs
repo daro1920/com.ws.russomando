@@ -96,7 +96,7 @@ namespace WSClient.services
             dynamic ws = new JObject();
             ws.WSAutorizacion = autorizacion;
 
-            string dateIni = DateTime.Now.AddDays(-30).ToString("dd'-'MM'-'yyyy HH:mm:ss");
+            string dateIni = DateTime.Now.AddDays(-29).ToString("dd'-'MM'-'yyyy HH:mm:ss");
             string dateFin = DateTime.Now.ToString("dd'-'MM'-'yyyy HH:mm:ss");
 
             ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(null, dateIni, dateFin, estado);

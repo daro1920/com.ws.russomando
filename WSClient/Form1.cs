@@ -22,17 +22,17 @@ namespace WSClient
             Servicio servicio = factory.getServicio(serviceType);
 
             //geocodifico solo llamamdos
-            //if (servicio is Llamados) servController.getGoogleGeocoding(servicio);
+            if (servicio is Llamados) servController.getGoogleGeocoding(servicio);
 
             // alta nuevos servicios
-            //servController.altaServicio(servicio);
+            servController.altaServicio(servicio);
 
-            //servController.listarServicio(servicio);
+            servController.listarServicio(servicio);
 
             //devuleve lista de zonas
-            //servController.getListaZonas();
+            servController.getListaZonas();
 
-            //servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
+            servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
 
             servController.cerrarServicio(servicio, EstadosEnum.FINALIZADO);
 
