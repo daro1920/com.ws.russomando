@@ -8,6 +8,7 @@ using WSClient.models;
 using WSClient.data;
 using System.Collections.Generic;
 using WSClient.lists;
+using WSClient.enums;
 
 namespace WSClient.services
 {
@@ -65,14 +66,18 @@ namespace WSClient.services
             List<DataRow> rowList = servicio.getProcessedServicios();
             foreach (DataRow row in rowList)
             {
-                //TODO estudiar comportamiento 
-                ws.WSSDTFiltroServicio = servicio is Llamados ? listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EMPTY) : listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EMPTY);
+                //TODO estudiar comportamiento Por cada registro de llamados.dbf 
+                ws.WSSDTFiltroServicio = servicio is Llamados ? listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.ASIGNADO) : listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.ASIGNADO);
 
+                // los datos del ws 
                 result = getWSResult(LIST_SERVICE, ws);
 
                 // modificar dbf
                 // implementrar en Services Factory, llamados y traslados.
-                //servicio.setServicioLatLng(idrw,kdatoo....)
+                if ((String)result.WSSDTDatosServicios.Error != "No se encontraron registros que cumplan con los filtros ingresados") { 
+                    servicio.toProcesServicio(row, (String)result["WSSDTDatosServicios"]["SDTDatosServicios"][0]["Movil"]);
+                }
+
             }
         }
 
@@ -151,8 +156,9 @@ namespace WSClient.services
                 if (item["Prestacion"].ToString() != "Llamado") continue;
 
                 List<DataRow> rowList = servicio.getServicio(id);
+                List<DataRow> rowListp = servicio.getServiciop(id);
 
-                if (rowList.Count != 0) continue;
+                if (rowList.Count != 0 || rowListp.Count != 0) continue;
 
                 wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicio(id);
                 result = getWSResult(CREATE_CLOSE_SERVICE, wsClose);

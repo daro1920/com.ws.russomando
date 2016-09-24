@@ -18,6 +18,12 @@ namespace WSClient.models
             return getListServicio();
         }
 
+        public override List<DataRow> getServiciop(string id)
+        {
+            sqlServicio = @"select * from g:\tablaslibres\llamadosp where LLAID = " + id + " ";
+            return getListServicio();
+        }
+
         public override List<DataRow> getAllServicios()
         {
             sqlServicio = @"select * from g:\tablaslibres\llamados ";
@@ -59,12 +65,13 @@ namespace WSClient.models
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
             {
-                command.CommandText = @"update g:\tablaslibres\llamados set lat = " + lat + ", lng = " + lng + " where LLAID = " + id.ToString();
+                command.CommandText = @"update g:\tablaslibres\llamados set nroasis = 0, nroserv = 0, lat = " + lat + ", lng = " + lng + " where LLAID = " + id.ToString();
                 connectionHandler.Open();
                 command.ExecuteNonQuery();
                 connectionHandler.Close();
             }
         }
+
 
         public override void finalizarServicio(JArray serviciosFinalizados)
         {
@@ -73,71 +80,102 @@ namespace WSClient.models
             foreach (JObject servicio in serviciosFinalizados)
             {
                 string id = servicio["IdExterno"].ToString();
-                
+
                 if (servicio["Prestacion"].ToString() != "Llamado") continue;
 
 
-                List<DataRow> rowList = getServicio(id);
+                List<DataRow> rowList = getServiciop(id);
 
-                updateLlamadosR(rowList);
+                updateLlamadosR(rowList, servicio);
             }
-            
+
         }
 
-        private void updateLlamadosR(List<DataRow> rowList)
+        public override void toProcesServicio(DataRow row, string movil)
         {
             OleDbConnection connectionHandler = getConnectionHandler();
 
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
+            using (OleDbCommand command2 = connectionHandler.CreateCommand())
+            {
+
+
+                //servicio["Eventos"].[4]
+                command.CommandText = @"insert into g:\tablaslibres\llamadosp (LLAID,AFIID, LLANOM, LLAFCH," +
+                "LLAEDAD,LLADOM,DIACOD, DIANOM, LLATEL,LLACLAINI, MOVCODLLA ,EMPCODMED , LLANROHIS, LLAHORCOM " +
+                ", LLAHORSAL, LLAHORLLE,LLAHORFIN," +
+                "MOVCODAPO,EMPCODMEDA,LLAHORCOMA ,LLAHORSALA  ,LLAHORLLEA ,LLAHORFINA " +
+                ", MOVCODTRA ,LLAHORSALT  ,LLAHORLLET ,LLAHORFINT,LLADESTRA, DIACODFIN," +
+                " LLAOBS, LLACLAFIN, LLADEM, DIAPRE1, DIAPRE2, DIAPRE3, DIAPRE4, DIAPRE5, " +
+                " LLACLATEL, EMPCODTEL, LLATPO, FCHMOD, EMPCOD, LLANROCONF, LLADESTLLA," +
+                "LLADESTAPO, LLANROLIN, CONCOD, AFICTA, AFIDOMPAR, LOCCODPAR, AFINUMPAR, AFIBLOPAR, AFIAPTOPAR, AFISENPAR, AFISUBCPAR, AFISUBNPAR, AFIESQ1PAR, AFIESQ2PAR," +
+                " PRIORIDAD, PRIOCONV  , EMPCODENF, EMPCODCHO, RECLAMOS, NROASIS, NROSERV, LAT, LNG, ZONA, DEP,TIPO,CONVENIO)" +
+                " VALUES " +
+                "(" + row["LLAID"] + "," + row["AFIID"] + ",'" + row["LLANOM"] + "',ctot('" + row["LLAFCH"] + "')," + row["LLAEDAD"] + ",'" + row["LLADOM"] + "'," + row["DIACOD"] + ",'" + row["DIANOM"] + "','" +
+                row["LLATEL"] + "','" + row["LLACLAINI"] + "'," + movil + "," + row["EMPCODMED"] + "," + row["LLANROHIS"] + ",ctot('" + row["LLAHORCOM"] + "'),ctot('" + row["LLAHORSAL"] + "'),ctot('" + row["LLAHORLLE"] + "'),ctot('" + row["LLAHORFIN"] + "')," +
+                "" + row["MOVCODAPO"] + "," + row["EMPCODMEDA"] + ",datetime(),ctot('" + row["LLAHORSALA"] + "'),ctot('" + row["LLAHORLLEA"] + "'),ctot('" + row["LLAHORFINA"] + "')" +
+                "," + row["MOVCODTRA"] + ",ctot('" + row["LLAHORSALT"] + "'),ctot('" + row["LLAHORLLET"] + "'),ctot('" + row["LLAHORFINT"] + "'),'" + row["LLADESTRA"] + "'," + row["DIACODFIN"] + ", '" +
+                row["LLAOBS"] + "', " + row["LLACLAFIN"] + " , " + row["LLADEM"] + ",iif('TRUE'='" + row["DIAPRE1"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE2"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE3"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE4"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE5"] + "',.t.,.f.) , '" +
+                row["LLACLATEL"] + "'," + row["EMPCODTEL"] + " ,'" + row["LLATPO"] + "',ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + " ,'" + row["LLANROCONF"] + "','" + row["LLADESTLLA"] + "'," +
+                "'" + row["LLADESTAPO"] + "', " + row["LLANROLIN"] + " , " + row["CONCOD"] + ", " + row["AFICTA"] + ",'" + row["AFIDOMPAR"] + "', " + row["LOCCODPAR"] + ",'" + row["AFINUMPAR"] + "','" + row["AFIBLOPAR"] + "','" + row["AFIAPTOPAR"] + "','" +
+                row["AFISENPAR"] + "','" + row["AFISUBCPAR"] + "','" + row["AFISUBNPAR"] + "','" + row["AFIESQ1PAR"] + "','" + row["AFIESQ2PAR"] + "', " +
+                row["PRIORIDAD"] + "," + row["PRIOCONV"] + "," + row["EMPCODENF"] + ", " + row["EMPCODCHO"] + ", " + row["RECLAMOS"] + "," + row["NROASIS"] + "  ," + row["NROSERV"] + " , " +
+                row["LAT"] + "," + row["LNG"] + " ,'" + row["ZONA"] + "','" + row["DEP"] + "','" + row["TIPO"] + "','" + row["CONVENIO"] + "')";
+
+                command2.CommandText = @"delete from g:\tablaslibres\llamados where llaid = " + row["LLAID"];
+
+                connectionHandler.Open();
+                command.ExecuteNonQuery();
+                command2.ExecuteNonQuery();
+                connectionHandler.Close();
+
+            }
+        }
+
+
+        private void updateLlamadosR(List<DataRow> rowList,JObject servicio)
+        {
+            OleDbConnection connectionHandler = getConnectionHandler();
+
+            using (connectionHandler)
+            using (OleDbCommand command = connectionHandler.CreateCommand())
+            using (OleDbCommand command2 = connectionHandler.CreateCommand())
             {
                 foreach (DataRow row in rowList)
                 {
-                    //command.CommandText = @"insert into g:\principal\llamadosR (LLAID,AFIID,  LLANOM, LLAFCH,LLAEDAD,LLADOM,DIACOD, DIANOM, LLATEL,LLACLAINI, MOVCODLLA ,EMPCODMED , LLANROHIS," +
-                    //"LLAHORCOM , LLAHORSAL, LLAHORLLE,LLAHORFIN ,MOVCODAPO,EMPCODMEDA,LLAHORCOMA ,LLAHORSALA  ,LLAHORLLEA ,LLAHORFINA , MOVCODTRA ,LLAHORSALT  ,LLAHORLLET ,LLAHORFINT," +
-                    //"LLADESTRA , DIACODFIN, LLAOBS, LLACLAFIN, LLADEM ,DIAPRE1,DIAPRE2,DIAPRE3,DIAPRE4, DIAPRE5, LLACLATEL, EMPCODTEL, LLATPO, FCHMOD, EMPCOD, LLANROCONF, LLADESTLLA," +
-                    //"LLADESTAPO, LLANROLIN, CONCOD, AFICTA, AFIDOMPAR, LOCCODPAR, AFINUMPAR, AFIBLOPAR, AFIAPTOPAR, AFISENPAR, AFISUBCPAR, AFISUBNPAR, AFIESQ1PAR, AFIESQ2PAR, PRIORIDAD," +
-                    //"PRIOCONV  , EMPCODENF, EMPCODCHO, RECLAMOS, TIPO, CONVENIO, NROASIS, NROSERV, LAT, LNG, ZONA, DEP) "+
-                    //" VALUES "+
-                    //"("+ row["LLAID"]+ "," + row["AFIID"] + ",'" + row["LLANOM"] + "',ctot('" + row["LLAFCH"] + "'),"+row["LLAEDAD"]+ ",'" + row["LLADOM"] + "','" + row["DIACOD"] + ",'" + row["DIANOM"] + "','"+
-                    //row["LLATEL"] + "','"+ row["LLACLAINI"] + "'," + row["MOVCODLLA"] + "  ," + row["EMPCODMED"] + " ," + row["LLANROHIS"] + " ,ctot('" +
-                    //row["LLAHORCOM"] + "'),ctot('"+row["LLAHORSAL"] + "'),ctot('" + row["LLAHORLLE"] + "'),ctot('" + row["LLAHORFIN"] + "')," + row["MOVCODAPO"] + "," + row["EMPCODMEDA"] + ",ctot('" + row["LLAHORCOMA"] + "'),ctot('"+
-                    //row["LLAHORSALA"] + "'),ctot('" + row["LLAHORLLEA"] + "'),ctot('" + row["LLAHORFINA"] + "')," + row["MOVCODTRA"] + "  ,ctot('" + row["LLAHORSALT"] + "'),ctot('" + row["LLAHORLLET"] + "'),ctot('"+
-                    //row["LLAHORFINT"] + "'),'" + row["LLADESTRA"] + "'," + row["DIACODFIN"] + " ,'" + row["LLAOBS"] + "', " + row["LLACLAFIN"] + " , " + row["LLADEM"] + " ," + row["DIAPRE1"] + ","+
-                    //row["DIAPRE2"] + "," + row["DIAPRE3"] + "," + row["DIAPRE4"] + "," + row["DIAPRE5"] + " , " + row["LLACLATEL"] + "," + row["EMPCODTEL"] + " ,'" + row["LLATPO"] + "',ctot('"+
-                    //row["FCHMOD"] + "')," + row["EMPCOD"] + " ,'" + row["LLANROCONF"] + "','" + row["LLADESTLLA"] + "','" + row["LLADESTAPO"] + "', " + row["LLANROLIN"] + " , "+
-                    //row["CONCOD"] + ", " + row["AFICTA"] + ",'" + row["AFIDOMPAR"] + "', " + row["LOCCODPAR"] + ",'" + row["AFINUMPAR"] + "','" + row["AFIBLOPAR"] + "','" + row["AFIAPTOPAR"] + "','"+
-                    //row["AFISENPAR"] + "','" + row["AFISUBCPAR"] + "','" + row["AFISUBNPAR"] + "','" + row["AFIESQ1PAR"] + "','" + row["AFIESQ2PAR"] + "', " + row["PRIORIDAD"] + "," + row["PRIOCONV"] + ","+
-                    //row["EMPCODENF"] + ", " + row["EMPCODCHO"] + ", " + row["RECLAMOS"] + ",'" + row["TIPO"] + "','" + row["CONVENIO"] + "'," + row["NROASIS"] + "  ," + row["NROSERV"] + " , "+
-                    //row["LAT"] + "," + row["LNG"] + " ,'" + row["ZONA"] + "','" + row["DEP"] + "')";
 
+                    //servicio["Eventos"].[4]
                     command.CommandText = @"insert into g:\principal\llamadosR (LLAID,AFIID, LLANOM, LLAFCH," +
                     "LLAEDAD,LLADOM,DIACOD, DIANOM, LLATEL,LLACLAINI, MOVCODLLA ,EMPCODMED , LLANROHIS, LLAHORCOM " +
-                    ", LLAHORSAL, LLAHORLLE,LLAHORFIN,"+
-                    "MOVCODAPO,EMPCODMEDA,LLAHORCOMA ,LLAHORSALA  ,LLAHORLLEA ,LLAHORFINA "+
-                    ", MOVCODTRA ,LLAHORSALT  ,LLAHORLLET ,LLAHORFINT,LLADESTRA, DIACODFIN,"+
+                    ", LLAHORSAL, LLAHORLLE,LLAHORFIN," +
+                    "MOVCODAPO,EMPCODMEDA,LLAHORCOMA ,LLAHORSALA  ,LLAHORLLEA ,LLAHORFINA " +
+                    ", MOVCODTRA ,LLAHORSALT  ,LLAHORLLET ,LLAHORFINT,LLADESTRA, DIACODFIN," +
                     " LLAOBS, LLACLAFIN, LLADEM, DIAPRE1, DIAPRE2, DIAPRE3, DIAPRE4, DIAPRE5, " +
-                    " LLACLATEL, EMPCODTEL, LLATPO, FCHMOD, EMPCOD, LLANROCONF, LLADESTLLA,"+
-                    "LLADESTAPO, LLANROLIN, CONCOD, AFICTA, AFIDOMPAR, LOCCODPAR, AFINUMPAR, AFIBLOPAR, AFIAPTOPAR, AFISENPAR, AFISUBCPAR, AFISUBNPAR, AFIESQ1PAR, AFIESQ2PAR,"+
+                    " LLACLATEL, EMPCODTEL, LLATPO, FCHMOD, EMPCOD, LLANROCONF, LLADESTLLA," +
+                    "LLADESTAPO, LLANROLIN, CONCOD, AFICTA, AFIDOMPAR, LOCCODPAR, AFINUMPAR, AFIBLOPAR, AFIAPTOPAR, AFISENPAR, AFISUBCPAR, AFISUBNPAR, AFIESQ1PAR, AFIESQ2PAR," +
                     " PRIORIDAD, PRIOCONV  , EMPCODENF, EMPCODCHO, RECLAMOS, NROASIS, NROSERV, LAT, LNG, ZONA, DEP)" +
                     " VALUES " +
                     "(" + row["LLAID"] + "," + row["AFIID"] + ",'" + row["LLANOM"] + "',ctot('" + row["LLAFCH"] + "')," + row["LLAEDAD"] + ",'" + row["LLADOM"] + "'," + row["DIACOD"] + ",'" + row["DIANOM"] + "','" +
-                    row["LLATEL"] + "','" + row["LLACLAINI"] + "'," + row["MOVCODLLA"] + "," + row["EMPCODMED"] + "," + row["LLANROHIS"] + ",ctot('" + row["LLAHORCOM"] + "'),ctot('" + row["LLAHORSAL"] + "'),ctot('" + row["LLAHORLLE"] + "'),ctot('" + row["LLAHORFIN"] + "'),"+
-                    "" + row["MOVCODAPO"] + "," + row["EMPCODMEDA"] + ",ctot('" + row["LLAHORCOMA"] + "'),ctot('" + row["LLAHORSALA"] + "'),ctot('" + row["LLAHORLLEA"] + "'),ctot('" + row["LLAHORFINA"] + "')"+
-                    "," + row["MOVCODTRA"] + ",ctot('" + row["LLAHORSALT"] + "'),ctot('" + row["LLAHORLLET"] + "'),ctot('" +row["LLAHORFINT"] + "'),'" + row["LLADESTRA"] + "'," + row["DIACODFIN"] + ", '" +
-                    row["LLAOBS"] + "', " + row["LLACLAFIN"] + " , " + row["LLADEM"] + ",iif('TRUE'='" + row["DIAPRE1"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE2"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE3"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE4"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE5"] + "',.t.,.f.) , '"+
-                    row["LLACLATEL"] + "'," + row["EMPCODTEL"] + " ,'" + row["LLATPO"] + "',ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + " ,'" + row["LLANROCONF"] + "','" + row["LLADESTLLA"] +"',"+
-                    "'" + row["LLADESTAPO"] + "', " + row["LLANROLIN"] + " , "+ row["CONCOD"] + ", " + row["AFICTA"] + ",'" + row["AFIDOMPAR"] + "', " + row["LOCCODPAR"] + ",'" + row["AFINUMPAR"] + "','" + row["AFIBLOPAR"] + "','" + row["AFIAPTOPAR"] + "','" +
+                    row["LLATEL"] + "','" + row["LLACLAINI"] + "'," + row["MOVCODLLA"] + "," + row["EMPCODMED"] + "," + row["LLANROHIS"] + ",ctot('" + row["LLAHORCOM"] + "'),ctot('" + row["LLAHORSAL"] + "'),ctot('" + row["LLAHORLLE"] + "'),ctot('" + row["LLAHORFIN"] + "')," +
+                    "" + row["MOVCODAPO"] + "," + row["EMPCODMEDA"] + ",ctot('" + row["LLAHORCOMA"] + "'),ctot('" + row["LLAHORSALA"] + "'),ctot('" + row["LLAHORLLEA"] + "'),ctot('" + row["LLAHORFINA"] + "')" +
+                    "," + row["MOVCODTRA"] + ",ctot('" + row["LLAHORSALT"] + "'),ctot('" + row["LLAHORLLET"] + "'),ctot('" + row["LLAHORFINT"] + "'),'" + row["LLADESTRA"] + "'," + row["DIACODFIN"] + ", '" +
+                    servicio["Eventos"][4]["EventoParametros"][1]["Valor"] + "', " + row["LLACLAFIN"] + " , " + row["LLADEM"] + ",iif('TRUE'='" + row["DIAPRE1"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE2"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE3"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE4"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE5"] + "',.t.,.f.) , '" +
+                    row["LLACLATEL"] + "'," + row["EMPCODTEL"] + " ,'" + row["LLATPO"] + "',ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + " ,'" + row["LLANROCONF"] + "','" + row["LLADESTLLA"] + "'," +
+                    "'" + row["LLADESTAPO"] + "', " + row["LLANROLIN"] + " , " + row["CONCOD"] + ", " + row["AFICTA"] + ",'" + row["AFIDOMPAR"] + "', " + row["LOCCODPAR"] + ",'" + row["AFINUMPAR"] + "','" + row["AFIBLOPAR"] + "','" + row["AFIAPTOPAR"] + "','" +
                     row["AFISENPAR"] + "','" + row["AFISUBCPAR"] + "','" + row["AFISUBNPAR"] + "','" + row["AFIESQ1PAR"] + "','" + row["AFIESQ2PAR"] + "', " +
                     row["PRIORIDAD"] + "," + row["PRIOCONV"] + "," + row["EMPCODENF"] + ", " + row["EMPCODCHO"] + ", " + row["RECLAMOS"] + "," + row["NROASIS"] + "  ," + row["NROSERV"] + " , " +
                     row["LAT"] + "," + row["LNG"] + " ,'" + row["ZONA"] + "','" + row["DEP"] + "')";
 
+                    command2.CommandText = @"delete from g:\tablaslibres\llamadosp where llaid = " + row["LLAID"];
+
                     connectionHandler.Open();
                     command.ExecuteNonQuery();
+                    command2.ExecuteNonQuery();
                     connectionHandler.Close();
 
                 }
-                
+
             }
         }
     }

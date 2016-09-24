@@ -17,6 +17,12 @@ namespace WSClient.models
             return getListServicio();
         }
 
+        public override List<DataRow> getServiciop(string id)
+        {
+            sqlServicio = @"select * from g:\Principal\traslados where tranro = " + id + " ";
+            return getListServicio();
+        }
+
         public override List<DataRow> getAllServicios()
         {
             sqlServicio = @"select * from g:\Principal\traslados ";
@@ -84,6 +90,12 @@ namespace WSClient.models
 
                 updateTrasladosR(rowList);
             }
+
+        }
+
+        public override void toProcesServicio(DataRow row, string movil)
+        {
+
 
         }
 
