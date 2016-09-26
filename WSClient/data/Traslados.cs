@@ -99,32 +99,13 @@ namespace WSClient.models
 
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
-            using (OleDbCommand command2 = connectionHandler.CreateCommand())
             {
-                
-                command.CommandText = @"insert into g:\principal\trasladosp (TRANRO,TRAFCHING, ENORIGEN,TRAINS,TRAINSDSC,TRAMED,TRAFCH ,TRAORI, TRADES,TRADESF,TRAPAC, " +
-                "TRATEL,TRADOC,TRAEDAD ,TRASEX, TRADIA,TRATPO ,TRATPODSC,TRAOBS,TRAMOV,TRAMOVR,PRONTO ,TRABAS , TRABASR ,TRARES, TRAFCHRES ,TRAFCHRESR  ," +
-                "TRANROFORM,TRAFCHSAL1 ,TRAFCHLLE1,TRAFCHSAL2 ,TRAFCHLLE2 , TRAFCHSAL3 ,TRAFCHLLE3 , TRALIBMOV ,FCHMOD , EMPCOD ,TRAAGENDA,EMPCODTEL ," +
-                "NROASIS,NROSERV, LATORI,LNGORI,ZONAORI,DEP,LATDES,LNGDES,ZONADES,DEPDES,LATDESF,LNGDESF,ZONADESF,DEPDESF) " +
-                " VALUES " +
-                "(" +
-                row["TRANRO"] + ",ctot('" + row["TRAFCHING"] + "'),iif('TRUE'='" + row["ENORIGEN"] + "',.t.,.f.)," + row["TRAINS"] + ",'" + row["TRAINSDSC"] + "','" + row["TRAMED"] + "'," +
-                "ctot('" + row["TRAFCH"] + "'),'" + row["TRAORI"] + "','" + row["TRADES"] + "','" + row["TRADESF"] + "','" + row["TRAPAC"] + "','" + row["TRATEL"] + "'," +
-                row["TRADOC"] + "," + row["TRAEDAD"] + ",'" + row["TRASEX"] + "','" + row["TRADIA"] + "'," + row["TRATPO"] + ",'" + row["TRATPODSC"] + "','" + row["TRAOBS"] + "'," +
-                movil + "," + row["TRAMOVR"] + ",ctot('" + row["PRONTO"] + "')," + row["TRABAS"] + "," + row["TRABASR"] + ",'" + row["TRARES"] +
-                "',ctot('" + row["TRAFCHRES"] + "'),ctot('" + row["TRAFCHRESR"] + "')," + row["TRANROFORM"] + ",ctot('" + row["TRAFCHSAL1"] + "'),ctot('" + row["TRAFCHLLE1"] + "')," +
-                "ctot('" + row["TRAFCHSAL2"] + "'),ctot('" + row["TRAFCHLLE2"] + "'),ctot('" + row["TRAFCHSAL3"] + "'),ctot('" + row["TRAFCHLLE3"] + "')," + row["TRALIBMOV"] +
-                ",ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + "," + row["TRAAGENDA"] + "," + row["EMPCODTEL"] + "," + row["EMPCODTEL"] + "," + row["NROASIS"] + "," +
-                row["NROSERV"] + "," + row["LATORI"] + "," + row["LNGORI"] + ",'" + row["ZONAORI"] + "','" + row["DEP"] + "'," + row["LATDES"] + "," +
-                row["LNGDES"] + ",'" + row["ZONADES"] + "','" + row["DEPDES"] + "'," + row["LATDESF"] + "," + row["LNGDESF"] + ",'" + row["ZONADESF"] + "','" + row["DEPDESF"] + "')";
 
-                command2.CommandText = @"delete from g:\tablaslibres\traslados where TRANRO = " + row["TRANRO"];
-
+                command.CommandText = @"update g:\principal\traslados set tramov="+movil+ " where tranro = " + row["TRANRO"];
                 connectionHandler.Open();
+
                 command.ExecuteNonQuery();
-                command2.ExecuteNonQuery();
                 connectionHandler.Close();
-                
             }
 
         }
@@ -151,14 +132,14 @@ namespace WSClient.models
                      row["TRANRO"] + ",ctot('" + row["TRAFCHING"] + "'),iif('TRUE'='" + row["ENORIGEN"] + "',.t.,.f.)," + row["TRAINS"] + ",'" + row["TRAINSDSC"] + "','" + row["TRAMED"] + "'," +
                      "ctot('" + row["TRAFCH"] + "'),'" + row["TRAORI"] + "','" + row["TRADES"] + "','" + row["TRADESF"] + "','" + row["TRAPAC"] + "','" + row["TRATEL"] + "'," +
                      row["TRADOC"] + "," + row["TRAEDAD"] + ",'" + row["TRASEX"] + "','" + row["TRADIA"] + "'," + row["TRATPO"] + ",'" + row["TRATPODSC"] + "','" + row["TRAOBS"] + "'," +
-                     row["TRAMOV"] + "," + row["TRAMOVR"] + ",ctot('" + row["PRONTO"] + "')," + row["TRABAS"] + "," + row["TRABASR"] + ",'" + row["TRARES"] +
-                     "',ctot('" + row["TRAFCHRES"] + "'),ctot('" + row["TRAFCHRESR"] + "')," + row["TRANROFORM"] + ",ctot('" + row["TRAFCHSAL1"] + "'),ctot('" + row["TRAFCHLLE1"] + "')," +
-                     "ctot('" + row["TRAFCHSAL2"] + "'),ctot('" + row["TRAFCHLLE2"] + "'),ctot('" + row["TRAFCHSAL3"] + "'),ctot('" + row["TRAFCHLLE3"] + "')," + row["TRALIBMOV"] +
-                     ",ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + "," + row["TRAAGENDA"] + "," + row["EMPCODTEL"] + "," + row["EMPCODTEL"] + "," + row["NROASIS"] + "," +
+                     row["TRAMOV"] + "," + row["TRAMOVR"] + ",ctot('" + row["PRONTO"] + "')," + row["TRABAS"] + "," + row["TRABASR"] + ",'" + row["TRARES"] +","+
+                     "ctot('" + row["TRAFCHRES"] + "'),ctot('" + row["TRAFCHRESR"] + "')," + row["TRANROFORM"] + ",ctot('" + row["TRAFCHSAL1"] + "'),ctot('" + row["TRAFCHLLE1"] + "')," +
+                     "ctot('" + row["TRAFCHSAL2"] + "'),ctot('" + row["TRAFCHLLE2"] + "'),ctot('" + row["TRAFCHSAL3"] + "'),ctot('" + row["TRAFCHLLE3"] + "'),ctot('" + row["TRALIBMOV"] +"'),"+
+                     "ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + "," + row["TRAAGENDA"] + "," + row["EMPCODTEL"] + "," + row["EMPCODTEL"] + "," + row["NROASIS"] + "," +
                      row["NROSERV"] + "," + row["LATORI"] + "," + row["LNGORI"] + ",'" + row["ZONAORI"] + "','" + row["DEP"] + "'," + row["LATDES"] + "," +
                      row["LNGDES"] + ",'" + row["ZONADES"] + "','" + row["DEPDES"] + "'," + row["LATDESF"] + "," + row["LNGDESF"] + ",'" + row["ZONADESF"] + "','" + row["DEPDESF"] + "')";
 
-                    command2.CommandText = @"delete from g:\tablaslibres\trasladosp where TRANRO = " + row["TRANRO"];
+                    command2.CommandText = @"delete from g:\tablaslibres\traslados where TRANRO = " + row["TRANRO"];
 
                     connectionHandler.Open();
                     command.ExecuteNonQuery();
