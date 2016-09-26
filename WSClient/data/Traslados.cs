@@ -118,7 +118,7 @@ namespace WSClient.models
                 row["NROSERV"] + "," + row["LATORI"] + "," + row["LNGORI"] + ",'" + row["ZONAORI"] + "','" + row["DEP"] + "'," + row["LATDES"] + "," +
                 row["LNGDES"] + ",'" + row["ZONADES"] + "','" + row["DEPDES"] + "'," + row["LATDESF"] + "," + row["LNGDESF"] + ",'" + row["ZONADESF"] + "','" + row["DEPDESF"] + "')";
 
-                command2.CommandText = @"delete from g:\tablaslibres\traslados where llaid = " + row["LLAID"];
+                command2.CommandText = @"delete from g:\tablaslibres\traslados where TRANRO = " + row["TRANRO"];
 
                 connectionHandler.Open();
                 command.ExecuteNonQuery();
@@ -158,7 +158,7 @@ namespace WSClient.models
                      row["NROSERV"] + "," + row["LATORI"] + "," + row["LNGORI"] + ",'" + row["ZONAORI"] + "','" + row["DEP"] + "'," + row["LATDES"] + "," +
                      row["LNGDES"] + ",'" + row["ZONADES"] + "','" + row["DEPDES"] + "'," + row["LATDESF"] + "," + row["LNGDESF"] + ",'" + row["ZONADESF"] + "','" + row["DEPDESF"] + "')";
 
-                    command2.CommandText = @"delete from g:\tablaslibres\trasladosp where llaid = " + row["LLAID"];
+                    command2.CommandText = @"delete from g:\tablaslibres\trasladosp where TRANRO = " + row["TRANRO"];
 
                     connectionHandler.Open();
                     command.ExecuteNonQuery();
