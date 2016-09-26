@@ -35,24 +35,50 @@ namespace WSClient.services
             dynamic ws = new JObject();
             ws.WSAutorizacion = autorizacion;
 
-            dynamic result;
+            
             List<DataRow> rowList = servicio.getNonProcessedServicios();
             foreach (DataRow row in rowList)
             {
 
-                ws.WSSDTAltaServicio = servicio is Llamados ? alta.getWSSDTAltaServicio(row) : alta.getWSSDTAltaServicioTraslado(row);
-
-                result = getWSResult(CREATE_CLOSE_SERVICE, ws);
-                // actualizados o nuevo OJO
-                if (result.WSSDTDatoNroServicio.NroServicio != 0)
+                if (servicio is Llamados)
                 {
-                    var id = servicio is Llamados ? (Int32)row["llaid"] : (Decimal)row["tranro"];
-                    Int32 nroServicio = Convert.ToInt32(result.WSSDTDatoNroServicio.NroServicio);
-                    Int32 nroAsistencia = Convert.ToInt32(result.WSSDTDatoNroServicio.NroAsistencia);
+                    ws.WSSDTAltaServicio = alta.getWSSDTAltaServicio(row);
+                    setServicio(servicio,ws,row);
 
-                    servicio.setServicio(id, nroServicio, nroAsistencia);
+                } else
+                {
+                    if(row["trades"].ToString() == "")
+                    {
+                        // traslado solo de IDA 
+                        ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["tradesf"],null);
+                        setServicio(servicio, ws, row);
+                    } else
+                    {
+                        //traslado IDA
+                        ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["trades"],null);
+                        setServicio(servicio, ws, row);
+
+                        //traslado Vuelta
+                        ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["trades"], row["tradesf"], row["tranro"]);
+                        setServicio(servicio, ws, row);
+                    }
+                    
                 }
+                
+            }
+        }
+        private void setServicio(Servicio servicio, dynamic ws, DataRow row)
+        {
+            dynamic result;
+            result = getWSResult(CREATE_CLOSE_SERVICE, ws);
+            // actualizados o nuevo OJO
+            if (result.WSSDTDatoNroServicio.NroServicio != 0)
+            {
+                var id = servicio is Llamados ? (Int32)row["llaid"] : (Decimal)row["tranro"];
+                Int32 nroServicio = Convert.ToInt32(result.WSSDTDatoNroServicio.NroServicio);
+                Int32 nroAsistencia = Convert.ToInt32(result.WSSDTDatoNroServicio.NroAsistencia);
 
+                servicio.setServicio(id, nroServicio, nroAsistencia);
             }
         }
 
@@ -67,7 +93,9 @@ namespace WSClient.services
             foreach (DataRow row in rowList)
             {
                 //TODO estudiar comportamiento Por cada registro de llamados.dbf 
-                ws.WSSDTFiltroServicio = servicio is Llamados ? listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.ASIGNADO) : listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.ASIGNADO);
+                ws.WSSDTFiltroServicio = servicio is Llamados ? 
+                    listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.ASIGNADO) :
+                    listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.ASIGNADO) ;
 
                 // los datos del ws 
                 result = getWSResult(LIST_SERVICE, ws);

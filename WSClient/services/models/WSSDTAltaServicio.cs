@@ -108,13 +108,13 @@ namespace WSClient.services.models
             return WSSDTAltaServicio;
         }
 
-        public JObject getWSSDTAltaServicioTraslado(DataRow traslado)
+        public JObject getWSSDTAltaServicioTraslado(DataRow traslado, object origen, object destino,object nroAsistencia)
         {
             // se completan los datos a enviar
             dynamic WSSDTAltaServicio = new JObject();
             WSSDTAltaServicio.CancelarTarea = "NO";
             WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
-            WSSDTAltaServicio.NroAsistencia = traslado["tranro"];
+            WSSDTAltaServicio.NroAsistencia = nroAsistencia;
             WSSDTAltaServicio.NroServicio = traslado["tranro"];
             WSSDTAltaServicio.CuentaCodigoExterno = traslado["tranro"];
             WSSDTAltaServicio.Procedencia = "Russomando";
@@ -140,13 +140,13 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Vehiculo_Modelo = "";
             WSSDTAltaServicio.Vehiculo_Anio = 2013;
             WSSDTAltaServicio.Detalle = traslado["tradia"];
-            WSSDTAltaServicio.Programado = "";
+            WSSDTAltaServicio.Programado = traslado["trafch"];
             WSSDTAltaServicio.Origen_LugarEspecial = "";
             WSSDTAltaServicio.Origen_Pais = "Uruguay";
             WSSDTAltaServicio.Origen_Departamento = "Montevideo";
             WSSDTAltaServicio.Origen_Ciudad = "Montevideo";
             WSSDTAltaServicio.Origen_Zona = "";
-            WSSDTAltaServicio.Origen_Calle = traslado["traori"];
+            WSSDTAltaServicio.Origen_Calle = origen;
             WSSDTAltaServicio.Origen_Esquina = "";
             WSSDTAltaServicio.Origen_NumeroPta = "";
             WSSDTAltaServicio.Origen_Apto = "";
@@ -160,7 +160,7 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Destino_Departamento = "Montevideo";
             WSSDTAltaServicio.Destino_Ciudad = "Montevideo";
             WSSDTAltaServicio.Destino_Zona = "";
-            WSSDTAltaServicio.Destino_Calle = "*";
+            WSSDTAltaServicio.Destino_Calle = destino;
             WSSDTAltaServicio.Destino_Esquina = "";
             WSSDTAltaServicio.Destino_NumeroPta = "";
             WSSDTAltaServicio.Destino_Apto = "";
