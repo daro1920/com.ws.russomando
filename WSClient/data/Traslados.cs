@@ -13,31 +13,32 @@ namespace WSClient.models
 
         public override List<DataRow> getServicio(string id)
         {
-            sqlServicio = @"select * from g:\Principal\traslados where tranro = " + id + " ";
+            sqlServicio = @"select * from g:\Principal\traslados where tratpo = 11 and tranro = " + id + " ";
             return getListServicio();
         }
 
         public override List<DataRow> getServiciop(string id)
         {
-            sqlServicio = @"select * from g:\Principal\trasladosp where tranro = " + id + " ";
+            //proceso
+            sqlServicio = @"select * from g:\Principal\traslados where tratpo = 11 and tranro = " + id + " ";
             return getListServicio();
         }
 
         public override List<DataRow> getAllServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados ";
+            sqlServicio = @"select * from g:\Principal\traslados where tratpo = 11 ";
             return getListServicio();
         }
 
         public override List<DataRow> getProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where nroserv <> 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where  tratpo = 11 and nroserv <> 0 ";
             return getListServicio();
         }
 
         public override List<DataRow> getNonProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where nroserv = 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where   tratpo = 11 and nroserv = 0 ";
             return getListServicio();
         }
 

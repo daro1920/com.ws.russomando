@@ -114,7 +114,7 @@ namespace WSClient.services.models
             dynamic WSSDTAltaServicio = new JObject();
             WSSDTAltaServicio.CancelarTarea = "NO";
             WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
-            WSSDTAltaServicio.NroAsistencia = nroAsistencia;
+            WSSDTAltaServicio.NroAsistencia = nroAsistencia != null? nroAsistencia : "";
             WSSDTAltaServicio.NroServicio = traslado["tranro"];
             WSSDTAltaServicio.CuentaCodigoExterno = traslado["tranro"];
             WSSDTAltaServicio.Procedencia = "Russomando";

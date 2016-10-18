@@ -117,7 +117,7 @@ namespace WSClient.models
                 "" + row["MOVCODAPO"] + "," + row["EMPCODMEDA"] + ",datetime(),ctot('" + row["LLAHORSALA"] + "'),ctot('" + row["LLAHORLLEA"] + "'),ctot('" + row["LLAHORFINA"] + "')" +
                 "," + row["MOVCODTRA"] + ",ctot('" + row["LLAHORSALT"] + "'),ctot('" + row["LLAHORLLET"] + "'),ctot('" + row["LLAHORFINT"] + "'),'" + row["LLADESTRA"] + "'," + row["DIACODFIN"] + ", '" +
                 row["LLAOBS"] + "', " + row["LLACLAFIN"] + " , " + row["LLADEM"] + ",iif('TRUE'='" + row["DIAPRE1"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE2"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE3"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE4"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE5"] + "',.t.,.f.) , '" +
-                row["LLACLATEL"] + "'," + row["EMPCODTEL"] + " ,'" + row["LLATPO"] + "',ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + " ,'" + row["LLANROCONF"] + "','" + row["LLADESTLLA"] + "'," +
+                row["LLACLATEL"] + "'," + row["EMPCODTEL"] + " ,'" + row["LLATPO"] + "',ctot('" + row["FCHMOD"] + "'),1 ,'" + row["LLANROCONF"] + "','" + row["LLADESTLLA"] + "'," +
                 "'" + row["LLADESTAPO"] + "', " + row["LLANROLIN"] + " , " + row["CONCOD"] + ", " + row["AFICTA"] + ",'" + row["AFIDOMPAR"] + "', " + row["LOCCODPAR"] + ",'" + row["AFINUMPAR"] + "','" + row["AFIBLOPAR"] + "','" + row["AFIAPTOPAR"] + "','" +
                 row["AFISENPAR"] + "','" + row["AFISUBCPAR"] + "','" + row["AFISUBNPAR"] + "','" + row["AFIESQ1PAR"] + "','" + row["AFIESQ2PAR"] + "', " +
                 row["PRIORIDAD"] + "," + row["PRIOCONV"] + "," + row["EMPCODENF"] + ", " + row["EMPCODCHO"] + ", " + row["RECLAMOS"] + "," + row["NROASIS"] + "  ," + row["NROSERV"] + " , " +
