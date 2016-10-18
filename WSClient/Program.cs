@@ -8,6 +8,8 @@ namespace WSClient
 {
     static class Program
     {
+        public static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
