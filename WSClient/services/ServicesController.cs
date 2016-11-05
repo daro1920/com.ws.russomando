@@ -37,8 +37,8 @@ namespace WSClient.services
             dynamic ws = new JObject();
             ws.WSAutorizacion = autorizacion;
 
-            try
-            {
+            //try
+            //{
                 List<DataRow> rowList = servicio.getNonProcessedServicios();
                 foreach (DataRow row in rowList)
                 {
@@ -51,20 +51,20 @@ namespace WSClient.services
                     }
                     else
                     {
-                        if (row["trades"].ToString() == "")
+                        if (row["trades"].ToString().Trim() == "")
                         {
                             // traslado solo de IDA 
-                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["tradesf"], null);
+                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["tradesf"], null,0.0);
                             setServicio(servicio, ws, row);
                         }
                         else
                         {
                             //traslado IDA
-                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["trades"], null);
+                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["trades"], null,0.0);
                             setServicio(servicio, ws, row);
 
                             //traslado Vuelta
-                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["trades"], row["tradesf"], row["tranro"]);
+                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["trades"], row["tradesf"], row["tranro"],0.1);
                             setServicio(servicio, ws, row);
                         }
 
@@ -72,11 +72,11 @@ namespace WSClient.services
 
                 }
 
-            }
-            catch (Exception e)
-            {
-                Program.log.Error("Error en Alta de servicios " + serv+" " + e);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    Program.log.Error("Error en Alta de servicios " + serv+" " + e);
+            //}
             
         }
         private void setServicio(Servicio servicio, dynamic ws, DataRow row)
@@ -84,11 +84,12 @@ namespace WSClient.services
             String serv = servicio is Llamados ? "llamados" : "traslados";
             Program.log.Debug("setServicio : Procesando " + serv);
             dynamic result = EMPTY;
-            try
-            {
+            //try
+            //{
                 result = getWSResult(CREATE_CLOSE_SERVICE, ws);
                 // actualizados o nuevo OJO
-                if (result != EMPTY && result.WSSDTDatoNroServicio.NroServicio != 0)
+                //if (result != EMPTY && result.WSSDTDatoNroServicio.NroServicio != 0)
+                if ( result.WSSDTDatoNroServicio.NroServicio != 0)
                 {
                     var id = servicio is Llamados ? (Int32)row["llaid"] : (Decimal)row["tranro"];
                     Int32 nroServicio = Convert.ToInt32(result.WSSDTDatoNroServicio.NroServicio);
@@ -96,11 +97,11 @@ namespace WSClient.services
 
                     servicio.setServicio(id, nroServicio, nroAsistencia);
                 }
-            }
-            catch (Exception e)
-            {
-                Program.log.Error("Error Creando servicios " + serv+" " + e);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    Program.log.Error("Error Creando servicios " + serv+" " + e);
+            //}
             
         }
 
@@ -120,13 +121,14 @@ namespace WSClient.services
                 {
                     //TODO estudiar comportamiento Por cada registro de llamados.dbf 
                     ws.WSSDTFiltroServicio = servicio is Llamados ?
-                        listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.ASIGNADO) :
-                        listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.ASIGNADO);
+                        listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.EN_CAMINO) :
+                        listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
 
                     // los datos del ws 
                     result = getWSResult(LIST_SERVICE, ws);
 
-                    if (result == EMPTY || result.status != "OK") continue;
+                    //if (result == EMPTY || result.status != "OK") continue;
+                    if (result== null) continue;
                     // modificar dbf
                     // implementrar en Services Factory, llamados y traslados.
                     if ((String)result.WSSDTDatosServicios.Error != "No se encontraron registros que cumplan con los filtros ingresados")
@@ -156,7 +158,7 @@ namespace WSClient.services
             {
 
                 dynamic result = getWSResult(LIST_ZONES, ws);
-                if (result != EMPTY && result.status == "OK")
+                if (result != null )
                 {
                     Program.log.Info("getListaZonas ");
                     listZones = result.WSSDTOutZonas.WSSDTZonas.ToObject<List<Zona>>();
@@ -181,14 +183,14 @@ namespace WSClient.services
             JArray servArray = new JArray();
             try
             {
-                string dateIni = DateTime.Now.AddDays(-29).ToString("dd'-'MM'-'yyyy HH:mm:ss");
+                string dateIni = DateTime.Now.AddDays(-1).ToString("dd'-'MM'-'yyyy HH:mm:ss");
                 string dateFin = DateTime.Now.ToString("dd'-'MM'-'yyyy HH:mm:ss");
 
                 ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(null, dateIni, dateFin, estado);
 
                 dynamic result = getWSResult(LIST_SERVICE, ws);
 
-                if (result != EMPTY && result.status == "OK")
+                if (result != null )
                 {
                     Program.log.Info("getServicios ");
                     servArray =  result.WSSDTDatosServicios.SDTDatosServicios;
@@ -266,7 +268,7 @@ namespace WSClient.services
                     wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicio(id);
                     result = getWSResult(CREATE_CLOSE_SERVICE, wsClose);
 
-                    if (result == EMPTY || result.status != "OK") continue;
+                    if (result == null ) continue;
 
                     Program.log.Info("Garbage Collector Llamados, notas: " + result.WSSDTDatoNroServicio.Notas);
 
@@ -299,7 +301,7 @@ namespace WSClient.services
                     wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicio(id);
                     result = getWSResult(CREATE_CLOSE_SERVICE, wsClose);
 
-                    if (result == EMPTY || result.status != "OK") continue;
+                    if (result == null ) continue;
 
                     Program.log.Info("Garbage Collector Traslados, notas: " + result.WSSDTDatoNroServicio.Notas);
 
@@ -352,7 +354,7 @@ namespace WSClient.services
                     url = GEO_GOOGLE + "address=" + num + "+" + street + "+%26+" + street2 + ",+" + zone + ",+" + city + "&key=" + googleKey + "";
                     result = getWSResult(url, EMPTY);
 
-                    if (result == EMPTY || result.status != "OK") continue;
+                    if (result == null) continue;
 
                     Program.log.Info("Geocodificacion : address=" + num + "+" + street + "+%26+" + street2 + ",+" + zone + ",+" + city);
 
@@ -385,7 +387,7 @@ namespace WSClient.services
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
 
-            dynamic result = EMPTY;
+            dynamic result = null;
             try
             {
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))

@@ -13,32 +13,32 @@ namespace WSClient.models
 
         public override List<DataRow> getServicio(string id)
         {
-            sqlServicio = @"select * from g:\Principal\traslados where tratpo = 11 and tranro = " + id + " ";
+            sqlServicio = @"select * from g:\Principal\traslados where  tranro = " + id + " ";
             return getListServicio();
         }
 
         public override List<DataRow> getServiciop(string id)
         {
             //proceso
-            sqlServicio = @"select * from g:\Principal\traslados where tratpo = 11 and tranro = " + id + " ";
+            sqlServicio = @"select * from g:\Principal\traslados where tranro = " + id + " ";
             return getListServicio();
         }
 
         public override List<DataRow> getAllServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where tratpo = 11 ";
+            sqlServicio = @"select * from g:\Principal\traslados where trafch < datetime()+(60*60*8)  ";
             return getListServicio();
         }
 
         public override List<DataRow> getProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where  tratpo = 11 and nroserv <> 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*8) and  nroserv <> 0 ";
             return getListServicio();
         }
 
         public override List<DataRow> getNonProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where   tratpo = 11 and nroserv = 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where   trafch < datetime()+(60*60*8) and nroserv = 0 ";
             return getListServicio();
         }
 
@@ -79,19 +79,17 @@ namespace WSClient.models
 
         public override void finalizarServicio(JArray serviciosFinalizados)
         {
-
-
             foreach (JObject servicio in serviciosFinalizados)
             {
                 string id = servicio["IdExterno"].ToString();
 
-                if (servicio["Prestacion"].ToString() != "Llamado") continue;
+                if (servicio["Prestacion"].ToString() != "Llamado")
+                {
+                    List<DataRow> rowList = getServicio(id);
 
-                List<DataRow> rowList = getServicio(id);
-
-                updateTrasladosR(rowList);
+                    updateTrasladosR(rowList);
+                }
             }
-
         }
 
         public override void toProcesServicio(DataRow row, string movil)
@@ -101,14 +99,13 @@ namespace WSClient.models
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
             {
-
-                command.CommandText = @"update g:\principal\traslados set tramov="+movil+ " where tranro = " + row["TRANRO"];
+                string traMovCondition = row["TRANRO"].ToString().IndexOf("0.1") > 0 ? "tramovr="+movil : "tramov="+movil;
+                command.CommandText = @"update g:\principal\traslados set "+ traMovCondition + " where tranro = " + row["TRANRO"];
                 connectionHandler.Open();
 
                 command.ExecuteNonQuery();
                 connectionHandler.Close();
             }
-
         }
 
         private void updateTrasladosR(List<DataRow> rowList)

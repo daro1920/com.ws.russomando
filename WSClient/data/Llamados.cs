@@ -65,7 +65,7 @@ namespace WSClient.models
             using (connectionHandler)
             using (OleDbCommand command = connectionHandler.CreateCommand())
             {
-                command.CommandText = @"update g:\tablaslibres\llamados set nroasis = 0, nroserv = 0, lat = " + lat + ", lng = " + lng + " where LLAID = " + id.ToString();
+                command.CommandText = @"update g:\tablaslibres\llamados set  nroserv = 0, lat = " + lat + ", lng = " + lng + " where LLAID = " + id.ToString();
                 connectionHandler.Open();
                 command.ExecuteNonQuery();
                 connectionHandler.Close();
@@ -146,6 +146,9 @@ namespace WSClient.models
                 {
 
                     //servicio["Eventos"].[4]
+                    string clavefinal;
+                    clavefinal = (string)servicio["Eventos"][4]["EventoParametros"][1]["Valor"];
+
                     command.CommandText = @"insert into g:\principal\llamadosR (LLAID,AFIID, LLANOM, LLAFCH," +
                     "LLAEDAD,LLADOM,DIACOD, DIANOM, LLATEL,LLACLAINI, MOVCODLLA ,EMPCODMED , LLANROHIS, LLAHORCOM " +
                     ", LLAHORSAL, LLAHORLLE,LLAHORFIN," +
@@ -159,8 +162,8 @@ namespace WSClient.models
                     "(" + row["LLAID"] + "," + row["AFIID"] + ",'" + row["LLANOM"] + "',ctot('" + row["LLAFCH"] + "')," + row["LLAEDAD"] + ",'" + row["LLADOM"] + "'," + row["DIACOD"] + ",'" + row["DIANOM"] + "','" +
                     row["LLATEL"] + "','" + row["LLACLAINI"] + "'," + row["MOVCODLLA"] + "," + row["EMPCODMED"] + "," + row["LLANROHIS"] + ",ctot('" + row["LLAHORCOM"] + "'),ctot('" + row["LLAHORSAL"] + "'),ctot('" + row["LLAHORLLE"] + "'),ctot('" + row["LLAHORFIN"] + "')," +
                     "" + row["MOVCODAPO"] + "," + row["EMPCODMEDA"] + ",ctot('" + row["LLAHORCOMA"] + "'),ctot('" + row["LLAHORSALA"] + "'),ctot('" + row["LLAHORLLEA"] + "'),ctot('" + row["LLAHORFINA"] + "')" +
-                    "," + row["MOVCODTRA"] + ",ctot('" + row["LLAHORSALT"] + "'),ctot('" + row["LLAHORLLET"] + "'),ctot('" + row["LLAHORFINT"] + "'),'" + row["LLADESTRA"] + "'," + row["DIACODFIN"] + ", '" +
-                    servicio["Eventos"][4]["EventoParametros"][1]["Valor"] + "', " + row["LLACLAFIN"] + " , " + row["LLADEM"] + ",iif('TRUE'='" + row["DIAPRE1"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE2"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE3"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE4"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE5"] + "',.t.,.f.) , '" +
+                    "," + row["MOVCODTRA"] + ",ctot('" + row["LLAHORSALT"] + "'),ctot('" + row["LLAHORLLET"] + "'),ctot('" + row["LLAHORFINT"] + "'),'" + row["LLADESTRA"] + "',1000, '" +
+                    servicio["Eventos"][4]["EventoParametros"][2]["Valor"] + "', " + clavefinal.Substring(0,1) + " , " + row["LLADEM"] + ",iif('TRUE'='" + row["DIAPRE1"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE2"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE3"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE4"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE5"] + "',.t.,.f.) , '" +
                     row["LLACLATEL"] + "'," + row["EMPCODTEL"] + " ,'" + row["LLATPO"] + "',ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + " ,'" + row["LLANROCONF"] + "','" + row["LLADESTLLA"] + "'," +
                     "'" + row["LLADESTAPO"] + "', " + row["LLANROLIN"] + " , " + row["CONCOD"] + ", " + row["AFICTA"] + ",'" + row["AFIDOMPAR"] + "', " + row["LOCCODPAR"] + ",'" + row["AFINUMPAR"] + "','" + row["AFIBLOPAR"] + "','" + row["AFIAPTOPAR"] + "','" +
                     row["AFISENPAR"] + "','" + row["AFISUBCPAR"] + "','" + row["AFISUBNPAR"] + "','" + row["AFIESQ1PAR"] + "','" + row["AFIESQ2PAR"] + "', " +

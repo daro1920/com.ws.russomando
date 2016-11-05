@@ -1,0 +1,20 @@
+2016-10-21 13:50:14,927 [10] INFO  WSClient.Program - Geocodificacion : address=1575    +DECROLY                         +%26+AMAZONAS                                ,+,+Montevideo
+2016-10-21 13:50:23,422 [10] DEBUG WSClient.Program - altaServicio : Procesando llamados
+2016-10-21 13:50:26,291 [10] DEBUG WSClient.Program - setServicio : Procesando llamados
+2016-10-21 13:50:30,488 [10] DEBUG WSClient.Program - listarServicio : Procesando llamados
+2016-10-21 13:50:38,754 [10] INFO  WSClient.Program - getServicios 
+2016-10-21 13:50:49,989 [10] INFO  WSClient.Program - getServicios 
+2016-10-21 13:51:10,746 [10] DEBUG WSClient.Program - altaServicio : Procesando llamados
+2016-10-21 13:51:12,057 [10] DEBUG WSClient.Program - listarServicio : Procesando llamados
+2016-10-21 13:51:18,378 [10] INFO  WSClient.Program - getServicios 
+2016-10-21 13:51:27,268 [10] INFO  WSClient.Program - getServicios 
+2016-10-21 13:51:54,691 [10] DEBUG WSClient.Program - altaServicio : Procesando llamados
+2016-10-21 13:51:56,318 [10] DEBUG WSClient.Program - listarServicio : Procesando llamados
+2016-10-21 13:52:02,588 [10] INFO  WSClient.Program - getServicios 
+2016-10-21 13:52:12,177 [10] INFO  WSClient.Program - getServicios 
+2016-10-21 13:52:54,355 [10] DEBUG WSClient.Program - altaServicio : Procesando llamados
+2016-10-21 13:59:41,440 [10] DEBUG WSClient.Program - altaServicio : Procesando llamados
+2016-10-21 14:00:21,396 [10] DEBUG WSClient.Program - setServicio : Procesando llamados
+2016-10-21 14:00:26,107 [10] DEBUG WSClient.Program - listarServicio : Procesando llamados
+2016-10-21 14:00:31,861 [10] INFO  WSClient.Program - getServicios 
+2016-10-21 14:00:40,409 [10] INFO  WSClient.Program - getServicios 

@@ -23,19 +23,23 @@ namespace WSClient
 
             //geocodifico solo llamamdos
             if (servicio is Llamados) servController.getGoogleGeocoding(servicio);
-
-            // alta nuevos servicios
-            servController.altaServicio(servicio);
-
+            
             servController.listarServicio(servicio);
 
             //devuleve lista de zonas
-            servController.getListaZonas();
+            //servController.getListaZonas();
 
             servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
 
             servController.cerrarServicio(servicio, EstadosEnum.FINALIZADO);
 
+        }
+
+        private void altarServices(string serviceType)
+        {
+            Servicio servicio = factory.getServicio(serviceType);
+            // alta nuevos servicios
+            servController.altaServicio(servicio);
         }
 
         private void llamadosTimer_Tick(object sender, EventArgs e)
@@ -45,7 +49,17 @@ namespace WSClient
 
         private void trasladosTimer_Tick(object sender, EventArgs e)
         {
-            //callServices("traslados");
+            callServices("traslados");
+        }
+
+        private void altasLlamadosTimer_Tick(object sender, EventArgs e)
+        {
+            altarServices("llamados");
+        }
+
+        private void altasTrasadosTimer_Tick(object sender, EventArgs e)
+        {
+            altarServices("traslados");
         }
     }
 }

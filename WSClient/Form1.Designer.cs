@@ -34,6 +34,8 @@
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.llamadosTimer = new System.Windows.Forms.Timer(this.components);
             this.trasladosTimer = new System.Windows.Forms.Timer(this.components);
+            this.altasLlamadosTimer = new System.Windows.Forms.Timer(this.components);
+            this.altasTrasadosTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +52,7 @@
             // llamadosTimer
             // 
             this.llamadosTimer.Enabled = true;
-            this.llamadosTimer.Interval = 1000;
+            this.llamadosTimer.Interval = 180000;
             this.llamadosTimer.Tick += new System.EventHandler(this.llamadosTimer_Tick);
             // 
             // trasladosTimer
@@ -58,6 +60,18 @@
             this.trasladosTimer.Enabled = true;
             this.trasladosTimer.Interval = 1000;
             this.trasladosTimer.Tick += new System.EventHandler(this.trasladosTimer_Tick);
+            // 
+            // altasLlamadosTimer
+            // 
+            this.altasLlamadosTimer.Enabled = true;
+            this.altasLlamadosTimer.Interval = 20000;
+            this.altasLlamadosTimer.Tick += new System.EventHandler(this.altasLlamadosTimer_Tick);
+            // 
+            // altasTrasadosTimer
+            // 
+            this.altasTrasadosTimer.Enabled = true;
+            this.altasTrasadosTimer.Interval = 20000;
+            this.altasTrasadosTimer.Tick += new System.EventHandler(this.altasTrasadosTimer_Tick);
             // 
             // Form1
             // 
@@ -79,6 +93,8 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.Timer llamadosTimer;
         private System.Windows.Forms.Timer trasladosTimer;
+        private System.Windows.Forms.Timer altasLlamadosTimer;
+        private System.Windows.Forms.Timer altasTrasadosTimer;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Data;
 
 namespace WSClient.services.models
@@ -71,8 +72,10 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Vehiculo_Matricula = "";
             WSSDTAltaServicio.Vehiculo_Marca = "";
             WSSDTAltaServicio.Vehiculo_Modelo = "";
-            WSSDTAltaServicio.Vehiculo_Anio = "2013";
-            WSSDTAltaServicio.Detalle = llamdo["dianom"];
+            WSSDTAltaServicio.Vehiculo_Anio = llamdo["llaedad"];
+            string detalle;
+            detalle = (string)llamdo["dianom"];
+            WSSDTAltaServicio.Detalle = detalle.Trim()+"-"+(string)llamdo["tipo"];
             WSSDTAltaServicio.Programado = "";
             WSSDTAltaServicio.Origen_LugarEspecial = "";
             WSSDTAltaServicio.Origen_Pais = "Uruguay";
@@ -108,7 +111,7 @@ namespace WSClient.services.models
             return WSSDTAltaServicio;
         }
 
-        public JObject getWSSDTAltaServicioTraslado(DataRow traslado, object origen, object destino,object nroAsistencia)
+        public JObject getWSSDTAltaServicioTraslado(DataRow traslado, object origen, object destino,object nroAsistencia,double codVuelta)
         {
             // se completan los datos a enviar
             dynamic WSSDTAltaServicio = new JObject();
@@ -128,10 +131,10 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Celular = "";
 
             string tel = traslado["tratel"].ToString();
-
+            double idExt = double.Parse(traslado["tranro"].ToString()) + codVuelta;
 
             WSSDTAltaServicio.Telefono = tel.Substring(0, 9);
-            WSSDTAltaServicio.IdExterno = traslado["tranro"];
+            WSSDTAltaServicio.IdExterno = idExt;
             WSSDTAltaServicio.Contacto = traslado["trapac"];
             WSSDTAltaServicio.Prioridad = "1";
             WSSDTAltaServicio.Particular = false;
@@ -140,7 +143,15 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Vehiculo_Modelo = "";
             WSSDTAltaServicio.Vehiculo_Anio = 2013;
             WSSDTAltaServicio.Detalle = traslado["tradia"];
-            WSSDTAltaServicio.Programado = traslado["trafch"];
+
+            DateTime date = DateTime.Parse(traslado["trafch"].ToString());
+
+            string fecha = "";
+            if (DateTime.Compare(date, DateTime.Now) > 0)
+            {       
+                fecha = date.ToString("yyyy-MM-ddTHH:mm:ss");
+            }
+            WSSDTAltaServicio.Programado = fecha;
             WSSDTAltaServicio.Origen_LugarEspecial = "";
             WSSDTAltaServicio.Origen_Pais = "Uruguay";
             WSSDTAltaServicio.Origen_Departamento = "Montevideo";
