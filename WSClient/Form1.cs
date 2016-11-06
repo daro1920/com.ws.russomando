@@ -44,7 +44,7 @@ namespace WSClient
 
         private void llamadosTimer_Tick(object sender, EventArgs e)
         {
-            callServices("llamados");
+            //callServices("llamados");
         }
 
         private void trasladosTimer_Tick(object sender, EventArgs e)
@@ -54,7 +54,7 @@ namespace WSClient
 
         private void altasLlamadosTimer_Tick(object sender, EventArgs e)
         {
-            altarServices("llamados");
+            //altarServices("llamados");
         }
 
         private void altasTrasadosTimer_Tick(object sender, EventArgs e)
