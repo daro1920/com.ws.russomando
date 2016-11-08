@@ -125,7 +125,36 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Cobertura = "";
             ///ver categorizar segun traslado
             WSSDTAltaServicio.Prestacion = "";
-            WSSDTAltaServicio.Motivo = "Traslado S";
+
+            string motivo="";
+            if (traslado["tratpo"].ToString().Trim() == "1") { 
+                motivo = "Traslado S";
+            }
+            if (traslado["tratpo"].ToString().Trim() == "2")
+            {
+                motivo = "Traslado C/R";
+            }
+            if (traslado["tratpo"].ToString().Trim() == "3")
+            {
+                motivo = "Traslado TPK";
+            }
+            if (traslado["tratpo"].ToString().Trim() == "4")
+            {
+                motivo = "Traslado TES S";
+            }
+            if (traslado["tratpo"].ToString().Trim() == "5")
+            {
+                motivo = "Traslado TES C/R";
+            }
+            if (traslado["tratpo"].ToString().Trim() == "6")
+            {
+                motivo = "Traslado TES TPK";
+            }
+            if (traslado["tratpo"].ToString().Trim() == "7")
+            {
+                motivo = "Traslado Dialisis";
+            }
+            WSSDTAltaServicio.Motivo = motivo;
             WSSDTAltaServicio.Origen_Causa = "";
             WSSDTAltaServicio.Origen_SubCausa = "";
             WSSDTAltaServicio.Celular = "";
@@ -141,8 +170,11 @@ namespace WSClient.services.models
             WSSDTAltaServicio.Vehiculo_Matricula = "";
             WSSDTAltaServicio.Vehiculo_Marca = "";
             WSSDTAltaServicio.Vehiculo_Modelo = "";
-            WSSDTAltaServicio.Vehiculo_Anio = 2013;
-            WSSDTAltaServicio.Detalle = traslado["tradia"];
+            WSSDTAltaServicio.Vehiculo_Anio = traslado["traedad"];
+
+            string enorigen = traslado["enorigen"].ToString() == "True" ? "(O) " : "(D) ";
+            string detalle = enorigen + traslado["tradia"].ToString().Trim()+ " ["+traslado["trainsdsc"].ToString().Trim()+"]";
+            WSSDTAltaServicio.Detalle = detalle;
 
             DateTime date = DateTime.Parse(traslado["trafch"].ToString());
 

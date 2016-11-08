@@ -32,13 +32,13 @@ namespace WSClient.models
 
         public override List<DataRow> getProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*8) and  nroserv <> 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*8) and  nroserv <> 0  ";
             return getListServicio();
         }
 
         public override List<DataRow> getNonProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where   trafch < datetime()+(60*60*8) and nroserv = 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where   trafch < datetime()+(60*60*8) and nroserv = 0 and tramov = 0 ";
             return getListServicio();
         }
 
