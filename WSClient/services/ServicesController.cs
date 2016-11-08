@@ -121,8 +121,8 @@ namespace WSClient.services
                 {
                     //TODO estudiar comportamiento Por cada registro de llamados.dbf 
                     ws.WSSDTFiltroServicio = servicio is Llamados ?
-                        listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.EN_CAMINO) :
-                        listar.getWSSDTFiltroServicio(row, EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
+                        listar.getWSSDTFiltroServicio(row["llaid"].ToString(), EMPTY, EMPTY, EstadosEnum.EN_CAMINO) :
+                        listar.getWSSDTFiltroServicio(row["tranro"].ToString(), EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
 
                     // los datos del ws 
                     result = getWSResult(LIST_SERVICE, ws);

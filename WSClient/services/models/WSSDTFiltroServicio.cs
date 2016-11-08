@@ -12,13 +12,14 @@ namespace WSClient.services.models
     {
 
 
-         public JObject getWSSDTFiltroServicio(DataRow llamado, string fechaIni, string fechaFin,string estado)
+         public JObject getWSSDTFiltroServicio(string id, string fechaIni, string fechaFin,string estado)
         {
             // se completan los datos a enviar
             dynamic WSSDTFiltroServicio = new JObject();
             WSSDTFiltroServicio.Id = "";
             WSSDTFiltroServicio.SuperiorId = "";
-            WSSDTFiltroServicio.IdExterno = llamado == null ? "" :llamado["llaid"];
+
+            WSSDTFiltroServicio.IdExterno = id;
             WSSDTFiltroServicio.NroServicio = "";
             WSSDTFiltroServicio.NroAsistencia = "";
             WSSDTFiltroServicio.Estado = estado;
