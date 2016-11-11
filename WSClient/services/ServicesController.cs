@@ -63,10 +63,13 @@ namespace WSClient.services
                             ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["trades"], null,0.0);
                             setServicio(servicio, ws, row);
 
-                            //traslado Vuelta
-                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["trades"], row["tradesf"], row["tranro"],0.1);
-                            setServicio(servicio, ws, row);
+
+                            //traslado Vuelta si tiene el Pronto
+                            if (row["Pronto"].ToString().Trim()!= "12/30/1899 12:00:00 AM") { 
+                               ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["trades"], row["tradesf"], row["tranro"],0.1);
+                                setServicio(servicio, ws, row);
                         }
+                    }
 
                     }
 

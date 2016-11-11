@@ -145,9 +145,38 @@ namespace WSClient.models
                 foreach (DataRow row in rowList)
                 {
 
-                    //servicio["Eventos"].[4]
-                    string clavefinal;
-                    clavefinal = (string)servicio["Eventos"][4]["EventoParametros"][1]["Valor"];
+                    //evalueo paramentos 0
+                    string clavefinal="";
+                    string obs="";
+
+                    string p0 = (string)servicio["Eventos"][4]["EventoParametros"][0]["Parametro"];
+                    if (p0=="Clave") { 
+                        clavefinal = (string)servicio["Eventos"][4]["EventoParametros"][0]["Valor"];
+                    }
+                    if (p0 == "Obs.")
+                    {
+                        obs = (string)servicio["Eventos"][4]["EventoParametros"][0]["Valor"];
+                    }
+
+                    string p1 = (string)servicio["Eventos"][4]["EventoParametros"][1]["Parametro"];
+                    if (p1 == "Clave")
+                    {
+                        clavefinal = (string)servicio["Eventos"][4]["EventoParametros"][1]["Valor"];
+                    }
+                    if (p1 == "Obs.")
+                    {
+                        obs = (string)servicio["Eventos"][4]["EventoParametros"][1]["Valor"];
+                    }
+
+                    string p2 = (string)servicio["Eventos"][4]["EventoParametros"][2]["Parametro"];
+                    if (p2 == "Clave")
+                    {
+                        clavefinal = (string)servicio["Eventos"][4]["EventoParametros"][2]["Valor"];
+                    }
+                    if (p2 == "Obs.")
+                    {
+                        obs = (string)servicio["Eventos"][4]["EventoParametros"][2]["Valor"];
+                    }
 
                     command.CommandText = @"insert into g:\principal\llamadosR (LLAID,AFIID, LLANOM, LLAFCH," +
                     "LLAEDAD,LLADOM,DIACOD, DIANOM, LLATEL,LLACLAINI, MOVCODLLA ,EMPCODMED , LLANROHIS, LLAHORCOM " +
@@ -163,7 +192,7 @@ namespace WSClient.models
                     row["LLATEL"] + "','" + row["LLACLAINI"] + "'," + row["MOVCODLLA"] + "," + row["EMPCODMED"] + "," + row["LLANROHIS"] + ",ctot('" + row["LLAHORCOM"] + "'),ctot('" + row["LLAHORSAL"] + "'),ctot('" + row["LLAHORLLE"] + "'),ctot('" + row["LLAHORFIN"] + "')," +
                     "" + row["MOVCODAPO"] + "," + row["EMPCODMEDA"] + ",ctot('" + row["LLAHORCOMA"] + "'),ctot('" + row["LLAHORSALA"] + "'),ctot('" + row["LLAHORLLEA"] + "'),ctot('" + row["LLAHORFINA"] + "')" +
                     "," + row["MOVCODTRA"] + ",ctot('" + row["LLAHORSALT"] + "'),ctot('" + row["LLAHORLLET"] + "'),ctot('" + row["LLAHORFINT"] + "'),'" + row["LLADESTRA"] + "',1000, '" +
-                    servicio["Eventos"][4]["EventoParametros"][2]["Valor"] + "', " + clavefinal.Substring(0,1) + " , " + row["LLADEM"] + ",iif('TRUE'='" + row["DIAPRE1"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE2"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE3"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE4"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE5"] + "',.t.,.f.) , '" +
+                    obs.ToUpper() + "', " + clavefinal.Substring(0,1) + " , " + row["LLADEM"] + ",iif('TRUE'='" + row["DIAPRE1"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE2"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE3"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE4"] + "',.t.,.f.),iif('TRUE'='" + row["DIAPRE5"] + "',.t.,.f.) , '" +
                     row["LLACLATEL"] + "'," + row["EMPCODTEL"] + " ,'" + row["LLATPO"] + "',ctot('" + row["FCHMOD"] + "')," + row["EMPCOD"] + " ,'" + row["LLANROCONF"] + "','" + row["LLADESTLLA"] + "'," +
                     "'" + row["LLADESTAPO"] + "', " + row["LLANROLIN"] + " , " + row["CONCOD"] + ", " + row["AFICTA"] + ",'" + row["AFIDOMPAR"] + "', " + row["LOCCODPAR"] + ",'" + row["AFINUMPAR"] + "','" + row["AFIBLOPAR"] + "','" + row["AFIAPTOPAR"] + "','" +
                     row["AFISENPAR"] + "','" + row["AFISUBCPAR"] + "','" + row["AFISUBNPAR"] + "','" + row["AFIESQ1PAR"] + "','" + row["AFIESQ2PAR"] + "', " +
