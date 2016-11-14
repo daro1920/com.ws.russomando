@@ -60,11 +60,11 @@ namespace WSClient.services
                         else
                         {
                             //traslado IDA
-                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["trades"], null,0.0);
+                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["traori"], row["trades"], null,0.1);
                             setServicio(servicio, ws, row);
 
                             //traslado Vuelta
-                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["trades"], row["tradesf"], row["tranro"],0.1);
+                            ws.WSSDTAltaServicio = alta.getWSSDTAltaServicioTraslado(row, row["trades"], row["tradesf"], row["tranro"],0.0);
                             setServicio(servicio, ws, row);
                         }
 
