@@ -26,19 +26,19 @@ namespace WSClient.models
 
         public override List<DataRow> getAllServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where trafch < datetime()+(60*60*8)  ";
+            sqlServicio = @"select * from g:\Principal\traslados where trafch < datetime()+(60*60*5)  ";
             return getListServicio();
         }
 
         public override List<DataRow> getProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*8) and  nroserv <> 0  ";
+            sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*5) and  nroserv <> 0  ";
             return getListServicio();
         }
 
         public override List<DataRow> getNonProcessedServicios()
         {
-            sqlServicio = @"select * from g:\Principal\traslados where   trafch < datetime()+(60*60*8) and nroserv = 0 and tramov = 0 ";
+            sqlServicio = @"select * from g:\Principal\traslados where   trafch < datetime()+(60*60*5) and nroserv = 0 and tramov = 0 ";
             return getListServicio();
         }
 
@@ -83,7 +83,7 @@ namespace WSClient.models
             {
                 string id = servicio["IdExterno"].ToString();
 
-                if (servicio["Prestacion"].ToString() != "Llamado")
+                if (servicio["Prestacion"].ToString() != "Llamado" && servicio["TRANRO"].ToString().IndexOf("0.0") > 0)
                 {
                     List<DataRow> rowList = getServicio(id);
 
