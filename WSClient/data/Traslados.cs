@@ -26,19 +26,31 @@ namespace WSClient.models
 
         public override List<DataRow> getAllServicios()
         {
+<<<<<<< HEAD
             sqlServicio = @"select * from g:\Principal\traslados where trafch < datetime()+(60*60*6)  ";
+=======
+            sqlServicio = @"select * from g:\Principal\traslados where trafch < datetime()+(60*60*5)  ";
+>>>>>>> 5dda6f1fc9f6619326d4f227082b18d1e52fef13
             return getListServicio();
         }
 
         public override List<DataRow> getProcessedServicios()
         {
+<<<<<<< HEAD
             sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*6) and  nroserv <> 0  ";
+=======
+            sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*5) and  nroserv <> 0  ";
+>>>>>>> 5dda6f1fc9f6619326d4f227082b18d1e52fef13
             return getListServicio();
         }
 
         public override List<DataRow> getNonProcessedServicios()
         {
+<<<<<<< HEAD
             sqlServicio = @"select * from g:\Principal\traslados where   trafch < datetime()+(60*60*6) and nroserv = 0 and tramov = 0 ";
+=======
+            sqlServicio = @"select * from g:\Principal\traslados where   trafch < datetime()+(60*60*5) and nroserv = 0 and tramov = 0 ";
+>>>>>>> 5dda6f1fc9f6619326d4f227082b18d1e52fef13
             return getListServicio();
         }
 
@@ -83,7 +95,7 @@ namespace WSClient.models
             {
                 string id = servicio["IdExterno"].ToString();
 
-                if (servicio["Prestacion"].ToString() != "Llamado")
+                if (servicio["Prestacion"].ToString() != "Llamado" && servicio["TRANRO"].ToString().IndexOf("0.0") > 0)
                 {
                     List<DataRow> rowList = getServicio(id);
 
