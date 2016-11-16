@@ -24,7 +24,7 @@ namespace WSClient
             //geocodifico solo llamamdos
             if (servicio is Llamados) servController.getGoogleGeocoding(servicio);
 
-            if (servicio is Llamados) servController.listarServicio(servicio);
+            servController.listarServicio(servicio);
 
             //devuleve lista de zonas
             //servController.getListaZonas();

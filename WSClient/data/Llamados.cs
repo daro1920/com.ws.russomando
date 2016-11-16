@@ -91,7 +91,7 @@ namespace WSClient.models
 
         }
 
-        public override void toProcesServicio(DataRow row, string movil)
+        public override void toProcesServicio(DataRow row, string movil, string campoMov)
         {
             OleDbConnection connectionHandler = getConnectionHandler();
 

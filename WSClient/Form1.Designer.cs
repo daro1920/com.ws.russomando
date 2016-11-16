@@ -52,13 +52,13 @@
             // llamadosTimer
             // 
             this.llamadosTimer.Enabled = true;
-            this.llamadosTimer.Interval = 120000;
+            this.llamadosTimer.Interval = 180000;
             this.llamadosTimer.Tick += new System.EventHandler(this.llamadosTimer_Tick);
             // 
             // trasladosTimer
             // 
             this.trasladosTimer.Enabled = true;
-            this.trasladosTimer.Interval = 180000;
+            this.trasladosTimer.Interval = 190000;
             this.trasladosTimer.Tick += new System.EventHandler(this.trasladosTimer_Tick);
             // 
             // altasLlamadosTimer

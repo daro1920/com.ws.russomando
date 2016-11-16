@@ -20,7 +20,7 @@ namespace WSClient.data
         abstract public List<DataRow> getProcessedServicios();
         abstract public List<DataRow> getNonProcessedServicios();
         abstract public void finalizarServicio(JArray serviciosFinalizados);
-        abstract public void toProcesServicio(DataRow row, string movil);
+        abstract public void toProcesServicio(DataRow row, string movil, string campoMov);
         abstract public void setServicioLatLng(string id, string lat, string lng);
         abstract public void setServicio(Decimal id, Int32 NroServicio, Int32 NroAsistencia);
 
