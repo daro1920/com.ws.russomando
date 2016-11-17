@@ -178,11 +178,8 @@ namespace WSClient.services.models
 
             DateTime date = DateTime.Parse(traslado["trafch"].ToString());
 
-            string fecha = "";
-            if (DateTime.Compare(date, DateTime.Now) > 0)
-            {       
-                fecha = date.ToString("yyyy-MM-ddTHH:mm:ss");
-            }
+            string fecha = DateTime.Compare(date, DateTime.Now) > 0 ? date.ToString("yyyy-MM-ddTHH:mm:ss") : DateTime.Now.AddMinutes(2).ToString("yyyy-MM-ddTHH:mm:ss");
+
             WSSDTAltaServicio.Programado = fecha;
             WSSDTAltaServicio.Origen_LugarEspecial = "";
             WSSDTAltaServicio.Origen_Pais = "Uruguay";
