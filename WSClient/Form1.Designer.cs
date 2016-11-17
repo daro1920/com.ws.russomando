@@ -52,25 +52,25 @@
             // llamadosTimer
             // 
             this.llamadosTimer.Enabled = true;
-            this.llamadosTimer.Interval = 180000;
+            this.llamadosTimer.Interval = 120000;
             this.llamadosTimer.Tick += new System.EventHandler(this.llamadosTimer_Tick);
             // 
             // trasladosTimer
             // 
             this.trasladosTimer.Enabled = true;
-            this.trasladosTimer.Interval = 1000;
+            this.trasladosTimer.Interval = 180000;
             this.trasladosTimer.Tick += new System.EventHandler(this.trasladosTimer_Tick);
             // 
             // altasLlamadosTimer
             // 
             this.altasLlamadosTimer.Enabled = true;
-            this.altasLlamadosTimer.Interval = 20000;
+            this.altasLlamadosTimer.Interval = 10000;
             this.altasLlamadosTimer.Tick += new System.EventHandler(this.altasLlamadosTimer_Tick);
             // 
             // altasTrasadosTimer
             // 
             this.altasTrasadosTimer.Enabled = true;
-            this.altasTrasadosTimer.Interval = 20000;
+            this.altasTrasadosTimer.Interval = 15000;
             this.altasTrasadosTimer.Tick += new System.EventHandler(this.altasTrasadosTimer_Tick);
             // 
             // Form1
@@ -82,6 +82,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
