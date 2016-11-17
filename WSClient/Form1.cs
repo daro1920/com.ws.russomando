@@ -29,7 +29,7 @@ namespace WSClient
             //devuleve lista de zonas
             //servController.getListaZonas();
 
-            servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
+            if (servicio is Llamados) servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
 
             servController.cerrarServicio(servicio, EstadosEnum.FINALIZADO);
 
