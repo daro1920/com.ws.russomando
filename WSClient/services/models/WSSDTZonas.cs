@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WSClient.services.models
 {
-    class WSSDTZonas
+    public class WSSDTZonas
     {
         public void getWSSDTZonas(ref dynamic ws)
         {

@@ -10,7 +10,7 @@ using WSClient.data;
 
 namespace WSClient.models
 {
-    class Llamados : Servicio
+    public class Llamados : Servicio
     {
         public override List<DataRow> getServicio(string id)
         {
@@ -33,6 +33,12 @@ namespace WSClient.models
         public override List<DataRow> getProcessedServicios()
         {
             sqlServicio = @"select * from g:\tablaslibres\llamados where nroserv <> 0 ";
+            return getListServicio();
+        }
+
+        public override List<DataRow> getProcessedServiciosById(string id)
+        {
+            sqlServicio = @"select * from g:\tablaslibres\llamados where nroserv <> 0 AND  LLAID = " + id + " ";
             return getListServicio();
         }
 

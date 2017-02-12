@@ -1,0 +1,12 @@
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\WcfHost.dll.config
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\WcfHost.dll
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\WcfHost.pdb
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\WSClient.exe
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\log4net.dll
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\Newtonsoft.Json.dll
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\WSClient.pdb
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\log4net.xml
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\bin\Debug\Newtonsoft.Json.xml
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\obj\Debug\WcfHost.csprojResolveAssemblyReference.cache
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\obj\Debug\WcfHost.dll
+C:\work\FreelanceProjects\RoussoMando\com.ws.russomando\WcfHost\obj\Debug\WcfHost.pdb

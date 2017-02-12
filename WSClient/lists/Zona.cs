@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WSClient.lists
 {
-    class Zona
+    public class Zona
     {
         public String Nombre { get; set; }
     }

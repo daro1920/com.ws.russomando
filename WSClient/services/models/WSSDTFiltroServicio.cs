@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WSClient.services.models
 {
-    class WSSDTFiltroServicio
+    public class WSSDTFiltroServicio
     {
 
 

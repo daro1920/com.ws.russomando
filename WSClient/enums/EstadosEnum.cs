@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WSClient.enums
 {
-    class EstadosEnum
+    public class EstadosEnum
     {
         public static string LOCAL = "Local";
         public static string ANULADO = "Anulado";

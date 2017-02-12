@@ -12,7 +12,7 @@ using WSClient.enums;
 
 namespace WSClient.services
 {
-    class ServicesController
+    public class ServicesController
     {
         private JObject autorizacion = WSAutorizacion.getAutorizacion();
         private WSSDTAltaServicio alta = new WSSDTAltaServicio();

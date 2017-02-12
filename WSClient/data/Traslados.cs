@@ -7,7 +7,7 @@ using WSClient.data;
 
 namespace WSClient.models
 {
-    class Traslados : Servicio
+    public class Traslados : Servicio
 
     {
 
@@ -35,6 +35,13 @@ namespace WSClient.models
         {
 
             sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*5) and  nroserv <> 0  ";
+            return getListServicio();
+        }
+
+        public override List<DataRow> getProcessedServiciosById(String id)
+        {
+
+            sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*5) and  nroserv <> 0 and tranro = " + id + "  ";
             return getListServicio();
         }
 

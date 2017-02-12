@@ -8,7 +8,7 @@ using WSClient.models;
 
 namespace WSClient.services.factories
 {
-    class ServicioFactory
+    public class ServicioFactory
     {
 
         public Servicio getServicio(String tipoServicio)
