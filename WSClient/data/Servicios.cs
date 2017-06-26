@@ -21,6 +21,7 @@ namespace WSClient.data
         abstract public List<DataRow> getProcessedServicios();
         abstract public List<DataRow> getProcessedServicios(string id);
         abstract public List<DataRow> getNonProcessedServicios();
+        abstract public void updateCanceledServicios(String id);
         abstract public void finalizarServicio(JArray serviciosFinalizados);
         abstract public void toProcesServicio(DataRow row, string movil, string campoMov);
         abstract public void setServicioLatLng(string id, string lat, string lng);

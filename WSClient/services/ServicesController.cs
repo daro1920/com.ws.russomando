@@ -282,12 +282,30 @@ namespace WSClient.services
 
         public void cerrarServicio(Servicio servicio, string estado)
         {
+
+            //se crea el jason
+            dynamic result = EMPTY;
+            dynamic wsClose = new JObject();
+            wsClose.WSAutorizacion = autorizacion;
+
+
             String serv = servicio is Llamados ? "llamados" : "traslados";
+
             try
             {
-                JArray array = getServicios(servicio, estado);
+                List<DataRow> servicesC = servicio.getCanceledServicios();
+                foreach (DataRow row in servicesC)
+                {
+                    String id = servicio is Llamados ? row["llaid"].ToString() : row["tranro"].ToString();
+
+                    wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicio(id);
+                    result = getWSResult(CREATE_CLOSE_SERVICE, wsClose);
+
+                    servicio.updateCanceledServicios(id);
+                }
+                   //JArray array = getServicios(servicio, estado);
                
-                servicio.finalizarServicio(array);
+                //servicio.finalizarServicio(array);
             }
             catch (Exception e)
             {

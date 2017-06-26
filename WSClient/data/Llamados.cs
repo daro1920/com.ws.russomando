@@ -35,6 +35,20 @@ namespace WSClient.models
             sqlServicio = @"select * from g:\principal\llamadosc where nroserv <> 0 ";
             return getListServicio();
         }
+        public override void updateCanceledServicios(String id)
+        {
+
+            OleDbConnection connectionHandler = getConnectionHandler();
+
+            using (connectionHandler)
+            using (OleDbCommand command = connectionHandler.CreateCommand())
+            {
+                command.CommandText = @"update g:\principal\llamadosc set nroserv = 0  where LLAID = " + id + " ";
+                connectionHandler.Open();
+                command.ExecuteNonQuery();
+                connectionHandler.Close();
+            }
+        }
 
         public override List<DataRow> getProcessedServicios()
         {
