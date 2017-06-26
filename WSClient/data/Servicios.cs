@@ -17,6 +17,7 @@ namespace WSClient.data
         abstract public List<DataRow> getServicio(string id);
         abstract public List<DataRow> getServiciop(string id);
         abstract public List<DataRow> getAllServicios();
+        abstract public List<DataRow> getCanceledServicios();
         abstract public List<DataRow> getProcessedServicios();
         abstract public List<DataRow> getProcessedServicios(string id);
         abstract public List<DataRow> getNonProcessedServicios();
