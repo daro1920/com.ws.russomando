@@ -18,6 +18,7 @@ namespace WSClient.data
         abstract public List<DataRow> getServiciop(string id);
         abstract public List<DataRow> getAllServicios();
         abstract public List<DataRow> getProcessedServicios();
+        abstract public List<DataRow> getProcessedServicios(string id);
         abstract public List<DataRow> getNonProcessedServicios();
         abstract public void finalizarServicio(JArray serviciosFinalizados);
         abstract public void toProcesServicio(DataRow row, string movil, string campoMov);

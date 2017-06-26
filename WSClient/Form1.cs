@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 using WSClient.data;
 using WSClient.enums;
@@ -17,24 +18,6 @@ namespace WSClient
         private ServicesController servController = new ServicesController();
         private ServicioFactory factory = new ServicioFactory();
 
-        private void callServices(String serviceType)
-        {
-            Servicio servicio = factory.getServicio(serviceType);
-
-            //geocodifico solo llamamdos
-            if (servicio is Llamados) servController.getGoogleGeocoding(servicio);
-
-            servController.listarServicio(servicio);
-
-            //devuleve lista de zonas
-            //servController.getListaZonas();
-
-            if (servicio is Llamados) servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
-
-            servController.cerrarServicio(servicio, EstadosEnum.FINALIZADO);
-
-        }
-
         private void altarServices(string serviceType)
         {
             Servicio servicio = factory.getServicio(serviceType);
@@ -42,26 +25,76 @@ namespace WSClient
             servController.altaServicio(servicio);
         }
 
-        private void llamadosTimer_Tick(object sender, EventArgs e)
+        private void cerrarServices(string serviceType)
         {
-            callServices("llamados");
+            Servicio servicio = factory.getServicio(serviceType);
+            //cierro servicio
+            servController.cerrarServicio(servicio, EstadosEnum.FINALIZADO);
         }
 
-        private void trasladosTimer_Tick(object sender, EventArgs e)
+        private void gcLlamados(string serviceType)
         {
-            callServices("traslados");
+            Servicio servicio = factory.getServicio(serviceType);
+            //garbage collector solo llamados
+            servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
+        }
+
+        private void geocodLlamados(string serviceType)
+        {
+            Servicio servicio = factory.getServicio(serviceType);
+
+            //geocodifico solo llamamdos
+            servController.getGoogleGeocoding(servicio);
+        }
+
+        private void listarService(string serviceType)
+        {
+            Servicio servicio = factory.getServicio(serviceType);
+
+            //listado de servicios
+            servController.listarServicio(servicio);
         }
 
         private void altasLlamadosTimer_Tick(object sender, EventArgs e)
         {
-            altarServices("llamados");
+            Thread altaLlamado = new Thread(() => altarServices("llamados"));
+            altaLlamado.Start();
+            altaLlamado.Join();
         }
 
         private void altasTrasadosTimer_Tick(object sender, EventArgs e)
         {
-            altarServices("traslados");
+            Thread altaLlamado = new Thread(() => altarServices("traslados"));
+            altaLlamado.Start();
+            altaLlamado.Join();
+        }
+        
+        private void cerrarLlamadosTimer_Tick(object sender, EventArgs e)
+        {
+            Thread cerrarLlamado = new Thread(() => cerrarServices("llamados"));
+            cerrarLlamado.Start();
+            cerrarLlamado.Join();
         }
 
+        private void cerrarTrasladosTimer_Tick(object sender, EventArgs e)
+        {
+            Thread cerrarTraslado = new Thread(() => cerrarServices("traslados"));
+            cerrarTraslado.Start();
+            cerrarTraslado.Join();
+        }
+
+        private void garbageCollectorLlamados_Tick(object sender, EventArgs e)
+        {
+            Thread garbageColl = new Thread(() => gcLlamados("llamados"));
+            garbageColl.Start();
+            garbageColl.Join();
+        }
+        private void geocodLlamadosTimer_Tick(object sender, EventArgs e)
+        {
+            Thread geocod = new Thread(() => geocodLlamados("llamados"));
+            geocod.Start();
+            geocod.Join();
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 

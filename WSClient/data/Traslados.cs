@@ -31,6 +31,11 @@ namespace WSClient.models
             return getListServicio();
         }
 
+        public override List<DataRow> getCanceledServicios()
+        {
+            sqlServicio = @"select * from g:\principal\trasladosc where nroserv <> 0 ";
+            return getListServicio();
+        }
         public override List<DataRow> getProcessedServicios()
         {
 
@@ -38,6 +43,12 @@ namespace WSClient.models
             return getListServicio();
         }
 
+        public override List<DataRow> getProcessedServicios(string id)
+        {
+
+            sqlServicio = @"select * from g:\Principal\traslados where  trafch < datetime()+(60*60*5) and  nroserv <> 0 and  tranro = " + id + "  ";
+            return getListServicio();
+        }
         public override List<DataRow> getNonProcessedServicios()
         {
 

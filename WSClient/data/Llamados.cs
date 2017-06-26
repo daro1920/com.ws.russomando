@@ -29,10 +29,22 @@ namespace WSClient.models
             sqlServicio = @"select * from g:\tablaslibres\llamados ";
             return getListServicio();
         }
-        
+
+        public override List<DataRow> getCanceledServicios()
+        {
+            sqlServicio = @"select * from g:\principal\llamadosc where nroserv <> 0 ";
+            return getListServicio();
+        }
+
         public override List<DataRow> getProcessedServicios()
         {
             sqlServicio = @"select * from g:\tablaslibres\llamados where nroserv <> 0 ";
+            return getListServicio();
+        }
+
+        public override List<DataRow> getProcessedServicios(string id)
+        {
+            sqlServicio = @"select * from g:\tablaslibres\llamados where nroserv <> 0 and LLAID = " + id + " ";
             return getListServicio();
         }
 

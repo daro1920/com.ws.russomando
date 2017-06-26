@@ -32,10 +32,12 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.llamadosTimer = new System.Windows.Forms.Timer(this.components);
-            this.trasladosTimer = new System.Windows.Forms.Timer(this.components);
             this.altasLlamadosTimer = new System.Windows.Forms.Timer(this.components);
             this.altasTrasadosTimer = new System.Windows.Forms.Timer(this.components);
+            this.cerrarLlamadosTimer = new System.Windows.Forms.Timer(this.components);
+            this.cerrarTrasladosTimer = new System.Windows.Forms.Timer(this.components);
+            this.garbageCollectorLlamadosTimer = new System.Windows.Forms.Timer(this.components);
+            this.geocodLlamadosTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,20 +48,8 @@
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(213, 120);
             this.dataGridView1.TabIndex = 2;
-            // 
-            // llamadosTimer
-            // 
-            this.llamadosTimer.Enabled = true;
-            this.llamadosTimer.Interval = 180000;
-            this.llamadosTimer.Tick += new System.EventHandler(this.llamadosTimer_Tick);
-            // 
-            // trasladosTimer
-            // 
-            this.trasladosTimer.Enabled = true;
-            this.trasladosTimer.Interval = 190000;
-            this.trasladosTimer.Tick += new System.EventHandler(this.trasladosTimer_Tick);
             // 
             // altasLlamadosTimer
             // 
@@ -73,13 +63,36 @@
             this.altasTrasadosTimer.Interval = 15000;
             this.altasTrasadosTimer.Tick += new System.EventHandler(this.altasTrasadosTimer_Tick);
             // 
+            // cerrarLlamadosTimer
+            // 
+            this.cerrarLlamadosTimer.Enabled = true;
+            this.cerrarLlamadosTimer.Interval = 300000;
+            this.cerrarLlamadosTimer.Tick += new System.EventHandler(this.cerrarLlamadosTimer_Tick);
+            // 
+            // cerrarTrasladosTimer
+            // 
+            this.cerrarTrasladosTimer.Enabled = true;
+            this.cerrarTrasladosTimer.Interval = 300000;
+            this.cerrarTrasladosTimer.Tick += new System.EventHandler(this.cerrarTrasladosTimer_Tick);
+            // 
+            // garbageCollectorLlamadosTimer
+            // 
+            this.garbageCollectorLlamadosTimer.Enabled = true;
+            this.garbageCollectorLlamadosTimer.Interval = 300000;
+            this.garbageCollectorLlamadosTimer.Tick += new System.EventHandler(this.garbageCollectorLlamados_Tick);
+            // 
+            // geocodLlamadosTimer
+            // 
+            this.geocodLlamadosTimer.Enabled = true;
+            this.geocodLlamadosTimer.Interval = 300000;
+            this.geocodLlamadosTimer.Tick += new System.EventHandler(this.geocodLlamadosTimer_Tick);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.ClientSize = new System.Drawing.Size(251, 202);
             this.Controls.Add(this.dataGridView1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -92,10 +105,12 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
-        private System.Windows.Forms.Timer llamadosTimer;
-        private System.Windows.Forms.Timer trasladosTimer;
         private System.Windows.Forms.Timer altasLlamadosTimer;
         private System.Windows.Forms.Timer altasTrasadosTimer;
+        private System.Windows.Forms.Timer cerrarLlamadosTimer;
+        private System.Windows.Forms.Timer cerrarTrasladosTimer;
+        private System.Windows.Forms.Timer garbageCollectorLlamadosTimer;
+        private System.Windows.Forms.Timer geocodLlamadosTimer;
     }
 }
 

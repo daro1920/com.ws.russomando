@@ -110,88 +110,115 @@ namespace WSClient.services
             
         }
 
+        //public void listarServicio(Servicio servicio)
+        //{
+        //    String campoMov = "";
+        //    String serv = servicio is Llamados ? "llamados" : "traslados";
+        //    if (servicio is Llamados) Program.log.Debug("listarServicio Llamados: Procesando " + serv);
+        //    if (servicio is Traslados) Program.log.Debug("listarServicio Traslados: Procesando " + serv);
+        //    //se crea el jason
+        //    dynamic ws = new JObject();
+        //    ws.WSAutorizacion = autorizacion;
+
+        //    dynamic result;
+        //    try
+        //    {
+        //        List<DataRow> rowList = servicio.getProcessedServicios();
+        //        foreach (DataRow row in rowList)
+        //        {
+        //            //TODO estudiar comportamiento Por cada registro de llamados.dbf 
+        //            if (servicio is Llamados)
+        //            {
+        //                ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(row["llaid"].ToString(), EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
+        //            }
+        //            else
+        //            {
+        //                if (row["trades"].ToString().Trim() == "")
+        //                {
+        //                    //solo ida
+        //                    campoMov = "tramov";
+        //                    ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(row["tranro"].ToString(), EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
+        //                }
+        //                else
+        //                {
+        //                    // ida y vuelta
+        //                    if (row["Pronto"].ToString().Trim() != "12/30/1899 12:00:00 AM") {
+        //                        //vuelta (tiene el pronto)
+        //                        // no le tengo que tocar el id
+        //                        campoMov = "tramovr";
+        //                        ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(row["tranro"].ToString()+".0", EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
+        //                    }
+        //                    else
+        //                    {
+        //                        // en el ida, le tengo que agregar el .1 para encontrarlo.
+        //                        campoMov = "tramov";
+        //                        double idExt = double.Parse(row["tranro"].ToString()) + 0.1;
+        //                        ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(idExt.ToString(), EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
+        //                    }
+        //                }
+
+        //            }
+
+
+        //            if (servicio is Traslados)
+        //            {
+        //                if (row["tranro"].ToString().Trim() == "166088")
+        //                {
+        //                   Program.log.Error("ese");
+        //                }
+        //            }
+
+        //            // los datos del ws 
+        //            result = getWSResult(LIST_SERVICE, ws);
+
+        //            //if (result == EMPTY || result.status != "OK") continue;
+        //            if (result== null) continue;
+        //            // modificar dbf
+        //            // implementrar en Services Factory, llamados y traslados.
+        //            if ((String)result.WSSDTDatosServicios.Error != "No se encontraron registros que cumplan con los filtros ingresados")
+        //            {
+        //                servicio.toProcesServicio(row, (String)result["WSSDTDatosServicios"]["SDTDatosServicios"][0]["Movil"],campoMov);
+        //            }
+
+        //        }
+        //    }
+
+        //    catch (Exception e)
+        //    {
+        //        Program.log.Error("Error en Listar Servicios " + serv+" " + e);
+        //    }
+        //    if (servicio is Llamados) Program.log.Debug("listarServicio Llamados: Fin" + serv);
+        //    if (servicio is Traslados) Program.log.Debug("listarServicio Traslados: Fin" + serv);
+
+        //}
+
+
         public void listarServicio(Servicio servicio)
         {
-            String campoMov = "";
-            String serv = servicio is Llamados ? "llamados" : "traslados";
-            if (servicio is Llamados) Program.log.Debug("listarServicio Llamados: Procesando " + serv);
-            if (servicio is Traslados) Program.log.Debug("listarServicio Traslados: Procesando " + serv);
+
+            Boolean isLLamado = servicio is Llamados;
+
             //se crea el jason
             dynamic ws = new JObject();
             ws.WSAutorizacion = autorizacion;
 
-            dynamic result;
-            try
-            {
-                List<DataRow> rowList = servicio.getProcessedServicios();
-                foreach (DataRow row in rowList)
-                {
-                    //TODO estudiar comportamiento Por cada registro de llamados.dbf 
-                    if (servicio is Llamados)
-                    {
-                        ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(row["llaid"].ToString(), EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
-                    }
-                    else
-                    {
-                        if (row["trades"].ToString().Trim() == "")
-                        {
-                            //solo ida
-                            campoMov = "tramov";
-                            ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(row["tranro"].ToString(), EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
-                        }
-                        else
-                        {
-                            // ida y vuelta
-                            if (row["Pronto"].ToString().Trim() != "12/30/1899 12:00:00 AM") {
-                                //vuelta (tiene el pronto)
-                                // no le tengo que tocar el id
-                                campoMov = "tramovr";
-                                ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(row["tranro"].ToString()+".0", EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
-                            }
-                            else
-                            {
-                                // en el ida, le tengo que agregar el .1 para encontrarlo.
-                                campoMov = "tramov";
-                                double idExt = double.Parse(row["tranro"].ToString()) + 0.1;
-                                ws.WSSDTFiltroServicio = listar.getWSSDTFiltroServicio(idExt.ToString(), EMPTY, EMPTY, EstadosEnum.EN_CAMINO);
-                            }
-                        }
-                            
-                    }
-                    
-
-                    if (servicio is Traslados)
-                    {
-                        if (row["tranro"].ToString().Trim() == "166088")
-                        {
-                           Program.log.Error("ese");
-                        }
-                    }
-
-                    // los datos del ws 
-                    result = getWSResult(LIST_SERVICE, ws);
-
-                    //if (result == EMPTY || result.status != "OK") continue;
-                    if (result== null) continue;
-                    // modificar dbf
-                    // implementrar en Services Factory, llamados y traslados.
-                    if ((String)result.WSSDTDatosServicios.Error != "No se encontraron registros que cumplan con los filtros ingresados")
-                    {
-                        servicio.toProcesServicio(row, (String)result["WSSDTDatosServicios"]["SDTDatosServicios"][0]["Movil"],campoMov);
-                    }
-
-                }
-            }
+            JArray services = getServicios(servicio, EstadosEnum.EN_CAMINO);
             
-            catch (Exception e)
+            foreach (JObject service in services)
             {
-                Program.log.Error("Error en Listar Servicios " + serv+" " + e);
+                string id = service["IdExterno"].ToString();
+
+                List<DataRow> rowList = servicio.getProcessedServicios(id);
+
+                if (rowList.Count == 0) continue;
+                
+                String campoMov = isLLamado ? "" : (id.Contains(".0") ? "tramovr" : "tramov");
+
+                servicio.toProcesServicio(rowList[0], (String)service["WSSDTDatosServicios"]["SDTDatosServicios"][0]["Movil"], campoMov);
             }
-            if (servicio is Llamados) Program.log.Debug("listarServicio Llamados: Fin" + serv);
-            if (servicio is Traslados) Program.log.Debug("listarServicio Traslados: Fin" + serv);
 
-        }
 
+    }
         public List<Zona> getListaZonas()
         {
 
@@ -259,11 +286,7 @@ namespace WSClient.services
             try
             {
                 JArray array = getServicios(servicio, estado);
-
-                //se crea el jason
-                dynamic wsClose = new JObject();
-                wsClose.WSAutorizacion = autorizacion;
-
+               
                 servicio.finalizarServicio(array);
             }
             catch (Exception e)
@@ -277,12 +300,12 @@ namespace WSClient.services
         public void garbageCollector(Servicio servicio, string estado)
         {
 
-            JArray array = getServicios(servicio, estado);
-
             //se crea el jason
             dynamic wsClose = new JObject();
             wsClose.WSAutorizacion = autorizacion;
 
+            JArray array = getServicios(servicio, estado);
+           
             if (servicio is Llamados)
             {
                 garbageCollLlamados(servicio, array, wsClose);
