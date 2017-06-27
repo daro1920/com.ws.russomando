@@ -30,6 +30,7 @@ namespace WSClient.services
 
         public void altaServicio(Servicio servicio)
         {
+            Console.WriteLine("comenzo el alta " + servicio);
             String serv = servicio is Llamados ? "llamados" : "traslados";
             Program.log.Debug("altaServicio : Procesando " + serv);
 
@@ -76,13 +77,13 @@ namespace WSClient.services
                     }
 
                 }
-
+            Console.WriteLine("finalizo el alta " + servicio);
             //}
             //catch (Exception e)
             //{
             //    Program.log.Error("Error en Alta de servicios " + serv+" " + e);
             //}
-            
+
         }
         private void setServicio(Servicio servicio, dynamic ws, DataRow row)
         {
@@ -195,7 +196,7 @@ namespace WSClient.services
 
         public void listarServicio(Servicio servicio)
         {
-
+            Console.WriteLine("comenzo el listar " + servicio);
             Boolean isLLamado = servicio is Llamados;
 
             //se crea el jason
@@ -214,11 +215,11 @@ namespace WSClient.services
                 
                 String campoMov = isLLamado ? "" : (id.Contains(".0") ? "tramovr" : "tramov");
 
-                servicio.toProcesServicio(rowList[0], (String)service["WSSDTDatosServicios"]["SDTDatosServicios"][0]["Movil"], campoMov);
+                servicio.toProcesServicio(rowList[0], (String)service["Movil"], campoMov);
             }
+            Console.WriteLine("finalizo el listar " + servicio);
 
-
-    }
+        }
         public List<Zona> getListaZonas()
         {
 
@@ -282,37 +283,65 @@ namespace WSClient.services
 
         public void cerrarServicio(Servicio servicio, string estado)
         {
-
+            Console.WriteLine("comenzo el cerrar " + servicio);
             //se crea el jason
             dynamic result = EMPTY;
             dynamic wsClose = new JObject();
             wsClose.WSAutorizacion = autorizacion;
 
-
-            String serv = servicio is Llamados ? "llamados" : "traslados";
+            Boolean isLlamados = servicio is Llamados;
+            String serv = isLlamados ? "llamados" : "traslados";
 
             try
             {
                 List<DataRow> servicesC = servicio.getCanceledServicios();
                 foreach (DataRow row in servicesC)
                 {
-                    String id = servicio is Llamados ? row["llaid"].ToString() : row["tranro"].ToString();
+                    String id = isLlamados ? row["llaid"].ToString() : row["tranro"].ToString();
 
-                    wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicio(id);
-                    result = getWSResult(CREATE_CLOSE_SERVICE, wsClose);
+                    if (isLlamados)
+                    {
+                        wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicio(id);
+                        getWSResult(CREATE_CLOSE_SERVICE, wsClose);
+                    }
+                    else
+                    {
+                        if (row["trades"].ToString().Trim() == "")
+                        {
+                            // traslado solo de IDA 
+                            wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicioTras(id, 0.0);
+                            getWSResult(CREATE_CLOSE_SERVICE, wsClose);
+                        }
+                        else
+                        {
+                            //traslado IDA
+                            wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicioTras(id, 0.1);
+                            getWSResult(CREATE_CLOSE_SERVICE, wsClose);
 
-                    servicio.updateCanceledServicios(id);
+
+                            //traslado Vuelta si tiene el Pronto
+                            if (row["Pronto"].ToString().Trim() != "12/30/1899 12:00:00 AM")
+                            {
+                                wsClose.WSSDTAltaServicio = alta.getWSSDTCancelarServicioTras(id, 0.0);
+                                getWSResult(CREATE_CLOSE_SERVICE, wsClose);
+
+                            }
+                        }
+
+                        servicio.updateCanceledServicios(id);
+                    }
                 }
-                   //JArray array = getServicios(servicio, estado);
-               
+                //JArray array = getServicios(servicio, estado);
+
                 //servicio.finalizarServicio(array);
+
             }
             catch (Exception e)
             {
-                Program.log.Error("Error al cerrar servicio " + serv +" "+ e);
+                Console.WriteLine("error en el cerrar " + servicio);
+                Program.log.Error("Error al cerrar servicio " + serv + " " + e);
             }
-
-           
+            Console.WriteLine("finalizo el cerrar " + servicio);
         }
 
         public void garbageCollector(Servicio servicio, string estado)

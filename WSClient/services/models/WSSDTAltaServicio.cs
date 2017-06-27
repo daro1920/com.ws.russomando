@@ -20,6 +20,20 @@ namespace WSClient.services.models
             return WSSDTAltaServicio;
         }
 
+        public JObject getWSSDTCancelarServicioTras(string id, double codVuelta)
+        {
+
+            dynamic WSSDTAltaServicio = new JObject();
+            WSSDTAltaServicio.CancelarTarea = "SI";
+            WSSDTAltaServicio.CancelarNota = "Motivo de la cancelación.";
+
+            double idExt = double.Parse(id +codVuelta);
+            WSSDTAltaServicio.IdExterno = idExt;
+            WSSDTAltaServicio.Prioridad = "1";
+
+            return WSSDTAltaServicio;
+        }
+
 
 
         public JObject getWSSDTAltaServicio(DataRow llamdo)

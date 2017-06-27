@@ -38,6 +38,8 @@
             this.cerrarTrasladosTimer = new System.Windows.Forms.Timer(this.components);
             this.garbageCollectorLlamadosTimer = new System.Windows.Forms.Timer(this.components);
             this.geocodLlamadosTimer = new System.Windows.Forms.Timer(this.components);
+            this.listarLlamadosTimer = new System.Windows.Forms.Timer(this.components);
+            this.ListarTrasladosTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,27 +67,37 @@
             // 
             // cerrarLlamadosTimer
             // 
-            this.cerrarLlamadosTimer.Enabled = true;
-            this.cerrarLlamadosTimer.Interval = 300000;
+            this.cerrarLlamadosTimer.Interval = 60000;
             this.cerrarLlamadosTimer.Tick += new System.EventHandler(this.cerrarLlamadosTimer_Tick);
             // 
             // cerrarTrasladosTimer
             // 
-            this.cerrarTrasladosTimer.Enabled = true;
-            this.cerrarTrasladosTimer.Interval = 300000;
+            this.cerrarTrasladosTimer.Interval = 60000;
             this.cerrarTrasladosTimer.Tick += new System.EventHandler(this.cerrarTrasladosTimer_Tick);
             // 
             // garbageCollectorLlamadosTimer
             // 
             this.garbageCollectorLlamadosTimer.Enabled = true;
-            this.garbageCollectorLlamadosTimer.Interval = 300000;
+            this.garbageCollectorLlamadosTimer.Interval = 60000;
             this.garbageCollectorLlamadosTimer.Tick += new System.EventHandler(this.garbageCollectorLlamados_Tick);
             // 
             // geocodLlamadosTimer
             // 
             this.geocodLlamadosTimer.Enabled = true;
-            this.geocodLlamadosTimer.Interval = 300000;
+            this.geocodLlamadosTimer.Interval = 60000;
             this.geocodLlamadosTimer.Tick += new System.EventHandler(this.geocodLlamadosTimer_Tick);
+            // 
+            // listarLlamadosTimer
+            // 
+            this.listarLlamadosTimer.Enabled = true;
+            this.listarLlamadosTimer.Interval = 60000;
+            this.listarLlamadosTimer.Tick += new System.EventHandler(this.listarLlamadosTimer_Tick);
+            // 
+            // ListarTrasladosTimer
+            // 
+            this.ListarTrasladosTimer.Enabled = true;
+            this.ListarTrasladosTimer.Interval = 60000;
+            this.ListarTrasladosTimer.Tick += new System.EventHandler(this.ListarTrasladosTimer_Tick);
             // 
             // Form1
             // 
@@ -111,6 +123,8 @@
         private System.Windows.Forms.Timer cerrarTrasladosTimer;
         private System.Windows.Forms.Timer garbageCollectorLlamadosTimer;
         private System.Windows.Forms.Timer geocodLlamadosTimer;
+        private System.Windows.Forms.Timer listarLlamadosTimer;
+        private System.Windows.Forms.Timer ListarTrasladosTimer;
     }
 }
 
