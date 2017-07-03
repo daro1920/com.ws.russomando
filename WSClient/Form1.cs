@@ -58,42 +58,51 @@ namespace WSClient
             Servicio servicio = factory.getServicio(serviceType);
             Console.WriteLine("Se ejecuto el listar de servicios para " + serviceType);
             //listado de servicios
-            servController.listarServicio(servicio);
+            servController.listarServicio(servicio, EstadosEnum.ASIGNADO);
+            servController.listarServicio(servicio, EstadosEnum.ACEPTADO);
+            servController.listarServicio(servicio, EstadosEnum.EN_CAMINO);
+
         }
 
         private void altasLlamadosTimer_Tick(object sender, EventArgs e)
         {
             Thread altaLlamado = new Thread(() => altarServices("llamados"));
             altaLlamado.Start();
+            altaLlamado.Join();
         }
 
         private void altasTrasadosTimer_Tick(object sender, EventArgs e)
         {
             Thread altaLlamado = new Thread(() => altarServices("traslados"));
             altaLlamado.Start();
+            altaLlamado.Join();
         }
         
         private void cerrarLlamadosTimer_Tick(object sender, EventArgs e)
         {
             Thread cerrarLlamado = new Thread(() => cerrarServices("llamados"));
             cerrarLlamado.Start();
+            cerrarLlamado.Join();
         }
 
         private void cerrarTrasladosTimer_Tick(object sender, EventArgs e)
         {
             Thread cerrarTraslado = new Thread(() => cerrarServices("traslados"));
             cerrarTraslado.Start();
+            cerrarTraslado.Join();
         }
 
         private void garbageCollectorLlamados_Tick(object sender, EventArgs e)
         {
             Thread garbageColl = new Thread(() => gcLlamados("llamados"));
             garbageColl.Start();
+            garbageColl.Join();
         }
         private void geocodLlamadosTimer_Tick(object sender, EventArgs e)
         {
             Thread geocod = new Thread(() => geocodLlamados("llamados"));
             geocod.Start();
+            geocod.Join();
         }
         
 
@@ -101,12 +110,14 @@ namespace WSClient
         {
             Thread listLla = new Thread(() => listarService("llamados"));
             listLla.Start();
+            listLla.Join();
         }
         
         private void ListarTrasladosTimer_Tick(object sender, EventArgs e)
         {
             Thread listTra = new Thread(() => listarService("llamados"));
             listTra.Start();
+            listTra.Join();
         }
 
         private void Form1_Load(object sender, EventArgs e)

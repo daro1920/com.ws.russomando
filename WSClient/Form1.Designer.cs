@@ -67,6 +67,7 @@
             // 
             // cerrarLlamadosTimer
             // 
+            this.cerrarLlamadosTimer.Enabled = true;
             this.cerrarLlamadosTimer.Interval = 60000;
             this.cerrarLlamadosTimer.Tick += new System.EventHandler(this.cerrarLlamadosTimer_Tick);
             // 

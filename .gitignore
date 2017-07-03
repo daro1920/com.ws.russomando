@@ -8,3 +8,6 @@ WSClient/obj/Debug/WSClient.exe
 *.pdb
 *.pdb
 WSClient/data/Traslados.cs
+.vs/WSClient/v14/.suo
+*.suo
+*.exe

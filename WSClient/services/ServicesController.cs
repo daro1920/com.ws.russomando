@@ -194,7 +194,7 @@ namespace WSClient.services
         //}
 
 
-        public void listarServicio(Servicio servicio)
+        public void listarServicio(Servicio servicio, String estado)
         {
             Console.WriteLine("comenzo el listar " + servicio);
             Boolean isLLamado = servicio is Llamados;
@@ -203,7 +203,7 @@ namespace WSClient.services
             dynamic ws = new JObject();
             ws.WSAutorizacion = autorizacion;
 
-            JArray services = getServicios(servicio, EstadosEnum.EN_CAMINO);
+            JArray services = getServicios(servicio, estado);
             
             foreach (JObject service in services)
             {
