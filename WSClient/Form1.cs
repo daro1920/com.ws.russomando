@@ -22,7 +22,7 @@ namespace WSClient
         {
             Servicio servicio = factory.getServicio(serviceType);
 
-            Console.WriteLine("Se ejecuto el alta de servicios para "+ serviceType);
+            //Console.WriteLine("Se ejecuto el alta de servicios para "+ serviceType);
             // alta nuevos servicios
             servController.altaServicio(servicio);
         }
@@ -31,16 +31,25 @@ namespace WSClient
         {
             Servicio servicio = factory.getServicio(serviceType);
 
-            Console.WriteLine("Se ejecuto el cerrar servicios para " + serviceType);
+            //Console.WriteLine("Se ejecuto el cerrar servicios para " + serviceType);
             //cierro servicio
             servController.cerrarServicio(servicio, EstadosEnum.FINALIZADO);
+        }
+
+        private void cancelarServices(string serviceType)
+        {
+            Servicio servicio = factory.getServicio(serviceType);
+
+            //Console.WriteLine("Se ejecuto el cerrar servicios para " + serviceType);
+            //cierro servicio
+            servController.cancelarServicio(servicio, EstadosEnum.FINALIZADO);
         }
 
         private void gcLlamados(string serviceType)
         {
             Servicio servicio = factory.getServicio(serviceType);
 
-            Console.WriteLine("Se ejecuto el gc de servicios para " + serviceType);
+            //Console.WriteLine("Se ejecuto el gc de servicios para " + serviceType);
             //garbage collector solo llamados
             servController.garbageCollector(servicio, EstadosEnum.SIN_ASIGNAR);
         }
@@ -48,7 +57,7 @@ namespace WSClient
         private void geocodLlamados(string serviceType)
         {
             Servicio servicio = factory.getServicio(serviceType);
-            Console.WriteLine("Se ejecuto el geocod de servicios para " + serviceType);
+            //Console.WriteLine("Se ejecuto el geocod de servicios para " + serviceType);
             //geocodifico solo llamamdos
             servController.getGoogleGeocoding(servicio);
         }
@@ -56,7 +65,7 @@ namespace WSClient
         private void listarService(string serviceType)
         {
             Servicio servicio = factory.getServicio(serviceType);
-            Console.WriteLine("Se ejecuto el listar de servicios para " + serviceType);
+            //Console.WriteLine("Se ejecuto el listar de servicios para " + serviceType);
             //listado de servicios
             servController.listarServicio(servicio, EstadosEnum.ASIGNADO);
             servController.listarServicio(servicio, EstadosEnum.ACEPTADO);
@@ -73,9 +82,9 @@ namespace WSClient
 
         private void altasTrasadosTimer_Tick(object sender, EventArgs e)
         {
-            Thread altaLlamado = new Thread(() => altarServices("traslados"));
-            altaLlamado.Start();
-            altaLlamado.Join();
+            Thread altaTraslados = new Thread(() => altarServices("traslados"));
+            altaTraslados.Start();
+            altaTraslados.Join();
         }
         
         private void cerrarLlamadosTimer_Tick(object sender, EventArgs e)
@@ -115,7 +124,7 @@ namespace WSClient
         
         private void ListarTrasladosTimer_Tick(object sender, EventArgs e)
         {
-            Thread listTra = new Thread(() => listarService("llamados"));
+            Thread listTra = new Thread(() => listarService("traslados"));
             listTra.Start();
             listTra.Join();
         }
@@ -123,6 +132,20 @@ namespace WSClient
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void cancelarTrasladosTimer_Tick(object sender, EventArgs e)
+        {
+            Thread cancelarTra = new Thread(() => cancelarServices("traslados"));
+            cancelarTra.Start();
+            cancelarTra.Join();
+        }
+
+        private void cancelarLlamadosTimer_Tick(object sender, EventArgs e)
+        {
+            Thread cancelarLla = new Thread(() => cancelarServices("llamados"));
+            cancelarLla.Start();
+            cancelarLla.Join();
         }
     }
 }

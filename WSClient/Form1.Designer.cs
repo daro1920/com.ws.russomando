@@ -40,6 +40,8 @@
             this.geocodLlamadosTimer = new System.Windows.Forms.Timer(this.components);
             this.listarLlamadosTimer = new System.Windows.Forms.Timer(this.components);
             this.ListarTrasladosTimer = new System.Windows.Forms.Timer(this.components);
+            this.cancelarTrasladosTimer = new System.Windows.Forms.Timer(this.components);
+            this.cancelarLlamadosTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,6 +102,16 @@
             this.ListarTrasladosTimer.Interval = 60000;
             this.ListarTrasladosTimer.Tick += new System.EventHandler(this.ListarTrasladosTimer_Tick);
             // 
+            // cancelarTrasladosTimer
+            // 
+            this.cancelarTrasladosTimer.Interval = 60000;
+            this.cancelarTrasladosTimer.Tick += new System.EventHandler(this.cancelarTrasladosTimer_Tick);
+            // 
+            // cancelarLlamadosTimer
+            // 
+            this.cancelarLlamadosTimer.Interval = 60000;
+            this.cancelarLlamadosTimer.Tick += new System.EventHandler(this.cancelarLlamadosTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -126,6 +138,8 @@
         private System.Windows.Forms.Timer geocodLlamadosTimer;
         private System.Windows.Forms.Timer listarLlamadosTimer;
         private System.Windows.Forms.Timer ListarTrasladosTimer;
+        private System.Windows.Forms.Timer cancelarTrasladosTimer;
+        private System.Windows.Forms.Timer cancelarLlamadosTimer;
     }
 }
 

@@ -281,7 +281,7 @@ namespace WSClient.services
 
         }
 
-        public void cerrarServicio(Servicio servicio, string estado)
+        public void cancelarServicio(Servicio servicio, string estado)
         {
             Console.WriteLine("comenzo el cerrar " + servicio);
             //se crea el jason
@@ -342,6 +342,23 @@ namespace WSClient.services
                 Program.log.Error("Error al cerrar servicio " + serv + " " + e);
             }
             Console.WriteLine("finalizo el cerrar " + servicio);
+        }
+
+        public void cerrarServicio(Servicio servicio, string estado)
+        {
+            String serv = servicio is Llamados ? "llamados" : "traslados";
+            try
+            {
+                JArray array = getServicios(servicio, estado);
+
+                servicio.finalizarServicio(array);
+            }
+            catch (Exception e)
+            {
+                Program.log.Error("Error al cerrar servicio " + serv + " " + e);
+            }
+
+
         }
 
         public void garbageCollector(Servicio servicio, string estado)
