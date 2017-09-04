@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.altasLlamadosTimer = new System.Windows.Forms.Timer(this.components);
@@ -42,18 +41,8 @@
             this.ListarTrasladosTimer = new System.Windows.Forms.Timer(this.components);
             this.cancelarTrasladosTimer = new System.Windows.Forms.Timer(this.components);
             this.cancelarLlamadosTimer = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.logArea = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(213, 120);
-            this.dataGridView1.TabIndex = 2;
             // 
             // altasLlamadosTimer
             // 
@@ -112,22 +101,30 @@
             this.cancelarLlamadosTimer.Interval = 60000;
             this.cancelarLlamadosTimer.Tick += new System.EventHandler(this.cancelarLlamadosTimer_Tick);
             // 
+            // logArea
+            // 
+            this.logArea.Enabled = false;
+            this.logArea.Location = new System.Drawing.Point(48, 76);
+            this.logArea.Name = "logArea";
+            this.logArea.ReadOnly = true;
+            this.logArea.Size = new System.Drawing.Size(594, 237);
+            this.logArea.TabIndex = 0;
+            this.logArea.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(251, 202);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(708, 362);
+            this.Controls.Add(this.logArea);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.Timer altasLlamadosTimer;
@@ -140,6 +137,7 @@
         private System.Windows.Forms.Timer ListarTrasladosTimer;
         private System.Windows.Forms.Timer cancelarTrasladosTimer;
         private System.Windows.Forms.Timer cancelarLlamadosTimer;
+        private System.Windows.Forms.RichTextBox logArea;
     }
 }
 
