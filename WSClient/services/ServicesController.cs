@@ -196,7 +196,8 @@ namespace WSClient.services
 
         public void listarServicio(Servicio servicio, String estado)
         {
-            Console.WriteLine("comenzo el listar " + servicio);
+            Program.log.Info("comenzo el listar " + servicio);
+            
             Boolean isLLamado = servicio is Llamados;
 
             //se crea el jason
@@ -217,7 +218,7 @@ namespace WSClient.services
 
                 servicio.toProcesServicio(rowList[0], (String)service["Movil"], campoMov);
             }
-            Console.WriteLine("finalizo el listar " + servicio);
+            Program.log.Info("Fin el listar " + servicio);
 
         }
         public List<Zona> getListaZonas()
