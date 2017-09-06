@@ -38,8 +38,8 @@ namespace WSClient.services
             dynamic ws = new JObject();
             ws.WSAutorizacion = autorizacion;
 
-            //try
-            //{
+            try
+            {
                 List<DataRow> rowList = servicio.getNonProcessedServicios();
                 foreach (DataRow row in rowList)
                 {
@@ -78,11 +78,11 @@ namespace WSClient.services
 
                 }
             Console.WriteLine("finalizo el alta " + servicio);
-            //}
-            //catch (Exception e)
-            //{
-            //    Program.log.Error("Error en Alta de servicios " + serv+" " + e);
-            //}
+            }
+            catch (Exception e)
+            {
+                Program.log.Error("Error en Alta de servicios " + serv+" " + e);
+            }
 
         }
         private void setServicio(Servicio servicio, dynamic ws, DataRow row)
@@ -90,8 +90,8 @@ namespace WSClient.services
             String serv = servicio is Llamados ? "llamados" : "traslados";
             Program.log.Debug("setServicio : Procesando " + serv);
             dynamic result = EMPTY;
-            //try
-            //{
+            try
+            {
                 result = getWSResult(CREATE_CLOSE_SERVICE, ws);
                 // actualizados o nuevo OJO
                 //if (result != EMPTY && result.WSSDTDatoNroServicio.NroServicio != 0)
@@ -103,11 +103,11 @@ namespace WSClient.services
 
                     servicio.setServicio(id, nroServicio, nroAsistencia);
                 }
-            //}
-            //catch (Exception e)
-            //{
-            //    Program.log.Error("Error Creando servicios " + serv+" " + e);
-            //}
+            }
+            catch (Exception e)
+            {
+                Program.log.Error("Error Creando servicios " + serv+" " + e);
+            }
             
         }
 
@@ -196,7 +196,8 @@ namespace WSClient.services
 
         public void listarServicio(Servicio servicio, String estado)
         {
-            Console.WriteLine("comenzo el listar " + servicio);
+            Program.log.Info("comenzo el listar " + servicio);
+            
             Boolean isLLamado = servicio is Llamados;
 
             //se crea el jason
@@ -217,7 +218,7 @@ namespace WSClient.services
 
                 servicio.toProcesServicio(rowList[0], (String)service["Movil"], campoMov);
             }
-            Console.WriteLine("finalizo el listar " + servicio);
+            Program.log.Info("Fin el listar " + servicio);
 
         }
         public List<Zona> getListaZonas()
